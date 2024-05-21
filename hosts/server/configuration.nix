@@ -7,7 +7,6 @@
       "${args.modules}/locale.nix"
       "${args.modules}/bluetooth.nix"
       "${args.modules}/pipewire.nix"
-      "${args.modules}/grub.nix"
       "${args.modules}/common.nix"
       # "${args.modules}/vban.nix"
     ];
@@ -15,7 +14,6 @@
   # bluetooth.enable = true;
   locale.enable = true;
   # pipewire.enable = true;
-  grub.enable = true;
   common.enable = true;
   common.users = ["kamo"];
   # vban.enable = true;
@@ -26,6 +24,13 @@
 
   services.qemuGuest.enable = true;
   networking.hostName = "kamo-server";
+
+  boot.loader = {
+    grub = {
+      enable = true;
+      device = "/dev/sda";
+    };
+  };
 
   services.zerotierone = {
     enable = true;

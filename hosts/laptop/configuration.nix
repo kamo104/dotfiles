@@ -14,7 +14,7 @@
       "${args.modules}/fonts.nix"
       "${args.modules}/bluetooth.nix"
       "${args.modules}/pipewire.nix"
-      "${args.modules}/grub.nix"
+      # "${args.modules}/grub.nix"
       "${args.modules}/opencl.nix"
       "${args.modules}/opengl.nix"
       "${args.modules}/wireshark.nix"
@@ -26,7 +26,7 @@
   locale.enable = true;
   cfonts.enable = true;
   pipewire.enable = true;
-  grub.enable = true;
+  # grub.enable = true;
   opencl.enable = true;
   opengl.enable = true;
   hyprland.enable = true;
@@ -50,6 +50,17 @@
   '';
 
   networking.hostName = "kamo-laptop";
+  boot.loader = {
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+    };
+    efi = {
+      canTouchEfiVariables = true;
+    };
+  };
+
 
   services.printing.enable = true;
 

@@ -37,6 +37,11 @@
     joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
   };
 
+  environment.systemPackages = with pkgs; [
+    murmur
+    botamusique
+    terraria-server
+  ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};
     useGlobalPkgs = true;

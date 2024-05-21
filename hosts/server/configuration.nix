@@ -40,7 +40,7 @@
   environment.systemPackages = with pkgs; [
     murmur
     botamusique
-    terraria-server
+    # terraria-server
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};

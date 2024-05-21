@@ -7,4 +7,5 @@ MSG="$(hostname) gen:$GEN"
 cd /home/kamo/nixos
 git add --all
 git commit -m "$MSG"
+git push
 sudo nixos-rebuild switch --flake .#$(hostname) --install-bootloader

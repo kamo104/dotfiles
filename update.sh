@@ -9,7 +9,7 @@ cd /home/kamo/nixos
 git add --all
 git commit -m "$MSG"
 
-if [[-n "$(git fetch 2>&1)"]]; then
+if [[ -n "$(git fetch 2>&1)" ]]; then
   echo "remote is ahead: pull, merge and push manually"
 else 
   git push

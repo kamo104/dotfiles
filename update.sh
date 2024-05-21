@@ -5,7 +5,14 @@ GEN=$((GEN+1))
 MSG="$(hostname) gen:$GEN"
 # echo $MSG
 cd /home/kamo/nixos
+
 git add --all
 git commit -m "$MSG"
-git push
+
+if [[-n "$(git fetch 2>&1)"]]; then
+  echo "remote is ahead: pull, merge and push manually"
+else 
+  git push
+fi
+
 sudo nixos-rebuild switch --flake .#$(hostname) --install-bootloader

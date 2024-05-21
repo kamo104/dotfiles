@@ -11,6 +11,12 @@
   };
 
   config = lib.mkIf config.common.enable {
+    services.xserver = {
+      enable = true;
+      xkb.layout = "pl";
+      xkb.variant = "";
+    };
+
     services.openssh.enable = true;
     
     nix.settings.experimental-features = [ "nix-command" "flakes" ];

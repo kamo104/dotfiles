@@ -14,11 +14,6 @@
 
     # services.geoclue2.enable = true;
 
-    services.xserver = {
-      enable = true;
-      xkb.layout = "pl";
-      xkb.variant = "";
-    };
 
     qt = {
       enable = true;

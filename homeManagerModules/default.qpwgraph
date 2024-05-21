@@ -1,0 +1,46 @@
+<!DOCTYPE patchbay>
+<patchbay name="default" version="0.6.3">
+ <items>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FR"/>
+   <input node="tesast" port="tesast:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="samson" port="samson:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
+   <input node="Mumble/Capture" port="Capture:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="Mumble/Capture" port="Capture:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Family 17h/19h HD Audio Controller Digital Microphone" port="Digital Microphone:capture_FR"/>
+   <input node="nixos" port="nixos:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Family 17h/19h HD Audio Controller Digital Microphone" port="Digital Microphone:capture_FL"/>
+   <input node="nixos" port="nixos:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
+   <input node="samson" port="samson:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FL"/>
+   <input node="tesast" port="tesast:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FR"/>
+   <input node="test" port="test:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FL"/>
+   <input node="test" port="test:send_FL"/>
+  </item>
+ </items>
+</patchbay>
+

@@ -26,9 +26,7 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
-if $dev; then
-  ;;
-else
+if ! $dev; then
   git push
 fi
 

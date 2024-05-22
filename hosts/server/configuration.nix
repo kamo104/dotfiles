@@ -41,6 +41,7 @@
     murmur
     botamusique
     # terraria-server
+    (pkgs.callPackage "${args.customPackages}/TShock/TShock.nix" {})
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};

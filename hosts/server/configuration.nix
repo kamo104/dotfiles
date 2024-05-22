@@ -41,7 +41,11 @@
     murmur
     botamusique
     # terraria-server
-    (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {})
+    (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
+      pluginsUrls = [
+        "https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll"
+      ];})
+
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};

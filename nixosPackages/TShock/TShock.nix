@@ -3,7 +3,7 @@
 , dotnetCorePackages
 , lib
 , tree
-, pluginsPath ? ""
+, pluginsUrls ? []
 }:
 
 buildDotnetModule rec {
@@ -25,13 +25,24 @@ buildDotnetModule rec {
 
   nativeBuildInputs = [ tree ];
 
+# Fetch plugins from URLs defined in pluginsPath
+  plugins = lib.optional (pluginsUrls != []) (map (url: lib.fetchurl { url = url; }) pluginsUrls);
+
   postInstall = ''
     echo "Running postInstall step..."
     mkdir -p $out/lib/$pname
     cp -r ./TShockLauncher/bin/Release/net6.0/*/* $out/lib/$pname
-    if [ ! -z "${pluginsPath}" ]; then
-      cp -r ${pluginsPath}/* $out/lib/$pname/ServerPlugins
-    fi;
+    # if [ ! -z "${pluginsUrls}" ]; then
+    #   cp -r ${pluginsUrls}/* $out/lib/$pname/ServerPlugins
+    # fi;
+
+    if [ ! -z "${plugins}" ]; then
+      mkdir -p $out/lib/$pname/ServerPlugins
+      for plugin in ${lib.concatStringsSep " " (map (p: "${p.outPath}") plugins)}; do
+        cp $plugin $out/lib/$pname/ServerPlugins/
+      done
+    fi
+
   '';
   executables = ["TShock.Server"];
 

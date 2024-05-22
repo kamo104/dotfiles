@@ -12,7 +12,7 @@ git commit -m "$MSG"
 if [[ -n "$(git fetch 2>&1)" ]]; then
   echo "remote is ahead: pull, merge and push manually"
 else 
-  git push
+  # git push
 fi
 
 sudo nixos-rebuild switch --flake .#$(hostname) --install-bootloader

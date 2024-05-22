@@ -24,6 +24,7 @@
 
   services.qemuGuest.enable = true;
   networking.hostName = "kamo-server";
+  networking.interfaces.ens18.wakeOnLan.enable = true;
 
   boot.loader = {
     grub = {

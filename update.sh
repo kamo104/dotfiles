@@ -27,7 +27,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 if $dev; then
-  ;
+  ;;
 else
   git push
 fi

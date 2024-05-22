@@ -23,8 +23,6 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
-  # nativeBuildInputs = [ tree ];
-
   tmp = lib.optional (pluginsUrls != []) (map (plugin: builtins.fetchurl {
       url = plugin.url;
       sha256 = plugin.sha256;

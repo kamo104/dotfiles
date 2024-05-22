@@ -26,7 +26,10 @@ buildDotnetModule rec {
   nativeBuildInputs = [ tree ];
 
 # Fetch plugins from URLs defined in pluginsPath
-  plugins = lib.optional (pluginsUrls != []) (map (url: builtins.fetchurl { url = url; }) pluginsUrls);
+  plugins = lib.optional (pluginsUrls != []) (map (plugin: builtins.fetchurl {
+    url = plugin.url;
+    sha256 = plugin.sha256;
+  }) pluginsUrls);
 
   postInstall = ''
     echo "Running postInstall step..."

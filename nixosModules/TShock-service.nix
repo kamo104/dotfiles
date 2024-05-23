@@ -22,6 +22,7 @@
         RestartSec = "10s";
         StartLimitInterval = "5min";
         StartLimitBurst = 3;
+        Type = "forking";
       };
       script = ''
 
@@ -35,7 +36,7 @@
           "${config.services.TShock.startCommand} && \
           ${pkgs.tmux}/bin/tmux kill-session -t $SESSION_NAME" C-m
           
-        ${pkgs.tmux}/bin/tmux attach -c "$SESSION_NAME"
+        # ${pkgs.tmux}/bin/tmux attach -c "$SESSION_NAME"
       '';
     };
   };

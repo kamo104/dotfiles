@@ -19,6 +19,7 @@
       wantedBy = [ "default.target" ];
       serviceConfig = {
         Restart = "always";
+        User = "kamo";
         RestartSec = "10s";
         StartLimitInterval = "5min";
         StartLimitBurst = 3;

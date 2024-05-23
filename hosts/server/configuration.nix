@@ -52,15 +52,6 @@ in
     murmur
     botamusique
     TShock
-    # terraria-server
-    # (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
-    #   pluginsUrls = [
-    #     {
-    #       url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
-    #       sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
-    #     }
-    #   ];})
-
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};
@@ -69,8 +60,8 @@ in
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 7777 25565 64738 8181 ]; # terraria, minecraft, mumble-server, musicboty
-  networking.firewall.allowedUDPPorts = [ 7777 64738 8181 ]; # terraria, mumble-server, musicbot 
+  networking.firewall.allowedTCPPorts = [ 25565 64738 8181 ]; # terraria, minecraft, mumble-server, musicboty
+  networking.firewall.allowedUDPPorts = [ 64738 8181 ]; # terraria, mumble-server, musicbot 
 
   system.stateVersion = "23.11";
 }

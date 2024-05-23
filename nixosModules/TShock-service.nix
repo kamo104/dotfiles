@@ -32,7 +32,7 @@
         fi
 
         ${pkgs.tmux}/bin/tmux send-keys -t "$SESSION_NAME" \
-          "${config.services.TShock.startScript} && \
+          "${config.services.TShock.startCommand} && \
           ${pkgs.tmux}/bin/tmux kill-session -t $SESSION_NAME" C-m
           
         ${pkgs.tmux}/bin/tmux attach -c "$SESSION_NAME"

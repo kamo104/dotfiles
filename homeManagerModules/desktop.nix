@@ -42,6 +42,7 @@
       gnome.gnome-font-viewer
       gnome.gnome-control-center
       gnome.file-roller
+      gnome.gnome-disk-utility
       loupe
       gnome-network-displays
 

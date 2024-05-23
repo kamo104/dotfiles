@@ -19,13 +19,10 @@
       wantedBy = [ "default.target" ];
       serviceConfig = {
         Restart = "always";
-        User = "kamo";
-        Group = "users";
         RestartSec = "10s";
         StartLimitInterval = "5min";
         StartLimitBurst = 3;
         Type = "forking";
-        DynamicUser = true;
       };
       script = ''
 

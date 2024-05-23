@@ -1,4 +1,14 @@
 { config, pkgs, inputs, ... } @args:
+let
+  TShock = (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
+    pluginsUrls = [
+      {
+        url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
+        sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
+      }
+    ];
+  });
+in
 {
   imports =
     [
@@ -8,7 +18,7 @@
       "${args.modules}/bluetooth.nix"
       "${args.modules}/pipewire.nix"
       "${args.modules}/common.nix"
-      # "${args.modules}/vban.nix"
+      "${args.modules}/TShock-service.nix"
     ];
 
   # bluetooth.enable = true;
@@ -16,11 +26,12 @@
   # pipewire.enable = true;
   common.enable = true;
   common.users = ["kamo"];
-  # vban.enable = true;
-  # vban.startScript = ''
-  #   ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="192.168.1.54" sess.latency.msec=30 &
-  #   ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="192.168.1.54" sess.latency.msec=10
-  # '';
+
+  services.TShock.enable = true;
+  services.TShock.startCommand = ''
+    ${TShock}/TShock.server
+  '';
+  
 
   services.qemuGuest.enable = true;
   networking.hostName = "kamo-server";
@@ -40,14 +51,15 @@
   environment.systemPackages = with pkgs; [
     murmur
     botamusique
+    TShock
     # terraria-server
-    (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
-      pluginsUrls = [
-        {
-          url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
-          sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
-        }
-      ];})
+    # (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
+    #   pluginsUrls = [
+    #     {
+    #       url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
+    #       sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
+    #     }
+    #   ];})
 
   ];
   home-manager = {

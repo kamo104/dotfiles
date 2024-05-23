@@ -29,7 +29,7 @@ in
 
   services.TShock.enable = true;
   services.TShock.startCommand = ''
-    ${TShock}/bin/TShock.server
+    ${TShock}/bin/TShock.Server
   '';
   
 

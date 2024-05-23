@@ -8,7 +8,7 @@ let
       }
       {
         url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
-        sha256="";
+        sha256="0p9ppzh8v6r9bcgsvcd0qp8akgip082km7rhwhibil14rnbsp931";
       }
     ];
   });

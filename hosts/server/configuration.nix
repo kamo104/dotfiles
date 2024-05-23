@@ -6,6 +6,10 @@ let
         url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
         sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
       }
+      {
+        url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
+        sha256="";
+      }
     ];
   });
 in
@@ -30,7 +34,7 @@ in
 
   services.TShock.enable = true;
   services.TShock.startCommand = ''
-    ${TShock}/bin/TShock.Server -world "/home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld"
+    ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
   '';
   
 

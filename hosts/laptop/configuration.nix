@@ -81,7 +81,7 @@
 
   networking.firewall.allowedTCPPorts = [ 7777 25565 64738 8181 ]; # terraria, minecraft, mumble-server, musicboty
   networking.firewall.allowedUDPPorts = [ 7777 64738 8181 ]; # terraria, 
-  networking.firewall.enable = false;
+  # networking.firewall.enable = false;
 
   system.stateVersion = "23.11";
 }

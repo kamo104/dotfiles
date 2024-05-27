@@ -17,6 +17,7 @@
       qpwgraph
 
       firefox
+      brave
       lutris
       obs-studio
       spotify

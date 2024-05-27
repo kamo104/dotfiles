@@ -1,5 +1,4 @@
 { pkgs, lib, config, ...}: 
-
 {
   options = {
     opencl.enable = lib.mkEnableOption "enables opencl";
@@ -8,7 +7,7 @@
     boot.initrd.kernelModules = [ "amdgpu" ];
     hardware.opengl = {
       enable = true;
-    	driSupport = true;
+      driSupport = true;
       extraPackages = with pkgs; [
         rocmPackages.clr.icd
       ];

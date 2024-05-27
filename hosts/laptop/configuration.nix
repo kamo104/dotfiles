@@ -29,7 +29,7 @@
   opencl.enable = true;
   opengl.enable = true;
   hyprland.enable = true;
-  sunshine.enable = true;
+  # sunshine.enable = true;
   # services.xserver = {
   #   enable = true;
   #   displayManager.gdm.enable = true;

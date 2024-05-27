@@ -10,8 +10,6 @@
       enable = true;
     	driSupport = true;
       extraPackages = with pkgs; [
-        # libvdpau-va-gl
-        vaapiVdpau
         rocmPackages.clr.icd
       ];
     };

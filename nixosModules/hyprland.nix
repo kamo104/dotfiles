@@ -42,7 +42,7 @@
     services.dbus.packages = with pkgs; [ dconf ];
     xdg.portal = {
       enable = true;
-      gtkUsePortal = true;
+      # gtkUsePortal = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
     };
 

@@ -93,9 +93,8 @@
       "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
     };
     xdg.mimeApps = {
-      # enable = true;
+      enable = true;
       defaultApplications = {
-        # "application/pdf" = "firefox";
         "application/pdf" = "firefox";
         "text/html" = "firefox";
         "x-scheme-handler/http" = "firefox";

@@ -26,7 +26,7 @@
   locale.enable = true;
   cfonts.enable = true;
   pipewire.enable = true;
-  # opencl.enable = true;
+  opencl.enable = true;
   opengl.enable = true;
   hyprland.enable = true;
   # sunshine.enable = true;
@@ -35,7 +35,7 @@
   #   displayManager.gdm.enable = true;
   #   desktopManager.gnome.enable = true;
   # };
-  steam.enable = true;
+  # steam.enable = true;
   virt.enable = true;
   virt.users = ["kamo"];
   obs.enable = true;

@@ -35,7 +35,7 @@
   #   displayManager.gdm.enable = true;
   #   desktopManager.gnome.enable = true;
   # };
-  # steam.enable = true;
+  steam.enable = true;
   virt.enable = true;
   virt.users = ["kamo"];
   obs.enable = true;

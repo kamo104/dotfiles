@@ -94,7 +94,7 @@
     };
     xdg.mimeApps = {
       enable = true;
-      addedAssociations = {
+      associations.added = {
         "application/pdf" = "firefox";
         "text/html" = "firefox";
         "x-scheme-handler/http" = "firefox";

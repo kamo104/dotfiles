@@ -6,10 +6,14 @@ let
         url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
         sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
       }
-      # {
-      #   url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
-      #   sha256="0p9ppzh8v6r9bcgsvcd0qp8akgip082km7rhwhibil14rnbsp931";
-      # }
+      {
+        url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
+        sha256="0p9ppzh8v6r9bcgsvcd0qp8akgip082km7rhwhibil14rnbsp931";
+      }
+      {
+        url="https://github.com/TerraTrapezium/AutoTeam/releases/download/v1.0.0/AutoTeam.dll";
+        sha256="1wv502d82rmrb7qs0sapjawyjwr61mvng2pwxc79rv5x17246ml0";
+      }
     ];
   });
 in

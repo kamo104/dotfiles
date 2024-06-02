@@ -28,7 +28,7 @@
         SESSION_NAME="TShock"
 
         ${pkgs.tmux}/bin/tmux send-keys -t "$SESSION_NAME" "exit" C-m
-        ${pkgs.tmux}/bin/tmux kill-session -t $SESSION_NAME"
+        ${pkgs.tmux}/bin/tmux kill-session -t "$SESSION_NAME"
       '';
       script = ''
 

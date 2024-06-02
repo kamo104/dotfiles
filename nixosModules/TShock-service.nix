@@ -24,6 +24,12 @@
         StartLimitBurst = 3;
         Type = "forking";
       };
+      preStop = ''
+        SESSION_NAME="TShock"
+
+        ${pkgs.tmux}/bin/tmux send-keys -t "$SESSION_NAME" "exit" C-m
+        ${pkgs.tmux}/bin/tmux kill-session -t $SESSION_NAME"
+      '';
       script = ''
 
         SESSION_NAME="TShock"
@@ -33,10 +39,7 @@
         fi
 
         ${pkgs.tmux}/bin/tmux send-keys -t "$SESSION_NAME" \
-          "${config.services.TShock.startCommand} && \
-          ${pkgs.tmux}/bin/tmux kill-session -t $SESSION_NAME" C-m
-          
-        # ${pkgs.tmux}/bin/tmux attach -c "$SESSION_NAME"
+          "${config.services.TShock.startCommand}" C-m
       '';
     };
   };

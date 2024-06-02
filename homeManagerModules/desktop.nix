@@ -94,7 +94,32 @@
     };
     xdg.mimeApps = {
       enable = true;
+      associations.added = {
+        "x-scheme-handler/chrome"="firefox";
+        "application/x-extension-htm"="firefox";
+        "application/x-extension-html"="firefox";
+        "application/x-extension-shtml"="firefox";
+        "application/xhtml+xml"="firefox";
+        "application/x-extension-xhtml"="firefox";
+        "application/x-extension-xht"="firefox";
+
+        "application/pdf" = "firefox";
+        "text/html" = "firefox";
+        "x-scheme-handler/http" = "firefox";
+        "x-scheme-handler/https" = "firefox";
+        "x-scheme-handler/about" = "firefox";
+        "x-scheme-handler/unknown" = "firefox";
+        "x-scheme-handler/md" = "firefox";
+      };
       defaultApplications = {
+        "x-scheme-handler/chrome"="firefox";
+        "application/x-extension-htm"="firefox";
+        "application/x-extension-html"="firefox";
+        "application/x-extension-shtml"="firefox";
+        "application/xhtml+xml"="firefox";
+        "application/x-extension-xhtml"="firefox";
+        "application/x-extension-xht"="firefox";
+
         "application/pdf" = "firefox";
         "text/html" = "firefox";
         "x-scheme-handler/http" = "firefox";

@@ -19,7 +19,7 @@
       firefox
       brave
       lutris
-      obs-studio
+      # obs-studio
       spotify
       spotify-tray
       mumble  

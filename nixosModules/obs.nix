@@ -8,7 +8,7 @@
   config = lib.mkIf config.obs.enable {
     boot.extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
-      v4l2loopback.out
+      # v4l2loopback.out
     ];
     boot.extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="obs cam" exclusive_caps=1

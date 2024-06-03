@@ -52,6 +52,13 @@
       GTK_THEME="Adwaita-dark";
       DEFAULT_BROWSER="firefox";
     };
+    programs.obs-studio = {
+      enable = true;
+      plugins = with pkgs;[
+        # obs-studio-plugins.obs-ndi
+        obs-studio-plugins.obs-teleport
+      ];
+    };
     programs.firefox = {
       enable = true;
       # package = pkgs.firefox-beta;

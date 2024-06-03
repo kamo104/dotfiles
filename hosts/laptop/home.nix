@@ -32,9 +32,8 @@
 
     jetbrains.idea-community
     android-studio
-    platformio
+    # platformio
     vscode
-    # kdePackages.krdc
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

@@ -1,15 +1,4 @@
 { config, pkgs, inputs, ... } @args:
-let
-  myMesa = pkgs.mesa.overrideAttrs (oldAttrs: {
-    version = "24.0.6";
-    # src = pkgs.fetchurl {
-    #   url = "https://mesa.freedesktop.org/archive/mesa-24.0.7.tar.xz";
-    #   # sha256 = "0";
-    #   # sha256 = "dFRCXx7UpvG1sQfhZyswyIsi6g7+oACuLH2W25P2wmo";
-    #   sha256 = "sha256-dFRCXx7UpvG1sQfhZyswyIsi6g7+oACuLH2W25P2wmo=";
-    # };
-  });
-in
 {
   imports =
     [
@@ -59,12 +48,6 @@ in
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="192.168.1.54" sess.latency.msec=30 &
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="192.168.1.54" sess.latency.msec=10
   '';
-
-  # hardware.opengl.package = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers;
-  # environment.systemPackages = with pkgs; [
-    # myMesa
-  # ];
-  # hardware.opengl.package = myMesa.drivers;
 
   networking.hostName = "kamo-laptop";
   boot.loader = {

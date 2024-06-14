@@ -52,6 +52,12 @@
       GTK_THEME="Adwaita-dark";
       DEFAULT_BROWSER="firefox";
     };
+    home.pointerCursor = {
+      gtk.enable = true;
+      package = pkgs.gnome.adwaita-icon-theme;
+      name = "Adwaita";
+      size = 16;
+    };
     programs.obs-studio = {
       enable = true;
       plugins = with pkgs;[

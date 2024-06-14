@@ -57,8 +57,14 @@ in
     joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
   };
 
+  services.murmur = {
+    enable = true;
+    openFirewall = true;
+    bandwidth = 256000;
+  };
+
   environment.systemPackages = with pkgs; [
-    murmur
+    # murmur
     botamusique
     TShock
   ];

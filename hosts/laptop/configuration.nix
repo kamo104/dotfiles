@@ -96,7 +96,7 @@
           # Forward all the traffic via VPN.
           # allowedIPs = [ "0.0.0.0/0" ];
           # Or forward only particular subnets
-          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
+          # allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
 
           endpoint = "grzymoserver.duckdns.org:42069"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
           persistentKeepalive = 25;

@@ -98,7 +98,7 @@
           # Or forward only particular subnets
           allowedIPs = [ "10.100.0.0/24" ];
 
-          endpoint = "grzymoserver.duckdns.org:42069"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+          endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }
       ];

@@ -33,6 +33,7 @@
       moonlight-qt
       deluge
       blender
+      thunderbird
 
       libreoffice
       hunspell

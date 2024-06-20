@@ -76,7 +76,7 @@ in
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.1/32" ];
+      ips = [ "10.100.0.1/24" ];
       listenPort = 42069;
 
       # This allows the wireguard server to route your traffic to the internet and hence be like a VPN

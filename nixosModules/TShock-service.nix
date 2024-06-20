@@ -13,10 +13,6 @@
     networking.firewall.allowedTCPPorts = [ 7777 ];
     networking.firewall.allowedUDPPorts = [ 7777 ];
 
-    environment.systemPackages = with pkgs; [
-      TShock
-    ];
-
     systemd.user.services.TShock = {
       enable = true;
       description = "TShock service";

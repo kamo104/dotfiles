@@ -81,8 +81,29 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 ]; # terraria, minecraft, mumble-server, musicboty
-  # networking.firewall.allowedUDPPorts = [ ]; # terraria, 
+  networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
+  networking.firewall.allowedUDPPorts = [ 42069 ]; # wireguard 
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.2/24" ];
+      listenPort = 42069;
+      privateKeyFile = "/home/kamo/wg-keys/private";
+      peers = [
+        {
+          publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
+
+          # Forward all the traffic via VPN.
+          # allowedIPs = [ "0.0.0.0/0" ];
+          # Or forward only particular subnets
+          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
+
+          endpoint = "grzymoserver.duckdns.org:42069"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
 
   system.stateVersion = "23.11";
 }

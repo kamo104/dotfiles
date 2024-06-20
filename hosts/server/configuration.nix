@@ -27,6 +27,7 @@ in
       "${args.modules}/pipewire.nix"
       "${args.modules}/common.nix"
       "${args.modules}/TShock-service.nix"
+      "${args.modules}/duckdns.nix"
     ];
 
   # bluetooth.enable = true;
@@ -40,6 +41,11 @@ in
   services.TShock.startCommand = ''
     ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
   '';
+  services.duckdns = {
+    enable = true;
+    domain = "grzymoserver";
+    tokenFile = "/home/kamo/duckdns/token";
+  };
   
 
   services.qemuGuest.enable = true;
@@ -60,10 +66,17 @@ in
   # networking.nat.enable = true;
   # networking.nat.externalInterface = "ens18";
   # networking.nat.internalInterfaces = [ "wg0" ];
+  boot.kernel.sysctl = {
+    # if you use ipv4, this is all you need
+    "net.ipv4.conf.all.forwarding" = true;
+
+    # If you want to use it for ipv6
+    "net.ipv6.conf.all.forwarding" = true;
+  };
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.0/24" ];
+      ips = [ "10.100.0.1/32" ];
       listenPort = 42069;
 
       # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
@@ -82,6 +95,10 @@ in
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
           allowedIPs = [ "10.100.0.2/32" ];
+        } 
+        { # phone
+          publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
+          allowedIPs = [ "10.100.0.3/32" ];
         }
       ];
     };

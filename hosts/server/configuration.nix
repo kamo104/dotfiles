@@ -27,6 +27,7 @@ in
       "${args.modules}/pipewire.nix"
       "${args.modules}/common.nix"
       "${args.modules}/TShock-service.nix"
+      "${args.modules}/duckdns.nix"
     ];
 
   # bluetooth.enable = true;
@@ -40,6 +41,11 @@ in
   services.TShock.startCommand = ''
     ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
   '';
+  services.duckdns = {
+    enable = true;
+    domain = "grzymoserver";
+    tokenFile = "/home/kamo/duckdns/token";
+  };
   
 
   services.qemuGuest.enable = true;
@@ -57,10 +63,56 @@ in
     joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
   };
 
+  # networking.nat.enable = true;
+  # networking.nat.externalInterface = "ens18";
+  # networking.nat.internalInterfaces = [ "wg0" ];
+  boot.kernel.sysctl = {
+    # if you use ipv4, this is all you need
+    "net.ipv4.conf.all.forwarding" = true;
+
+    # If you want to use it for ipv6
+    "net.ipv6.conf.all.forwarding" = true;
+  };
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.1/24" ];
+      listenPort = 42069;
+
+      # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+      # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+      # postSetup = ''
+      #   ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+      # '';
+
+      # # This undoes the above command
+      # postShutdown = ''
+      #   ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+      # '';
+
+      privateKeyFile = "/home/kamo/wg-keys/private";
+      peers = [
+        { # laptop
+          publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        } 
+        { # phone
+          publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
+      ];
+    };
+  };
+
+
+  services.murmur = {
+    enable = true;
+    openFirewall = true;
+    bandwidth = 256000;
+  };
+
   environment.systemPackages = with pkgs; [
-    murmur
     botamusique
-    TShock
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};
@@ -69,8 +121,8 @@ in
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 64738 8181 ]; # terraria, minecraft, mumble-server, musicboty
-  networking.firewall.allowedUDPPorts = [ 64738 8181 ]; # terraria, mumble-server, musicbot 
+  networking.firewall.allowedTCPPorts = [ 25565 8181 ]; # minecraft, musicbot
+  networking.firewall.allowedUDPPorts = [ 8181 42069 ]; # musicbot, wireguard
 
   system.stateVersion = "23.11";
 }

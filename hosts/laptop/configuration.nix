@@ -89,10 +89,10 @@
   services.minecraft-servers.servers = {
     enable = true;
     eula = true;
-    openFirewall = true;
+    user = "kamo";
+    group = "users";
     rpg = {
       enable = true;
-      eula = true;
       openFirewall = true;
       autoStart = true;
       package = pkgs.fabricServers.fabric-1_20_1;

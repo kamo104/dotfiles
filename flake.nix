@@ -17,6 +17,7 @@
     };
     ags.url = "github:Aylur/ags?rev=11150225e62462bcd431d1e55185e810190a730a";
     # nur.url = "github:nix-community/NUR";  
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
   nixConfig = {
     extra-substituters = [

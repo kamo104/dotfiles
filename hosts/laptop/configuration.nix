@@ -5,8 +5,9 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       inputs.hyprland.nixosModules.default
+      inputs.nix-minecraft.nixosModules.minecraft-servers
+
       "${args.modules}/hyprland.nix"
-      
       "${args.modules}/steam.nix"
       "${args.modules}/virt.nix"
       "${args.modules}/obs.nix"
@@ -21,6 +22,7 @@
       "${args.modules}/vban.nix"
       "${args.modules}/sunshine.nix"
     ];
+  nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
   bluetooth.enable = true;
   locale.enable = true;
@@ -84,6 +86,13 @@
   networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
   networking.firewall.allowedUDPPorts = [ 42069 ]; # wireguard 
 
+  services.minecraft-servers.servers = {
+    rpg = {
+      enable = true;
+      package = pkgs.fabricServers.fabric-1_20_1;
+    };
+  };
+
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "10.100.0.2/32" ];
@@ -104,6 +113,8 @@
       ];
     };
   };
+
+  
 
   system.stateVersion = "23.11";
 }

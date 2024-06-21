@@ -87,8 +87,12 @@
   networking.firewall.allowedUDPPorts = [ 42069 ]; # wireguard 
 
   services.minecraft-servers.servers = {
+    enable = true;
+    eula = true;
+    openFirewall = true;
     rpg = {
       enable = true;
+      autoStart = true;
       package = pkgs.fabricServers.fabric-1_20_1;
     };
   };

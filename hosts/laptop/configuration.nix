@@ -92,20 +92,18 @@
     eula = true;
     user = "kamo";
     group = "users";
-  };
-
-  services.minecraft-servers.servers = {
-    # enable = true;
-    # eula = true;
-    # user = "kamo";
-    # group = "users";
-    rpg = {
-      enable = true;
-      openFirewall = true;
-      autoStart = true;
-      package = pkgs.fabricServers.fabric-1_20_1;
+    servers = {
+      rpg = {
+        enable = true;
+        autoStart = true;
+        package = pkgs.fabricServers.fabric-1_20_1;
+        serverProperties = {
+          online-mode = false;
+        };
+      };
     };
   };
+
 
   networking.wireguard.interfaces = {
     wg0 = {

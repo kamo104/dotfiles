@@ -86,6 +86,14 @@
   networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
   networking.firewall.allowedUDPPorts = [ 42069 ]; # wireguard 
 
+  services.minecraft-servers ={
+    openFirewall = true;
+    enable = true;
+    eula = true;
+    user = "kamo";
+    group = "users";
+  };
+
   services.minecraft-servers.servers = {
     enable = true;
     eula = true;

@@ -95,10 +95,10 @@
   };
 
   services.minecraft-servers.servers = {
-    enable = true;
-    eula = true;
-    user = "kamo";
-    group = "users";
+    # enable = true;
+    # eula = true;
+    # user = "kamo";
+    # group = "users";
     rpg = {
       enable = true;
       openFirewall = true;

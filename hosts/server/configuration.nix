@@ -8,7 +8,9 @@ let
       }
       {
         url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
-        sha256="0p9ppzh8v6r9bcgsvcd0qp8akgip082km7rhwhibil14rnbsp931";
+        # sha256="0p9ppzh8v6r9bcgsvcd0qp8akgip082km7rhwhibil14rnbsp931";
+        # sha256="207a1cc1a455ae728a24fd5cb877db1e6329830ae0d403b462b3dfc29f726e88";
+        sha256="sha256-k+TB2zASUSHkBlPulvv1wviEsnWGEScd1BvThFyLMzk=";
       }
       {
         url="https://github.com/TerraTrapezium/AutoTeam/releases/download/v1.0.0/AutoTeam.dll";

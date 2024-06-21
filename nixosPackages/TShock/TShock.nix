@@ -3,6 +3,8 @@
 , dotnetCorePackages
 , lib
 , tree
+, stdenv
+, fetchurl
 , pluginsUrls ? []
 }:
 
@@ -23,7 +25,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
-  tmp = lib.optional (pluginsUrls != []) (map (plugin: builtins.fetchurl {
+  tmp = lib.optional (pluginsUrls != []) (map (plugin: fetchurl {
       url = plugin.url;
       sha256 = plugin.sha256;
     }) pluginsUrls);

@@ -29,7 +29,7 @@
       git
       wakeonlan
       tree
-      tmux
+      # tmux
     ];
     programs.fish.enable = true;
 

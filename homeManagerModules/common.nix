@@ -17,6 +17,11 @@
       nil
       ffmpeg
     ];
+    programs.tmux = {
+      enable = true;
+      mouse = true;
+    };
+    
 
     programs.direnv = {
       enable = true;

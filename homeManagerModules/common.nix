@@ -48,6 +48,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting
+        alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
       '';
     };
   };

@@ -1,18 +1,24 @@
 { pkgs, lib, config, ...}: 
 
 {
-  options = {
-    virt.enable = lib.mkEnableOption "enables virtualisation";
-    virt.users = lib.mkOption {
+  options.virt = {
+    enable = lib.mkEnableOption "enables virtualisation";
+    users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
       description = "The users to add to the virtualisation group";
     };
-    virt.docker = lib.mkDefault config.virt.enable;
-    virt.qemu = lib.mkDefault config.virt.enable;
+    docker = lib.mkEnableOption "enables docker";
+    qemu = lib.mkEnableOption "enables qemu";
+    
+    # virt.docker = lib.mkDefault config.virt.enable;
+    # virt.qemu = lib.mkDefault config.virt.enable;
   };
 
   config = lib.mkIf config.virt.enable {
+    virt.docker = lib.mkDefault config.virt.enable;
+    virt.qemu = lib.mkDefault config.virt.enable;
+
     virtualisation = {
       libvirtd = lib.mkIf config.virt.qemu {
         enable = true;

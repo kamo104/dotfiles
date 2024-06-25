@@ -8,12 +8,25 @@
       default = [];
       description = "The users to add to the virtualisation group";
     };
+    virt.docker = lib.mkDefault config.virt.enable;
+    virt.qemu = lib.mkDefault config.virt.enable;
   };
 
   config = lib.mkIf config.virt.enable {
-    virtualisation.libvirtd.enable = true;
-    virtualisation.libvirtd.allowedBridges = [ "vibr0" ];
-    virtualisation.spiceUSBRedirection.enable = true;
+    virtualisation = {
+      libvirtd = lib.mkIf config.virt.qemu {
+        enable = true;
+        allowedBridges = [ "vibr0" ];
+      };
+      docker = lib.mkIf config.virt.docker {
+        enable = true;
+      };
+      spiceUSBRedirection.enable = true;
+    };    
+
+    # virtualisation.libvirtd.enable = true;
+    # virtualisation.libvirtd.allowedBridges = [ "vibr0" ];
+    # virtualisation.spiceUSBRedirection.enable = true;
 
     # virtualisation.sharedDirectories = {
     #   share = {
@@ -32,7 +45,7 @@
     
     # users.users.kamo.extraGroups = ["libvirtd"];
     users.users = lib.genAttrs config.virt.users (user: {
-      extraGroups = [ "libvirtd" ];
+      extraGroups = [ "libvirtd" "docker"];
     });
   };
 }

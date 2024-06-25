@@ -24,8 +24,9 @@
         enable = true;
         allowedBridges = [ "vibr0" ];
       };
-      docker = lib.mkIf config.virt.docker {
+      docker.rootless = lib.mkIf config.virt.docker {
         enable = true;
+        setSockerVariable = true;
       };
       spiceUSBRedirection.enable = true;
     };    

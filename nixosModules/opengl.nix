@@ -9,7 +9,7 @@
       enable = true;
     	driSupport = true;
       driSupport32Bit = true;
-      setLdLibraryPath = true;
+      # setLdLibraryPath = true;
       extraPackages = with pkgs; [
         vaapiVdpau
       ];

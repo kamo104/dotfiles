@@ -67,6 +67,9 @@
   services.zerotierone = {
     enable = true;
     joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
+    settings = { 
+      softwareUpdate = "disable";
+    };
   };
   services.udev.packages = with pkgs; [ 
     stlink

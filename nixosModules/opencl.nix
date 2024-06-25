@@ -7,8 +7,8 @@
     boot.initrd.kernelModules = [ "amdgpu" ];
     hardware.opengl = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      # driSupport = true;
+      # driSupport32Bit = true;
       # setLdLibraryPath = true;
       extraPackages = with pkgs; [
         rocmPackages.clr.icd

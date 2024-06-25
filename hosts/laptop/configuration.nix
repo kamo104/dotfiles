@@ -67,7 +67,7 @@
   services.zerotierone = {
     enable = true;
     joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
-    settings = { 
+    localConf.settings = { 
       softwareUpdate = "disable";
     };
   };

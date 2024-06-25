@@ -5,7 +5,7 @@
     opengl.enable = lib.mkEnableOption "enables opengl";
   };
   config = lib.mkIf config.opengl.enable {
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
     	# driSupport = true;
       # driSupport32Bit = true;

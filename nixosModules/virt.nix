@@ -26,7 +26,7 @@
       };
       docker.rootless = lib.mkIf config.virt.docker {
         enable = true;
-        setSockerVariable = true;
+        setSocketVariable = true;
       };
       spiceUSBRedirection.enable = true;
     };    

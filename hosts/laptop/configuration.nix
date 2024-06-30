@@ -62,6 +62,9 @@
   };
 
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+
   services.printing.enable = true;
 
   services.zerotierone = {
@@ -85,7 +88,7 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
-  networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # wireguard 
+  networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # minecraft, wireguard 
 
   # services.minecraft-servers ={
   #   openFirewall = true;

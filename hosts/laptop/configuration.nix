@@ -62,7 +62,28 @@
   };
 
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = let
+      linux_pkg = { fetchgit, buildLinux, ... } @ args:
+
+        buildLinux (args // rec {
+          version = "6.10-5rc";
+          modDirVersion = version;
+
+          src = fetchgit
+            {
+              url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/";
+              rev = "f2661062f16b2de5d7b6a5c42a9a5c96326b8454";
+              sha256 = "Dz+CpecLcVU/jA00gCnOenDhL8yYzMxM58uCXcTtzj0=";
+            };
+
+          kernelPatches = [ ];
+
+          extraMeta.branch = "6.10-5rc";
+        } // (args.argsOverride or { }));
+      linux_6-10-5rc = pkgs.callPackage linux_pkg { };
+    in
+    pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6-10-5rc);
 
 
   services.printing.enable = true;

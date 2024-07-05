@@ -55,7 +55,7 @@
     };
     home.pointerCursor = {
       gtk.enable = true;
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
       size = 16;
     };
@@ -148,7 +148,7 @@
       theme = {
         name = "Adwaita-dark";
         # name = "Gruvbox Dark";
-        package = pkgs.gnome.gnome-themes-extra;
+        package = pkgs.gnome-themes-extra;
       };
       gtk4.extraConfig = {
         gtk-application-prefer-dark-theme=1;

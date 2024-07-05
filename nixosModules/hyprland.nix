@@ -10,6 +10,8 @@
 
     services.displayManager.sddm.enable = true;
     services.displayManager.sddm.wayland.enable = true;
+    services.hypridle.enable = true;
+    programs.hyprlock.enable = true;
     programs.hyprland.enable = true;
 
     # services.geoclue2.enable = true;
@@ -31,6 +33,7 @@
       adwaita-qt6
       adwaita-icon-theme
       gnomeExtensions.appindicator
+      # libsForQt5.polkit-kde-agent
     ];
     environment.sessionVariables = {
       QT_QPA_PLATFORM = "wayland;xcb";
@@ -53,6 +56,7 @@
     
     services.gvfs.enable = true;
     security.pam.services.sddm.enableGnomeKeyring = true;
+    security.pam.services.hyprlock = {};
     services.gnome.gnome-keyring.enable = true;
   };
 }

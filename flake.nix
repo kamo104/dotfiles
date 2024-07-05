@@ -49,6 +49,7 @@
           inherit inputs; 
           modules = "${self}/nixosModules";
           hmModules = "${self}/homeManagerModules";
+          customPkgs = "${self}/nixosPackages";
         };
         modules = [
           ./hosts/laptop/configuration.nix

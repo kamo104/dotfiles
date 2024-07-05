@@ -14,6 +14,10 @@
       xwayland.enable = true;
       extraConfig = ''${builtins.readFile ./hyprland.conf}'';
     };
+    programs.hyprlock = {
+      enable = true;
+      extraConfig = ''${builtins.readFile ./hyprlock.conf}'';
+    };
     home.packages = with pkgs; [
       sass
       ydotool

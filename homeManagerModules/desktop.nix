@@ -39,12 +39,12 @@
       hunspell
       hunspellDicts.pl_PL
 
-      gnome.nautilus
-      gnome.dconf-editor
-      gnome.gnome-font-viewer
-      gnome.gnome-control-center
-      gnome.file-roller
-      gnome.gnome-disk-utility
+      nautilus
+      dconf-editor
+      gnome-font-viewer
+      gnome-control-center
+      file-roller
+      gnome-disk-utility
       loupe
       gnome-network-displays
 

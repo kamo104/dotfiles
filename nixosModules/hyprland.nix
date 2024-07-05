@@ -29,7 +29,7 @@
       libsForQt5.qt5ct
       adwaita-qt 
       adwaita-qt6
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       gnomeExtensions.appindicator
     ];
     environment.sessionVariables = {

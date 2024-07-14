@@ -62,28 +62,28 @@
   };
 
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = let
-      linux_pkg = { fetchgit, buildLinux, ... } @ args:
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = let
+  #     linux_pkg = { fetchgit, buildLinux, ... } @ args:
 
-        buildLinux (args // rec {
-          version = "6.10.0-rc5";
-          modDirVersion = version;
+  #       buildLinux (args // rec {
+  #         version = "6.10.0-rc5";
+  #         modDirVersion = version;
 
-          src = fetchgit
-            {
-              url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/";
-              rev = "f2661062f16b2de5d7b6a5c42a9a5c96326b8454";
-              sha256 = "sha256-jdVowvRzVO2IBWad7yVHuGZhmq6F3OM51PJVMuNjWK4=";
-            };
+  #         src = fetchgit
+  #           {
+  #             url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/";
+  #             rev = "f2661062f16b2de5d7b6a5c42a9a5c96326b8454";
+  #             sha256 = "sha256-jdVowvRzVO2IBWad7yVHuGZhmq6F3OM51PJVMuNjWK4=";
+  #           };
 
-          kernelPatches = [ ];
+  #         kernelPatches = [ ];
 
-          extraMeta.branch = "6.10.0-rc5";
-        } // (args.argsOverride or { }));
-      linux_6-10-5rc = pkgs.callPackage linux_pkg { };
-    in
-    pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6-10-5rc);
+  #         extraMeta.branch = "6.10.0-rc5";
+  #       } // (args.argsOverride or { }));
+  #     linux_6-10-5rc = pkgs.callPackage linux_pkg { };
+  #   in
+  #   pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6-10-5rc);
   
   # machenike
   boot.initrd.kernelModules = ["xpad"];
@@ -92,7 +92,11 @@
       echo -n "2345:e00b:ik" | tee /sys/module/usbcore/parameters/quirks
     '';
   };
+  services.udev.extraRules = ''
+    ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
+    '';
 
+ 
   services.printing.enable = true;
 
   services.zerotierone = {
@@ -107,11 +111,6 @@
     platformio-core.udev
     android-udev-rules
   ];
-  # machenike
-  services.udev.extraRules = ''
-    ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
-    '';
-
 
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};

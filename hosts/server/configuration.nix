@@ -104,19 +104,19 @@ in
         } 
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
-          allowedIPs = [ "10.100.0.3/32" ];
+          allowedIPs = [ "10.100.0.3/32" "10.101.0.3/32"];
         }
         { # desktop
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.0.4/32" ];
         }
+        { # home-assistant
+          publicKey = "p+LwH6OwhJuG76C+hkEqOes6hyOozY0CJLCiJ+fNOXs=";
+          allowedIPs = [ "10.101.0.5/32" ];
+        }
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.0.69/32" ];
-        }
-        { # home-assistant
-          publicKey = "";
-          allowedIPs = [ "10.101.0.5/32" ];
         }
       ];
     };

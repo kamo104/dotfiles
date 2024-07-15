@@ -153,7 +153,7 @@
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.2/24" ];
+      ips = [ "10.100.0.2/24" "10.101.0.2/24"];
       listenPort = 42069;
       privateKeyFile = "/home/kamo/wg-keys/private";
       peers = [
@@ -163,7 +163,7 @@
           # Forward all the traffic via VPN.
           # allowedIPs = [ "0.0.0.0/0" ];
           # Or forward only particular subnets
-          allowedIPs = [ "10.100.0.0/24" ];
+          allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24"];
 
           endpoint = "grzymoserver.duckdns.org:42069";
           # endpoint = "192.168.1.82:42069";

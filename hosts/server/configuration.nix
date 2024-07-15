@@ -113,7 +113,7 @@ in
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.0.69/32" ];
         }
-        {
+        { # home-assistant
           publicKey = "";
           allowedIPs = [ "10.101.0.5/32" ];
         }

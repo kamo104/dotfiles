@@ -104,8 +104,8 @@ in
         } 
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
-          allowedIPs = [ "10.100.0.3/32" "10.101.0.3/32"];
-        }
+          allowedIPs = [ "10.101.0.3/32"];
+        } # "10.100.0.3/32"
         { # desktop
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.0.4/32" ];

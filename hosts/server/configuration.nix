@@ -81,7 +81,7 @@ in
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.1/24" ];
+      ips = [ "10.100.0.1/24" "10.101.0.1/24" ];
       listenPort = 42069;
 
       # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
@@ -99,7 +99,7 @@ in
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
-          allowedIPs = [ "10.100.0.2/32" ];
+          allowedIPs = [ "10.100.0.2/32" "10.101.0.2/32"];
         } 
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
@@ -112,6 +112,10 @@ in
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.0.69/32" ];
+        }
+        {
+          publicKey = "";
+          allowedIPs = [ "10.101.0.5/32" ];
         }
       ];
     };

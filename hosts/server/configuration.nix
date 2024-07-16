@@ -85,17 +85,6 @@ in
       ips = [ "10.100.0.1/24" "10.101.0.1/24" ];
       listenPort = 42069;
 
-      # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
-      # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
-      # postSetup = ''
-      #   ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-      # '';
-
-      # # This undoes the above command
-      # postShutdown = ''
-      #   ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-      # '';
-
       privateKeyFile = "/home/kamo/wg-keys/private";
       peers = [
         { # laptop
@@ -104,7 +93,7 @@ in
         } 
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
-          allowedIPs = [ "10.100.0.3/32" ];
+          allowedIPs = [ "10.100.0.3/32" "10.101.0.3/32" ];
         }
         { # desktop
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
@@ -112,6 +101,10 @@ in
         }
         { # home-assistant
           publicKey = "p+LwH6OwhJuG76C+hkEqOes6hyOozY0CJLCiJ+fNOXs=";
+          allowedIPs = [ "10.101.0.5/32" ];
+        }
+        { # work-laptop
+          publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.101.0.5/32" ];
         }
         { # kacper-desktop

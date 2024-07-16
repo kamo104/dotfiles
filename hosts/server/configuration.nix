@@ -105,7 +105,7 @@ in
         }
         { # work-laptop
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
-          allowedIPs = [ "10.101.0.5/32" ];
+          allowedIPs = [ "10.100.0.6/32" ];
         }
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";

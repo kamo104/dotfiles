@@ -6,13 +6,14 @@
   };
 
   config = lib.mkIf config.desktop.enable {
-    home.file."${config.home.homeDirectory}" = {
-      enable = true;
-      source = "${args.hmModules}/wallpapers";
-      recursive = true;
-      target = "wallpapers";
+    home.file = {
+      "${config.home.homeDirectory}" = {
+        enable = true;
+        source = "${args.hmModules}/wallpapers";
+        recursive = true;
+        target = "wallpapers";
+      };
     };
-
     home.packages = with pkgs; [
       qpwgraph
 

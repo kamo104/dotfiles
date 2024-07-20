@@ -61,37 +61,21 @@
     };
   };
 
-  systemd.user.services.kodi = {
-    description = "Kodi as systemd service";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-
-    serviceConfig =
-      let
-        package = pkgs.kodi.withPackages (p: with p; [
-          a4ksubtitles
-          jellyfin
-          keymap
-          pvr-iptvsimple
-          vfs-libarchive
-          vfs-sftp
-
-          iagl
-          steam-library
-          joystick
-          libretro-genplus
-          libretro-mgba
-          libretro-snes9x
-        ]);
-      in
-      {
-        ExecStart = "${package}/bin/kodi";
-        Restart = "on-failure";
-      };
-  };
+  # environment.systemPackages = with pkgs; 
+  # let customKodi = pkgs.kodi-wayland.withPackages (p: with p; [
+  #     joystick
+  #     jellyfin
+  #     kodi-retroarch-advanced-launchers
+  # ]);
+  # in
+  # [
+  #   customKodi
+  #   kodi-retroarch-advanced-launchers
+  # ];
 
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = let
   #     linux_pkg = { fetchgit, buildLinux, ... } @ args:
 

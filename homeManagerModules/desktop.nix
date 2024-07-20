@@ -162,11 +162,5 @@
       };
       # extraConfig = ''${builtins.readFile ./btop/btop.conf}'';
     };
-    # home.file."${config.home.homeDirectory}" = {
-    #   enable = true;
-    #   source = "${args.hmModules}/wallpapers";
-    #   recursive = true;
-    #   target = "wallpapers";
-    # };
   };
 }

@@ -61,8 +61,37 @@
     };
   };
 
+  systemd.user.services.kodi = {
+    description = "Kodi as systemd service";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+    serviceConfig =
+      let
+        package = pkgs.kodi.withPackages (p: with p; [
+          a4ksubtitles
+          jellyfin
+          keymap
+          pvr-iptvsimple
+          vfs-libarchive
+          vfs-sftp
+
+          iagl
+          steam-library
+          joystick
+          libretro-genplus
+          libretro-mgba
+          libretro-snes9x
+        ]);
+      in
+      {
+        ExecStart = "${package}/bin/kodi";
+        Restart = "on-failure";
+      };
+  };
+
+
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = let
   #     linux_pkg = { fetchgit, buildLinux, ... } @ args:
 
@@ -159,14 +188,8 @@
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-
-          # Forward all the traffic via VPN.
-          # allowedIPs = [ "0.0.0.0/0" ];
-          # Or forward only particular subnets
           allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24"];
-
           endpoint = "grzymoserver.duckdns.org:42069";
-          # endpoint = "192.168.1.82:42069";
           persistentKeepalive = 25;
         }
       ];

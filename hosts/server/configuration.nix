@@ -43,10 +43,10 @@ in
   common.users = ["kamo"];
   users.users.kamo.linger = true;
 
-  services.TShock.enable = true;
-  services.TShock.startCommand = ''
-    ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
-  '';
+  # services.TShock.enable = true;
+  # services.TShock.startCommand = ''
+  #   ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
+  # '';
   services.duckdns = {
     enable = true;
     domain = "grzymoserver";

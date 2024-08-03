@@ -4,18 +4,25 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland = {
-      # url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=a8ab1b1679e639ef23952f1a1d0834859d1c01b7";
+      # url = "git+https://github.com/hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      # url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=a8ab1b1679e639ef23952f1a1d0834859d1c01b7";
     };
     hyprpicker = {
-      url = "git+https://github.com/hyprwm/hyprpicker?submodules=1";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://github.com/hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags.url = "github:Aylur/ags?rev=11150225e62462bcd431d1e55185e810190a730a";
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # ags.url = "github:Aylur/ags?rev=11150225e62462bcd431d1e55185e810190a730a";
+
     # nur.url = "github:nix-community/NUR";  
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
@@ -42,6 +49,7 @@
           inherit inputs; 
           modules = "${self}/nixosModules";
           hmModules = "${self}/homeManagerModules";
+          customPkgs = "${self}/nixosPackages";
         };
         modules = [
           ./hosts/laptop/configuration.nix

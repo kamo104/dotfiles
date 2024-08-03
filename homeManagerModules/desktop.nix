@@ -6,13 +6,14 @@
   };
 
   config = lib.mkIf config.desktop.enable {
-    home.file."${config.home.homeDirectory}" = {
-      enable = true;
-      source = "${args.hmModules}/wallpapers";
-      recursive = true;
-      target = "wallpapers";
+    home.file = {
+      "${config.home.homeDirectory}" = {
+        enable = true;
+        source = "${args.hmModules}/wallpapers";
+        recursive = true;
+        target = "wallpapers";
+      };
     };
-
     home.packages = with pkgs; [
       qpwgraph
 
@@ -39,12 +40,12 @@
       hunspell
       hunspellDicts.pl_PL
 
-      gnome.nautilus
-      gnome.dconf-editor
-      gnome.gnome-font-viewer
+      nautilus
+      dconf-editor
+      gnome-font-viewer
       gnome.gnome-control-center
-      gnome.file-roller
-      gnome.gnome-disk-utility
+      file-roller
+      gnome-disk-utility
       loupe
       gnome-network-displays
 
@@ -55,7 +56,7 @@
     };
     home.pointerCursor = {
       gtk.enable = true;
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
       size = 16;
     };
@@ -148,7 +149,7 @@
       theme = {
         name = "Adwaita-dark";
         # name = "Gruvbox Dark";
-        package = pkgs.gnome.gnome-themes-extra;
+        package = pkgs.gnome-themes-extra;
       };
       gtk4.extraConfig = {
         gtk-application-prefer-dark-theme=1;
@@ -162,11 +163,5 @@
       };
       # extraConfig = ''${builtins.readFile ./btop/btop.conf}'';
     };
-    # home.file."${config.home.homeDirectory}" = {
-    #   enable = true;
-    #   source = "${args.hmModules}/wallpapers";
-    #   recursive = true;
-    #   target = "wallpapers";
-    # };
   };
 }

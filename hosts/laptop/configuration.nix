@@ -61,18 +61,69 @@
     };
   };
 
+  # environment.systemPackages = with pkgs; 
+  # let customKodi = pkgs.kodi-wayland.withPackages (p: with p; [
+  #     joystick
+  #     jellyfin
+  #     kodi-retroarch-advanced-launchers
+  # ]);
+  # in
+  # [
+  #   customKodi
+  #   kodi-retroarch-advanced-launchers
+  # ];
 
+
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = let
+  #     linux_pkg = { fetchgit, buildLinux, ... } @ args:
+
+  #       buildLinux (args // rec {
+  #         version = "6.10.0-rc5";
+  #         modDirVersion = version;
+
+  #         src = fetchgit
+  #           {
+  #             url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/";
+  #             rev = "f2661062f16b2de5d7b6a5c42a9a5c96326b8454";
+  #             sha256 = "sha256-jdVowvRzVO2IBWad7yVHuGZhmq6F3OM51PJVMuNjWK4=";
+  #           };
+
+  #         kernelPatches = [ ];
+
+  #         extraMeta.branch = "6.10.0-rc5";
+  #       } // (args.argsOverride or { }));
+  #     linux_6-10-5rc = pkgs.callPackage linux_pkg { };
+  #   in
+  #   pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6-10-5rc);
+  
+  # machenike
+  boot.initrd.kernelModules = ["xpad"];
+  system.activationScripts = {
+    MachenikeFix.text = ''
+      echo -n "2345:e00b:ik" | tee /sys/module/usbcore/parameters/quirks
+    '';
+  };
+  services.udev.extraRules = ''
+    ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
+    '';
+
+ 
   services.printing.enable = true;
 
   services.zerotierone = {
     enable = true;
     joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
+    localConf.settings = { 
+      softwareUpdate = "disable";
+    };
   };
   services.udev.packages = with pkgs; [ 
     stlink
     platformio-core.udev
     android-udev-rules
- ];
+  ];
 
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};
@@ -82,7 +133,7 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
-  networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # wireguard 
+  networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # minecraft, wireguard 
 
   # services.minecraft-servers ={
   #   openFirewall = true;
@@ -115,18 +166,13 @@
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.2/32" ];
+      ips = [ "10.100.0.2/24" "10.101.0.2/24"];
       listenPort = 42069;
       privateKeyFile = "/home/kamo/wg-keys/private";
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-
-          # Forward all the traffic via VPN.
-          # allowedIPs = [ "0.0.0.0/0" ];
-          # Or forward only particular subnets
-          allowedIPs = [ "10.100.0.0/24" ];
-
+          allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24"];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }

@@ -5,11 +5,11 @@
   };
   config = lib.mkIf config.opencl.enable {
     boot.initrd.kernelModules = [ "amdgpu" ];
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      setLdLibraryPath = true;
+      # driSupport = true;
+      # driSupport32Bit = true;
+      # setLdLibraryPath = true;
       extraPackages = with pkgs; [
         rocmPackages.clr.icd
       ];

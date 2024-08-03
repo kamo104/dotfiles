@@ -20,6 +20,10 @@
     programs.tmux = {
       enable = true;
       mouse = true;
+      baseIndex = 1;
+      clock24 = true;
+      terminal = "xterm";
+      escapeTime = 0;
     };
     
 
@@ -37,10 +41,15 @@
           lsp.display-messages = true;
         };
         keys.normal = {
-          space.space = "file_picker";
           space.w = ":w";
           space.q = ":q";
           esc = [ "collapse_selection" "keep_primary_selection" ];
+          p = "paste_before";
+          P = "paste_after";
+          # A-d = "delete_selection";
+          d = "delete_selection_noyank";
+          # A-c = "change_selection";
+          c = "change_selection_noyank";
         };
       };
     };

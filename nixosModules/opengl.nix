@@ -5,11 +5,11 @@
     opengl.enable = lib.mkEnableOption "enables opengl";
   };
   config = lib.mkIf config.opengl.enable {
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-    	driSupport = true;
-      driSupport32Bit = true;
-      setLdLibraryPath = true;
+    	# driSupport = true;
+      # driSupport32Bit = true;
+      # setLdLibraryPath = true;
       extraPackages = with pkgs; [
         vaapiVdpau
       ];

@@ -41,18 +41,14 @@
           lsp.display-messages = true;
         };
         keys.normal = {
-          space.space = "file_picker";
           space.w = ":w";
           space.q = ":q";
           esc = [ "collapse_selection" "keep_primary_selection" ];
-          # [keys.normal]
-          # A-d = "delete_selection"
-          # d = "delete_selection_noyank"
-          # A-c = "change_selection"
-          # c = "change_selection_noyank"
-          A-d = "delete_selection";
+          p = "paste_before";
+          P = "paste_after";
+          # A-d = "delete_selection";
           d = "delete_selection_noyank";
-          A-c = "change_selection";
+          # A-c = "change_selection";
           c = "change_selection_noyank";
         };
       };

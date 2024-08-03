@@ -6,7 +6,6 @@
   };
 
   config = lib.mkIf config.pipewire.enable {
-    sound.enable = true;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

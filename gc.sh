@@ -5,4 +5,4 @@ sudo nix-env --delete-generations +1 --profile /nix/var/nix/profiles/system
 # nix-store --gc
 # nix-store --optimise
 nix store gc
-nix store optimise
+# nix store optimise

@@ -24,11 +24,11 @@
       clock24 = true;
       terminal = "xterm";
       escapeTime = 0;
-      extraConfig = '''
+      extraConfig = ''
         bind c new-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
         bind '"' split-window -v -c "#{pane_current_path}"
-      ''';
+      '';
     };
     
 
@@ -60,10 +60,10 @@
     };
     programs.fish = {
       enable = true;
-      interactiveShellInit = '''
+      interactiveShellInit = ''
         set fish_greeting
         alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
-      ''';
+      '';
     };
   };
 }

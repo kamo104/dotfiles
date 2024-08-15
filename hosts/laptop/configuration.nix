@@ -136,8 +136,8 @@
   # networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
   # networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # minecraft, wireguard 
   networking.firewall = {
-    allowedUDPPorts = [ 5353 25565 ]; # For device discovery
-    allowedUDPPortRanges = [25565 { from = 32768; to = 61000; }];   # For Streaming
+    allowedUDPPorts = [ 5353 ]; # For device discovery
+    allowedUDPPortRanges = [{ from = 32768; to = 61000; }];   # For Streaming
     allowedTCPPorts = [ 8010 25565 ];  # For gnomecast server minecraft
   };
 

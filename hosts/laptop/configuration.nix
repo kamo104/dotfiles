@@ -140,6 +140,7 @@
     allowedUDPPortRanges = [{ from = 32768; to = 61000; }];   # For Streaming
     allowedTCPPorts = [ 8010 25565 ];  # For gnomecast server minecraft
   };
+  services.avahi.enable = true;
 
   # services.minecraft-servers ={
   #   openFirewall = true;

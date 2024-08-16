@@ -82,7 +82,7 @@ in
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.1/24" "10.101.0.1/24" "192.168.1.0/24" ];
+      ips = [ "10.100.0.1/24" "10.101.0.1/24" ];
       listenPort = 42069;
 
       privateKeyFile = "/home/kamo/wg-keys/private";

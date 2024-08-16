@@ -82,14 +82,14 @@ in
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.1/24" "10.101.0.1/24" ];
+      ips = [ "10.100.0.1/24" "10.101.0.1/24" "192.168.1.0/24" ];
       listenPort = 42069;
 
       privateKeyFile = "/home/kamo/wg-keys/private";
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
-          allowedIPs = [ "10.100.0.2/32" "10.101.0.2/32"];
+          allowedIPs = [ "10.100.0.2/32" "10.101.0.2/32" ];
         } 
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";

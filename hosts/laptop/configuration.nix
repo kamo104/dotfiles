@@ -179,7 +179,7 @@
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24" "192.168.1.0/24"];
+          allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24" ];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }

@@ -14,8 +14,17 @@
     # murmur
     # botamusique
     # terraria-server
-    fastfetch
+    # fastfetch
   ];
+  
+  # helix
+  # nano
+  # wget
+  # fish
+  # fastfetch
+  # git
+  # wakeonlan
+  # tree
 
   home.stateVersion = "24.05";
 

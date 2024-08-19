@@ -62,6 +62,17 @@
       };
       # packages.x86_64-linux.default = nixpkgs.lib.mkDefault (self.nixosConfigurations.kamo-laptop.config.system.build.toplevel);
     };
+
+    packages."x86_64-linux"."work-laptop" = 
+    let 
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    in
+      pkgs.buildEnv{
+        name = "work-laptop";
+        paths = with pkgs;[
+          fastfetch
+        ];
+      };
     homeConfigurations = {
       work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";

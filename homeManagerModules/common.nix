@@ -9,6 +9,8 @@
     home.language.base = "en_US.UTF-8"; 
     home.packages = with pkgs; [
       helix
+      tmux
+
       dutree
       htop
       bc

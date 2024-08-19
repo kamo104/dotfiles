@@ -74,7 +74,7 @@
           nano
           wget
           fish
-          fastfetch
+          # fastfetch
           git
           wakeonlan
           tree

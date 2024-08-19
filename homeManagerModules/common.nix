@@ -8,7 +8,7 @@
     # home.language.base = "pl_PL.UTF-8"; 
     home.language.base = "en_US.UTF-8"; 
     home.packages = with pkgs; [
-      helix
+      #helix
       dutree
       htop
       bc
@@ -32,7 +32,7 @@
       nix-direnv.enable = true;
     };
     programs.helix = {
-      enable = true;
+      enable = false;
       defaultEditor = true;
       settings = {
         theme = "gruvbox";

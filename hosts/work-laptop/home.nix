@@ -4,7 +4,7 @@
     "${args.hmModules}/common.nix"
   ];
 
-  # common.enable = true;
+  common.enable = true;
 
   home.username = "kgrzymkowski";
   home.homeDirectory = "/home/kgrzymkowski";

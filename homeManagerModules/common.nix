@@ -8,7 +8,7 @@
     # home.language.base = "pl_PL.UTF-8"; 
     home.language.base = "en_US.UTF-8"; 
     home.packages = with pkgs; [
-      #helix
+      helix
       dutree
       htop
       bc
@@ -18,7 +18,7 @@
       ffmpeg
     ];
     programs.tmux = {
-      enable = false;
+      enable = true;
       mouse = true;
       baseIndex = 1;
       clock24 = true;
@@ -32,7 +32,7 @@
       nix-direnv.enable = true;
     };
     programs.helix = {
-      enable = false;
+      enable = true;
       defaultEditor = true;
       settings = {
         theme = "gruvbox";

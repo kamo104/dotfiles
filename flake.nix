@@ -70,6 +70,14 @@
       pkgs.buildEnv{
         name = "work-laptop";
         paths = with pkgs;[
+          helix
+          nano
+          wget
+          fish
+          fastfetch
+          git
+          wakeonlan
+          tree
           fastfetch
         ];
       };

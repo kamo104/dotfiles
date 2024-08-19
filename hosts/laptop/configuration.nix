@@ -145,9 +145,17 @@
     openFirewall = true;
     publish = {
       enable = true;
-      userServices = true;
       addresses = true;
+      domain = true;
+      hinfo = true;
+      userServices = true;
+      workstation = true;
     };
+    # publish = {
+    #   enable = true;
+    #   userServices = true;
+    #   addresses = true;
+    # };
   };
 
   # services.minecraft-servers ={

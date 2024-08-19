@@ -18,7 +18,7 @@
       ffmpeg
     ];
     programs.tmux = {
-      enable = true;
+      enable = false;
       mouse = true;
       baseIndex = 1;
       clock24 = true;

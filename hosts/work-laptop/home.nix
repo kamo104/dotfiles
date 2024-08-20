@@ -2,7 +2,7 @@
 {
   imports = [ 
     "${args.hmModules}/common.nix"
-    # inputs.hyprland.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default
     "${args.hmModules}/hypr/hyprland.nix"
   ];
 

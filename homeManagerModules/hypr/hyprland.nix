@@ -4,12 +4,10 @@
   options = {
     hyprlandHM.enable = lib.mkEnableOption "enables hyprland hmModule";
   };
-  # imports = lib.mkIf config.hyprlandHM.enable [
+  # infinite recursion:
+  # imports = lib.optionals config.hyprlandHM.enable [
   #   inputs.hyprland.homeManagerModules.default
   # ];
-  imports = lib.optionals config.hyprlandHM.enable [
-    inputs.hyprland.homeManagerModules.default
-  ];
 
   config = lib.mkIf config.hyprlandHM.enable {
     nixpkgs.overlays = [

@@ -4,6 +4,9 @@
   options = {
     hyprlandHM.enable = lib.mkEnableOption "enables hyprland hmModule";
   };
+  imports = lib.mkIf config.hyprlandHM.enable [
+    inputs.hyprland.homeManagerModules.default
+  ];
 
   config = lib.mkIf config.hyprlandHM.enable {
     nixpkgs.overlays = [

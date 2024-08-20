@@ -21,13 +21,14 @@ if [ "$ITYPE" = "OS" ]; then
 elif [ "$ITYPE" = "PM" ]; then
     export PROFILE_PATH="$HOME/.local/state/nix/profiles/profile"
     addgen
-    export PROFILE_PATH="$HOME/.local/state/nix/profiles/home-manager"
-    addgen
+    # export PROFILE_PATH="$HOME/.local/state/nix/profiles/home-manager"
+    # addgen
 fi
 
 GEN=$((GEN+1))
 
 MSG="$HNAME gen:$GEN"
+# echo $MSG
 
 git add --all
 git commit -m "$MSG"

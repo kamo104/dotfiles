@@ -34,6 +34,6 @@ fi
 if [ "$ITYPE" = "OS" ]; then
     sudo nixos-rebuild switch --flake .#"$HNAME" --install-bootloader
 elif [ "$ITYPE" = "PM" ]; then
-    nix profile upgrade "$HNAME"
+    sudo nix profile upgrade "$HNAME"
     home-manager switch --flake .#"$HNAME"
 fi

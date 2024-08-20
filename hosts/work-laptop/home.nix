@@ -16,20 +16,8 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    # murmur
-    # botamusique
-    # terraria-server
-    # fastfetch
   ];
-  
-  # helix
-  # nano
-  # wget
-  # fish
-  # fastfetch
-  # git
-  # wakeonlan
-  # tree
+ 
 
   home.stateVersion = "24.05";
 

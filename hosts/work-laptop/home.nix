@@ -6,6 +6,11 @@
 
   common.enable = true;
 
+  home.sessionVariables = {
+    NIX_INSTALL_TYPE="PM"; # either OS or PM
+    NIX_HOSTNAME="${args.hostname}";
+  };
+
   home.username = "kgrzymkowski";
   home.homeDirectory = "/home/kgrzymkowski";
   programs.home-manager.enable = true;

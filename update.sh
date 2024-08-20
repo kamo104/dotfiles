@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
+ITYPE="$NIX_INSTALL_TYPE" # either OS or PM
+HNAME="$NIX_HOSTNAME"
+
 GEN=$(readlink /nix/var/nix/profiles/system | cut -d- -f2)
 GEN=$((GEN+1))
 
-MSG="$(hostname) gen:$GEN"
-cd /home/kamo/nixos
+MSG="$HNAME gen:$GEN"
 
 git add --all
 git commit -m "$MSG"
@@ -29,4 +31,9 @@ if ! $dev; then
   git push
 fi
 
-sudo nixos-rebuild switch --flake .#$(hostname) --install-bootloader
+if [ "$ITYPE" = "OS" ]; then
+    sudo nixos-rebuild switch --flake .#"$HNAME" --install-bootloader
+elif [ "$ITYPE" = "PM" ]; then
+    home-manager switch --flake .#"$HNAME"
+    nix profile upgrade "$HNAME"
+fi

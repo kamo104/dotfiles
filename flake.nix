@@ -46,6 +46,7 @@
       kamo-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs modules hmModules customPkgs;
+          hostname = "kamo-laptop";
         };
         modules = [
           ./hosts/laptop/configuration.nix
@@ -54,6 +55,7 @@
       kamo-server = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs modules hmModules customPkgs;
+          hostname = "kamo-server";
         };
         modules = [
           ./hosts/server/configuration.nix
@@ -75,6 +77,7 @@
         pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {
           inherit inputs modules hmModules customPkgs;
+          hostname = "work-laptop";
         };
         modules = [
           ./hosts/work-laptop/home.nix

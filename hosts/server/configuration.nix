@@ -56,7 +56,7 @@ in
   
 
   services.qemuGuest.enable = true;
-  networking.hostName = "kamo-server";
+  networking.hostName = "${args.hostname}";
 
   boot.loader = {
     grub = {
@@ -127,7 +127,7 @@ in
     botamusique
   ];
   home-manager = {
-    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};
+    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};
     useGlobalPkgs = true;
     useUserPackages  = true;
     users.kamo = import ./home.nix;

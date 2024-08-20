@@ -4,7 +4,10 @@
   options = {
     hyprlandHM.enable = lib.mkEnableOption "enables hyprland hmModule";
   };
-  imports = lib.mkIf config.hyprlandHM.enable [
+  # imports = lib.mkIf config.hyprlandHM.enable [
+  #   inputs.hyprland.homeManagerModules.default
+  # ];
+  imports = lib.optionals config.hyprlandHM.enable [
     inputs.hyprland.homeManagerModules.default
   ];
 

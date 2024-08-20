@@ -36,14 +36,20 @@
   };
 
   outputs = { self, nixpkgs, ... } @inputs:
+  let 
+    modules = "${self}/nixosModules";
+    hmModules = "${self}/homeManagerModules";
+    customPkgs = "${self}/nixosPackages";
+  in
   {
     nixosConfigurations = {
       kamo-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs; 
-          modules = "${self}/nixosModules";
-          hmModules = "${self}/homeManagerModules";
-          customPkgs = "${self}/nixosPackages";
+          inherit inputs modules hmModules customPkgs;
+          # inherit inputs; 
+          # modules = "${self}/nixosModules";
+          # hmModules = "${self}/homeManagerModules";
+          # customPkgs = "${self}/nixosPackages";
         };
         modules = [
           ./hosts/laptop/configuration.nix
@@ -51,10 +57,11 @@
       };
       kamo-server = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs;
-          modules = "${self}/nixosModules";
-          hmModules = "${self}/homeManagerModules";
-          customPkgs = "${self}/nixosPackages";
+          inherit inputs modules hmModules customPkgs;
+          # inherit inputs;
+          # modules = "${self}/nixosModules";
+          # hmModules = "${self}/homeManagerModules";
+          # customPkgs = "${self}/nixosPackages";
         };
         modules = [
           ./hosts/server/configuration.nix
@@ -69,26 +76,16 @@
     in
       pkgs.buildEnv{
         name = "work-laptop";
-        paths = with pkgs;[
-          helix
-          nano
-          wget
-          # fish
-          fastfetch
-          git
-          wakeonlan
-          tree
-          fastfetch
-        ];
+        paths = import "${modules}/common-pkgs.nix" {inherit pkgs;};
       };
     homeConfigurations = {
       work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {
-          inherit inputs;
-          # modules = "${self}/nixosModules";
-          hmModules = "${self}/homeManagerModules";
-          customPkgs = "${self}/nixosPackages";
+          inherit inputs modules hmModules customPkgs;
+          # # modules = "${self}/nixosModules";
+          # hmModules = "${self}/homeManagerModules";
+          # customPkgs = "${self}/nixosPackages";
         };
         modules = [
           ./hosts/work-laptop/home.nix

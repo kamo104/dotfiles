@@ -43,8 +43,6 @@
           lsp.display-messages = true;
         };
         keys.normal = {
-          space.w = ":w";
-          space.q = ":q";
           esc = [ "collapse_selection" "keep_primary_selection" ];
           p = "paste_before";
           P = "paste_after";
@@ -52,11 +50,24 @@
           d = "delete_selection_noyank";
           # A-c = "change_selection";
           c = "change_selection_noyank";
-          "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
-          "Z: turn on zen mode" = '':set-option gutters.layout []'';
+
+          space = {
+            w = ":w";
+            q = ":q";
+            "z" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
+            "Z" = '':set-option gutters.layout []'';
+          };
+          # custom binds tooltips:
           # https://github.com/helix-editor/helix/pull/3958
-          # "z" = ':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'
-          # "Z" = ':set-option gutters.layout []'
+          # "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
+          # "Z: turn on zen mode" = '':set-option gutters.layout []'';
+
+          # cursor position persistent after leave:
+          # https://github.com/helix-editor/helix/pull/9143
+          # persist-old-files = true
+
+          # dynamic global search:
+          # https://github.com/helix-editor/helix/pull/9647
         };
       };
     };

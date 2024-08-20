@@ -30,7 +30,8 @@ in
       "${args.modules}/locale.nix"
       "${args.modules}/bluetooth.nix"
       "${args.modules}/pipewire.nix"
-      "${args.modules}/common.nix"
+      # "${args.modules}/common.nix" (args {modules="${args.modules}";})
+      "${args.modules}/common.nix" {modules="${args.modules}";}
       "${args.modules}/TShock-service.nix"
       "${args.modules}/duckdns.nix"
     ];
@@ -55,7 +56,7 @@ in
   
 
   services.qemuGuest.enable = true;
-  networking.hostName = "kamo-server";
+  networking.hostName = "${args.hostname}";
 
   boot.loader = {
     grub = {
@@ -126,7 +127,7 @@ in
     botamusique
   ];
   home-manager = {
-    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules;};
+    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};
     useGlobalPkgs = true;
     useUserPackages  = true;
     users.kamo = import ./home.nix;

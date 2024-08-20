@@ -28,28 +28,25 @@
   };
   nixConfig = {
     extra-substituters = [
-      # "https://nix-community.cachix.org"
-      # "https://cache.nixos.org"
-      # "https://cachix.cachix.org"
       "https://hyprland.cachix.org"
     ];
     extra-trusted-public-keys = [
-      # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      # "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
-      # "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 
   outputs = { self, nixpkgs, ... } @inputs:
+  let 
+    modules = "${self}/nixosModules";
+    hmModules = "${self}/homeManagerModules";
+    customPkgs = "${self}/nixosPackages";
+  in
   {
     nixosConfigurations = {
       kamo-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs; 
-          modules = "${self}/nixosModules";
-          hmModules = "${self}/homeManagerModules";
-          customPkgs = "${self}/nixosPackages";
+          inherit inputs modules hmModules customPkgs;
+          hostname = "kamo-laptop";
         };
         modules = [
           ./hosts/laptop/configuration.nix
@@ -57,16 +54,35 @@
       };
       kamo-server = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs;
-          modules = "${self}/nixosModules";
-          hmModules = "${self}/homeManagerModules";
-          customPkgs = "${self}/nixosPackages";
+          inherit inputs modules hmModules customPkgs;
+          hostname = "kamo-server";
         };
         modules = [
           ./hosts/server/configuration.nix
         ];
       };
-      packages.x86_64-linux.default = nixpkgs.lib.mkDefault (self.nixosConfigurations.kamo-laptop.config.system.build.toplevel);
+      # packages.x86_64-linux.default = nixpkgs.lib.mkDefault (self.nixosConfigurations.kamo-laptop.config.system.build.toplevel);
+    };
+
+    packages."x86_64-linux"."work-laptop" = 
+    let 
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    in
+      pkgs.buildEnv{
+        name = "work-laptop";
+        paths = import "${modules}/common-pkgs.nix" {inherit pkgs;};
+      };
+    homeConfigurations = {
+      work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+        extraSpecialArgs = {
+          inherit inputs modules hmModules customPkgs;
+          hostname = "work-laptop";
+        };
+        modules = [
+          ./hosts/work-laptop/home.nix
+        ];
+      };
     };
   };
 }

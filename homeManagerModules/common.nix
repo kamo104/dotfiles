@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... } @args:
 {
   options = {
     common.enable = lib.mkEnableOption "enables common hm settings";
@@ -38,6 +38,15 @@
       enable = true;
       nix-direnv.enable = true;
     };
+
+    home.file = {
+      "${config.home.homeDirectory}/.config/helix/" = {
+        enable = true;
+        # source = "${args.hmModules}/wallpapers";
+        recursive = true;
+        target = "languages.toml";
+      };
+    };
     programs.helix = {
       enable = true;
       defaultEditor = true;
@@ -45,7 +54,7 @@
         language = [{
           name = "cpp";
           auto-format = true;
-          indent = ''${"tab-width=2,unit='  '"}'';
+          indent = lib.toToml "{tab-width=2,unit='  '}";
         }];
       };
       settings = {

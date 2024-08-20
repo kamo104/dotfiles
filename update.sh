@@ -11,9 +11,9 @@ elif [ -z "$HNAME" ]; then
 fi
 
 if [ "$ITYPE" = "OS" ]; then
-    PROFILE_PATH="/nix/var/nix/profiles/system"
+    export PROFILE_PATH="/nix/var/nix/profiles/system"
 elif [ "$ITYPE" = "PM" ]; then
-    PROFILE_PATH="~/.local/state/nix/profiles/profile"
+    export PROFILE_PATH=$(eval echo ~)"/.local/state/nix/profiles/profile"
 fi
 
 GEN=$(readlink "$PROFILE_PATH" | cut -d- -f2)

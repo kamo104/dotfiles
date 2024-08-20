@@ -41,6 +41,16 @@
     programs.helix = {
       enable = true;
       defaultEditor = true;
+      languages = {
+        language = [{
+          name = "cpp";
+          auto-format = true;
+          indent = {
+            tab-width = 2;
+            unit = "  ";
+          };
+        }];
+      };
       settings = {
         theme = "gruvbox";
         editor = {

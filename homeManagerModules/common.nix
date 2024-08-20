@@ -39,14 +39,14 @@
       nix-direnv.enable = true;
     };
 
-    home.file = {
-      "${config.home.homeDirectory}/.config/helix/" = {
-        enable = true;
-        # source = "${args.hmModules}/wallpapers";
-        recursive = true;
-        target = "languages.toml";
-      };
-    };
+    # home.file = {
+    #   "${config.home.homeDirectory}/.config/helix/" = {
+    #     enable = true;
+    #     # source = "${args.hmModules}/wallpapers";
+    #     recursive = true;
+    #     target = "languages.toml";
+    #   };
+    # };
     programs.helix = {
       enable = true;
       defaultEditor = true;

@@ -45,7 +45,9 @@
         language = [{
           name = "cpp";
           auto-format = true;
-          indent = "{tab-width=2,unit='  '}";
+          indent = ''
+          {tab-width=2,unit="  "}
+          '';
         }];
       };
       settings = {

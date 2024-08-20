@@ -52,6 +52,11 @@
           d = "delete_selection_noyank";
           # A-c = "change_selection";
           c = "change_selection_noyank";
+          "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
+          "Z: turn on zen mode" = '':set-option gutters.layout []'';
+          # https://github.com/helix-editor/helix/pull/3958
+          # "z" = ':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'
+          # "Z" = ':set-option gutters.layout []'
         };
       };
     };

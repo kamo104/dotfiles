@@ -73,8 +73,8 @@
           helix
           nano
           wget
-          fish
-          # fastfetch
+          # fish
+          fastfetch
           git
           wakeonlan
           tree

@@ -2,7 +2,21 @@
 ITYPE="$NIX_INSTALL_TYPE" # either OS or PM
 HNAME="$NIX_HOSTNAME"
 
-GEN=$(readlink /nix/var/nix/profiles/system | cut -d- -f2)
+if [ -z "$ITYPE" ]; then
+    echo NIX_INSTALL_TYPE is not set
+    exit 1
+elif [ -z "$HNAME" ]; then
+    echo NIX_HOSTNAME is not set
+    exit 1
+fi
+
+if [ "$ITYPE" = "OS" ]; then
+    PROFILE_PATH="/nix/var/nix/profiles/system"
+elif [ "$ITYPE" = "PM" ]; then
+    PROFILE_PATH="~/.local/state/nix/profiles/profile"
+fi
+
+GEN=$(readlink "$PROFILE_PATH" | cut -d- -f2)
 GEN=$((GEN+1))
 
 MSG="$HNAME gen:$GEN"
@@ -14,21 +28,8 @@ git commit -m "$MSG"
 #   echo "remote is ahead: pull, merge and push manually"
 # else
 
-dev=false
-while [[ "$#" -gt 0 ]]; do
-    case "$1" in
-        -d)
-            dev=true
-            shift
-            ;;
-        *)
-            shift
-            ;;
-    esac
-done
-
-if ! $dev; then
-  git push
+if [ "$1" != "-d" ]; then
+    git push
 fi
 
 if [ "$ITYPE" = "OS" ]; then

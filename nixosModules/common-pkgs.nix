@@ -8,5 +8,5 @@ with pkgs; [
   fastfetch
   git
   wakeonlan
-  # tree
+  tree
 ]

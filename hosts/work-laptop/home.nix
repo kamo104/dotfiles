@@ -2,7 +2,11 @@
 {
   imports = [ 
     "${args.hmModules}/common.nix"
+    inputs.hyprland.homeManagerModules.default
+    "${args.hmModules}/hypr/hyprland.nix"
   ];
+
+  hyprlandHM.enable=true;
 
   common.enable = true;
 
@@ -16,7 +20,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    qpwgraph
+    # qpwgraph
   ];
  
 

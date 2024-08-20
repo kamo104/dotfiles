@@ -10,23 +10,21 @@ elif [ -z "$HNAME" ]; then
     exit 1
 fi
 
-addgen (){
-    local G=$(readlink "$PROFILE_PATH" | rev | cut -d- -f2 | rev)
-    GEN=$((GEN+G))
-}
+# addgen (){
+#     local G=$(readlink "$PROFILE_PATH" | rev | cut -d- -f2 | rev)
+#     GEN=$((GEN+G))
+# }
 
 if [ "$ITYPE" = "OS" ]; then
     export PROFILE_PATH="/nix/var/nix/profiles/system"
-    addgen
+    # addgen
 elif [ "$ITYPE" = "PM" ]; then
     export PROFILE_PATH="$HOME/.local/state/nix/profiles/profile"
-    addgen
-    # export PROFILE_PATH="$HOME/.local/state/nix/profiles/home-manager"
     # addgen
 fi
 
+GEN=$(readlink "$PROFILE_PATH" | rev | cut -d- -f2 | rev)
 GEN=$((GEN+1))
-
 MSG="$HNAME gen:$GEN"
 # echo $MSG
 

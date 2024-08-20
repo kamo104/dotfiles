@@ -31,7 +31,8 @@ in
       "${args.modules}/bluetooth.nix"
       "${args.modules}/pipewire.nix"
       # "${args.modules}/common.nix" (args {modules="${args.modules}";})
-      "${args.modules}/common.nix" {modules="${args.modules}";}
+      # "${args.modules}/common.nix" {modules="${args.modules}";}
+      "${args.modules}/common.nix"
       "${args.modules}/TShock-service.nix"
       "${args.modules}/duckdns.nix"
     ];

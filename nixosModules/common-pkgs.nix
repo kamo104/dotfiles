@@ -2,7 +2,7 @@
 
 with pkgs; [
   # helix
-  (pkgs.callPackage "${customPkgs}/helix")
+  (pkgs.callPackage "${customPkgs}/helix/default.nix")
   vim
   wget
   fish

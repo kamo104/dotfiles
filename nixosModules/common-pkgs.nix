@@ -1,8 +1,8 @@
 { pkgs, customPkgs }: 
 
 with pkgs; [
-  # helix
-  (pkgs.callPackage "${customPkgs}/helix" {})
+  helix
+  # (pkgs.callPackage "${customPkgs}/helix" {})
   vim
   wget
   fish

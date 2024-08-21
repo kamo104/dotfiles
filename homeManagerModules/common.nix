@@ -42,7 +42,7 @@
     programs.helix = {
       enable = true;
       defaultEditor = true;
-      package = (pkgs.callPackage "${args.customPkgs}/helix" {});
+      # package = (pkgs.callPackage "${args.customPkgs}/helix" {});
       languages = {
         language = [
         {

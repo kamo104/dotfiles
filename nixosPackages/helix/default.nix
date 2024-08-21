@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
   #   stripRoot = false;
   # };
   src = fetchFromGitHub {
-    url = "https://github.com/intarga/helix.git";
+    # url = "https://github.com/intarga/helix";
     owner = "intarga";
     repo = "helix";
     # hash = "";

@@ -85,7 +85,7 @@
 
           # cursor position persistent after leave:
           # https://github.com/helix-editor/helix/pull/9143
-          persist-old-files = true;
+          # persist-old-files = true;
 
           # dynamic global search:
           # https://github.com/helix-editor/helix/pull/9647

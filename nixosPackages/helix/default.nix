@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     owner = "intarga";
     repo = "helix";
     # hash = "";
-    sha256="";
+    sha256="1g88fm9d8z4az9m7nw05cfw2xvsg3zzp2537kzq4na3p1n6bf6s0";
     # ref = "persistent_state";
     rev = "8b2e525aace22853659ff9a5f4a4944755dac698";
     # shallow = true;

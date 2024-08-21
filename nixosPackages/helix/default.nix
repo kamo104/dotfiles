@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     # shallow = true;
   };
 
-  cargoHash = "sha256-Y8zqdS8vl2koXmgFY0hZWWP1ZAO8JgwkoPTYPVpkWsA=";
+  cargoHash = "";
 
   nativeBuildInputs = [ git installShellFiles ];
 

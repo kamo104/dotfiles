@@ -13,8 +13,9 @@ rustPlatform.buildRustPackage rec {
   # };
   src = fetchGit {
     url = "https://github.com/intarga/helix.git";
-    hash = "";
+    # hash = "";
     ref = "persistent_state";
+    shallow = true;
   };
 
   cargoHash = "sha256-Y8zqdS8vl2koXmgFY0hZWWP1ZAO8JgwkoPTYPVpkWsA=";

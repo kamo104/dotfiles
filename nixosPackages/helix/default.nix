@@ -1,4 +1,4 @@
-{ fetchzip, lib, rustPlatform, git, installShellFiles }:
+{ fetchzip, lib, rustPlatform, git, installShellFiles, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "helix";
@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
   #   hash = "sha256-R8foMx7YJ01ZS75275xPQ52Ns2EB3OPop10F4nicmoA=";
   #   stripRoot = false;
   # };
-  src = lib.fetchFromGitHub {
+  src = fetchFromGitHub {
     url = "https://github.com/intarga/helix.git";
     owner = "intarga";
     repo = "helix";

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     repo = "helix";
     # hash = "";
     sha256="";
-    ref = "persistent_state";
+    # ref = "persistent_state";
     rev = "8b2e525aace22853659ff9a5f4a4944755dac698";
     # shallow = true;
   };

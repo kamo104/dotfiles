@@ -8,7 +8,7 @@
     # home.language.base = "pl_PL.UTF-8"; 
     home.language.base = "en_US.UTF-8"; 
     home.packages = with pkgs; [
-      helix
+      # helix
       tmux
 
       dutree
@@ -39,17 +39,10 @@
       nix-direnv.enable = true;
     };
 
-    # home.file = {
-    #   "${config.home.homeDirectory}/.config/helix/" = {
-    #     enable = true;
-    #     # source = "${args.hmModules}/wallpapers";
-    #     recursive = true;
-    #     target = "languages.toml";
-    #   };
-    # };
     programs.helix = {
       enable = true;
       defaultEditor = true;
+      package = (pkgs.callPackage "${args.customPkgs}/helix");
       languages = {
         language = [
         {

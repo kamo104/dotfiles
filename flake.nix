@@ -78,7 +78,7 @@
     in
       pkgs.buildEnv{
         name = "work-laptop";
-        paths = import "${modules}/common-pkgs.nix" {inherit pkgs;};
+        paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
       };
     # home manager configuration for non nixos systems
     homeConfigurations = {

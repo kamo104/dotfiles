@@ -2,11 +2,11 @@
 {
   imports = [ 
     "${args.hmModules}/common.nix"
-    inputs.hyprland.homeManagerModules.default
-    "${args.hmModules}/hypr/hyprland.nix"
+    # inputs.hyprland.homeManagerModules.default
+    # "${args.hmModules}/hypr/hyprland.nix"
   ];
 
-  hyprlandHM.enable=true;
+  # hyprlandHM.enable=true;
 
   common.enable = true;
 

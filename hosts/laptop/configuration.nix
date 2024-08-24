@@ -72,8 +72,8 @@
   ]);
   in
   [
-    # customKodi
-    kodi-retroarch-advanced-launchers
+    customKodi
+    # kodi-retroarch-advanced-launchers
   ];
 
 

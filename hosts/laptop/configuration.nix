@@ -188,13 +188,13 @@
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.2/24" "10.101.0.2/24" ];
+      ips = [ "10.100.0.2/24" ];
       listenPort = 42069;
       privateKeyFile = "/home/kamo/wg-keys/private";
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24" ];
+          allowedIPs = [ "10.100.0.0/24" ];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }

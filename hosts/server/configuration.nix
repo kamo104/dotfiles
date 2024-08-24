@@ -82,18 +82,18 @@ in
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.1/24" "10.101.0.1/24" ];
+      ips = [ "10.100.0.1/24" ];
       listenPort = 42069;
 
       privateKeyFile = "/home/kamo/wg-keys/private";
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
-          allowedIPs = [ "10.100.0.2/32" "10.101.0.2/32" ];
+          allowedIPs = [ "10.100.0.2/32" ];
         } 
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
-          allowedIPs = [ "10.100.0.3/32" "10.101.0.3/32" ];
+          allowedIPs = [ "10.100.0.3/32" ];
         }
         { # desktop
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
@@ -101,7 +101,7 @@ in
         }
         { # home-assistant
           publicKey = "p+LwH6OwhJuG76C+hkEqOes6hyOozY0CJLCiJ+fNOXs=";
-          allowedIPs = [ "10.101.0.5/32" ];
+          allowedIPs = [ "10.100.0.5/32" ];
         }
         { # work-laptop
           publicKey = "xajjnlHmodUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";

@@ -62,17 +62,19 @@
     };
   };
 
-  # environment.systemPackages = with pkgs; 
-  # let customKodi = pkgs.kodi-wayland.withPackages (p: with p; [
-  #     joystick
-  #     jellyfin
-  #     kodi-retroarch-advanced-launchers
-  # ]);
-  # in
-  # [
-  #   customKodi
-  #   kodi-retroarch-advanced-launchers
-  # ];
+  environment.systemPackages = with pkgs; 
+  let 
+  customKodi = pkgs.kodi-wayland.withPackages (p: with p; [
+      joystick
+      # jellyfin
+      kodi-retroarch-advanced-launchers
+      kodiPackages.steam-launcher
+  ]);
+  in
+  [
+    # customKodi
+    kodi-retroarch-advanced-launchers
+  ];
 
 
 

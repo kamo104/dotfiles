@@ -38,11 +38,11 @@ in
   nix = {
     settings = {
       substituters = [
-        # "http://10.100.0.2:8080/hello"
+        "http://10.100.0.2:8080/hello"
         # "https://cache.nixos.org/"
       ];
       trusted-public-keys = [
-        # "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
       ];
       netrc-file = [
         "/home/kamo/.config/nix/netrc"

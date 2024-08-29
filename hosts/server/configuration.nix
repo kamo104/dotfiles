@@ -39,7 +39,7 @@ in
     settings = {
       substituters = [
         "http://10.100.0.2:8080/hello"
-        # "https://cache.nixos.org/"
+        "https://cache.nixos.org/"
       ];
       trusted-public-keys = [
         "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="

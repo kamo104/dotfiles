@@ -61,9 +61,9 @@
           ./hosts/server/configuration.nix
         ];
       };
-      # packages.x86_64-linux.default = nixpkgs.lib.mkDefault (self.nixosConfigurations.kamo-laptop.config.system.build.toplevel);
     };
-
+    
+    # nix profile base system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 
     let 
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
@@ -72,6 +72,7 @@
         name = "work-laptop";
         paths = import "${modules}/common-pkgs.nix" {inherit pkgs;};
       };
+    # home manager configuration for non nixos systems
     homeConfigurations = {
       work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";

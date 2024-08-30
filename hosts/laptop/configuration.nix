@@ -29,7 +29,7 @@
     # other Nginx options
     virtualHosts."home-assistant.internal" =  {
     # serverName = "test.internal";
-      enableACME = true;
+      # enableACME = true;
       forceSSL = true;
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";

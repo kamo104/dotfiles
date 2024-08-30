@@ -27,10 +27,10 @@
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     # other Nginx options
-    virtualHosts."test.internal" =  {
+    virtualHosts."home-assistant.internal" =  {
     # serverName = "test.internal";
-      # enableACME = true;
-      # forceSSL = true;
+      enableACME = true;
+      forceSSL = true;
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
         proxyWebsockets = true; # needed if you need to use WebSocket

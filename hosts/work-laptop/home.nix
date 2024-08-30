@@ -22,6 +22,7 @@
   home.packages = with pkgs; [
     bear
     wl-clipboard
+    tshark
     # qpwgraph
   ];
  

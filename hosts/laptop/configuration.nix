@@ -24,21 +24,22 @@
 
   services.nginx = {
     enable = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
+    # recommendedProxySettings = true;
+    # recommendedTlsSettings = true;
     # other Nginx options
     virtualHosts."test.internal" =  {
+    serverName = "test.internal";
       # enableACME = true;
       # forceSSL = true;
       locations."/" = {
         proxyPass = "http://192.168.1.98:8181";
         proxyWebsockets = true; # needed if you need to use WebSocket
-        extraConfig =
-          # required when the target is also TLS server with multiple hosts
-          "proxy_ssl_server_name on;" +
-          # required when the server wants to use HTTP Authentication
-          "proxy_pass_header Authorization;"
-          ;
+        # extraConfig =
+        #   # required when the target is also TLS server with multiple hosts
+        #   "proxy_ssl_server_name on;" +
+        #   # required when the server wants to use HTTP Authentication
+        #   "proxy_pass_header Authorization;"
+        #   ;
       };
     };
   };

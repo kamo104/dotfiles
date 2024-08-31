@@ -180,7 +180,7 @@ in
 
   environment.systemPackages = with pkgs; [
     botamusique
-    mergefs
+    mergerfs
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};

@@ -98,10 +98,10 @@ in
     };
   };
 
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
-  };
+  # services.zerotierone = {
+  #   enable = true;
+  #   joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
+  # };
 
   # networking.nat.enable = true;
   # networking.nat.externalInterface = "ens18";

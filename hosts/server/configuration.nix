@@ -153,8 +153,8 @@ in
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 8181 ]; # musicbot
-  networking.firewall.allowedUDPPorts = [ 8181 42069 ]; # musicbot, wireguard
+  networking.firewall.allowedTCPPorts = [ 53 8181 ]; # dns, musicbot
+  networking.firewall.allowedUDPPorts = [ 53 8181 42069 ]; # dns, musicbot, wireguard
 
   # services.minecraft-servers ={
   #   openFirewall = true;

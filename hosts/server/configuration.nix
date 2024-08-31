@@ -166,7 +166,7 @@ in
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 53 8181 ]; # dns, musicbot
+  networking.firewall.allowedTCPPorts = [ 53 80 443 8181 ]; # dns, http, https, musicbot
   networking.firewall.allowedUDPPorts = [ 53 8181 42069 ]; # dns, musicbot, wireguard
 
   # services.minecraft-servers ={

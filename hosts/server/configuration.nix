@@ -54,7 +54,10 @@ in
     # '';
     settings = {
       server = [ "8.8.8.8" "8.8.4.4" ];
-      address = "/kkf.internal/127.0.0.1";
+      address = [
+        "/kkf.internal/127.0.0.1"
+        "/home-assistant.internal/127.0.0.1"
+      ];
     };
   };
   # bluetooth.enable = true;

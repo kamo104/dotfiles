@@ -49,10 +49,13 @@ in
   };
   services.dnsmasq = {
     enable = true;
-    extraConfig = ''
-      address=/kkf.internal/127.0.0.1
-    '';
-    servers = [ "8.8.8.8" "8.8.4.4" ];
+    # extraConfig = ''
+    #   address=/kkf.internal/127.0.0.1
+    # '';
+    settings = {
+      server = [ "8.8.8.8" "8.8.4.4" ];
+      address = "/kkf.internal/127.0.0.1";
+    };
   };
   # bluetooth.enable = true;
   locale.enable = true;

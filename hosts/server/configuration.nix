@@ -54,7 +54,7 @@ in
       server = [ "8.8.8.8" "8.8.4.4" ];
       address = [
         "/home-assistant.internal/10.100.0.1"
-        "/attic.internal/10.100.0.1:8080"
+        # "/attic.internal/10.100.0.1:8080"
       ];
     };
   };

@@ -8,9 +8,6 @@ let
       }
       {
         url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
-        # sha256="0p9ppzh8v6r9bcgsvcd0qp8akgip082km7rhwhibil14rnbsp931";
-        # sha256="207a1cc1a455ae728a24fd5cb877db1e6329830ae0d403b462b3dfc29f726e88";
-        # sha256="sha256-k+TB2zASUSHkBlPulvv1wviEsnWGEScd1BvThFyLMzk=";
         sha256="sha256-nMz6JPr5IeFyZHnrTh6C8n/NXPO8fuC7wNXkZx6c8eo=";
       }
       {
@@ -38,18 +35,24 @@ in
   nix = {
     settings = {
       substituters = [
-        "http://10.100.0.2:8080/hello"
+        # "http://10.100.0.2:8080/hello"
         # "https://cache.nixos.org/"
       ];
       trusted-public-keys = [
-        "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        # "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
       ];
       netrc-file = [
-        "/home/kamo/.config/nix/netrc"
+        # "/home/kamo/.config/nix/netrc"
       ];
     };
   };
-
+  services.dnsmasq = {
+    enable = true;
+    extraConfig = ''
+      address=/kkf.internal/127.0.0.1
+    '';
+    servers = [ "8.8.8.8" "8.8.4.4" ];
+  };
   # bluetooth.enable = true;
   locale.enable = true;
   # pipewire.enable = true;

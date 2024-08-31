@@ -54,7 +54,8 @@ in
       server = [ "8.8.8.8" "8.8.4.4" ];
       address = [
         "/home-assistant.internal/10.100.0.1"
-        # "/attic.internal/10.100.0.1:8080"
+        "/wg.attic.internal/10.100.0.1"
+        "/lan.attic.internal/192.168.1.82"
       ];
     };
   };
@@ -63,11 +64,25 @@ in
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."home-assistant.internal" =  {
-      # enableACME = true;      # forceSSL = true;
+      # forceSSL = true;
       # sslCertificate =;
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
         proxyWebsockets = true;
+      };
+    };
+    virtualHosts."wg.attic.internal" =  {
+      # forceSSL = true;
+      # sslCertificate =;
+      locations."/" = {
+        proxyPass = "http://localhost:8080";
+      };
+    };
+    virtualHosts."lan.attic.internal" =  {
+      # forceSSL = true;
+      # sslCertificate =;
+      locations."/" = {
+        proxyPass = "http://localhost:8080";
       };
     };
   };

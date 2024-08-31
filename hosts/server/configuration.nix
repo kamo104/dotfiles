@@ -36,9 +36,7 @@ in
     settings = {
       connect-timeout = 5;
       substituters = [
-        # "http://10.100.0.2:8080/hello"
-        # "attic.internal/hello"
-        # "https://cache.nixos.org/"
+        # "lan.attic.internal/hello"
       ];
       trusted-public-keys = [
         # "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
@@ -54,17 +52,18 @@ in
       server = [ "8.8.8.8" "8.8.4.4" ];
       address = [
         # home-assistant
-        "/home-assistant.internal/10.100.0.1"
+        "/home-assistant.kkf.internal/10.100.0.1"
         # tshock I guess
-        "/tshock.internal/10.100.0.1"
+        "/tshock.kkf.internal/10.100.0.1"
         # attic cache
-        "/wg.attic.internal/10.100.0.1"
-        "/lan.attic.internal/192.168.1.82"
+        "/wg.attic.kkf.internal/10.100.0.1"
+        "/lan.attic.kkf.internal/192.168.1.82"
         # jellyfin
-        "/jellyfin.internal/10.100.0.1"
+        "/jellyfin.kkf.internal/10.100.0.1"
+        # immich
+        "/immich.kkf.internal/10.100.0.1"
         # mumble stuff
-        "/mumble.internal/10.100.0.1"
-        "/musicbot.mumble.internal/10.100.0.1"
+        "/mumble.kkf.internal/10.100.0.1"
       ];
     };
   };
@@ -72,7 +71,7 @@ in
     enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-    virtualHosts."home-assistant.internal" =  {
+    virtualHosts."home-assistant.kkf.internal" =  {
       # forceSSL = true;
       # sslCertificate =;
       locations."/" = {
@@ -80,25 +79,25 @@ in
         proxyWebsockets = true;
       };
     };
-    virtualHosts."wg.attic.internal" =  {
+    virtualHosts."wg.attic.kkf.internal" =  {
       # forceSSL = true;
       # sslCertificate =;
       locations."/" = {
         proxyPass = "http://localhost:8080";
       };
     };
-    virtualHosts."lan.attic.internal" =  {
+    virtualHosts."lan.attic.kkf.internal" =  {
       # forceSSL = true;
       # sslCertificate =;
       locations."/" = {
         proxyPass = "http://localhost:8080";
       };
     };
-    virtualHosts."musicbot.mumble.internal" =  {
+    virtualHosts."jellyfin.kkf.internal" =  {
       # forceSSL = true;
       # sslCertificate =;
       locations."/" = {
-        proxyPass = "http://localhost:8181";
+        proxyPass = "http://localhost:8096";
         proxyWebsockets = true;
       };
     };
@@ -120,7 +119,9 @@ in
     domain = "grzymoserver";
     tokenFile = "/home/kamo/duckdns/token";
   };
-  
+  services.jellyfin = {
+    enable = true;
+  };
 
   services.qemuGuest.enable = true;
   networking.hostName = "${args.hostname}";
@@ -134,7 +135,7 @@ in
 
   # networking.nat.enable = true;
   # networking.nat.externalInterface = "ens18";
-  # networking.nat.internalInterfaces = [ "wg0" ];
+  # networking.nat.kkf.internalInterfaces = [ "wg0" ];
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true;
     "net.ipv6.conf.all.forwarding" = true;
@@ -179,7 +180,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    botamusique
     mergerfs
   ];
   home-manager = {

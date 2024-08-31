@@ -4,10 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland = {
-      # url = "git+https://github.com/hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       # url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=a8ab1b1679e639ef23952f1a1d0834859d1c01b7";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprpicker = {
       url = "git+https://github.com/hyprwm/hyprpicker";
@@ -21,7 +20,10 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ags.url = "github:Aylur/ags?rev=11150225e62462bcd431d1e55185e810190a730a";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # nur.url = "github:nix-community/NUR";  
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -29,11 +31,9 @@
   nixConfig = {
     extra-substituters = [
       "https://hyprland.cachix.org"
-      # "http://10.100.0.2:8080/hello"
     ];
     extra-trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      # "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
     ];
   };
 
@@ -65,7 +65,7 @@
       };
     };
     
-    # nix profile base system packages for non nixos systems
+    # base nix profile system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 
     let 
       pkgs = nixpkgs.legacyPackages."x86_64-linux";

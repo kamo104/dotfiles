@@ -34,6 +34,7 @@ in
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
   nix = {
     settings = {
+      connect-timeout = 5;
       substituters = [
         # "http://10.100.0.2:8080/hello"
         # "https://cache.nixos.org/"

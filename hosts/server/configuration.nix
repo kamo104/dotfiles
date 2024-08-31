@@ -49,17 +49,27 @@ in
   };
   services.dnsmasq = {
     enable = true;
-    # extraConfig = ''
-    #   address=/kkf.internal/127.0.0.1
-    # '';
     settings = {
       server = [ "8.8.8.8" "8.8.4.4" ];
       address = [
-        "/kkf.internal/127.0.0.1"
-        "/home-assistant.internal/127.0.0.1"
+        "/home-assistant.internal/10.100.0.1"
       ];
     };
   };
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    virtualHosts."home-assistant.internal" =  {
+      # enableACME = true;      # forceSSL = true;
+      # sslCertificate =;
+      locations."/" = {
+        proxyPass = "http://192.168.1.98:8123";
+        proxyWebsockets = true;
+      };
+    };
+  };
+
   # bluetooth.enable = true;
   locale.enable = true;
   # pipewire.enable = true;
@@ -123,10 +133,10 @@ in
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.0.4/32" ];
         }
-        { # home-assistant
-          publicKey = "p+LwH6OwhJuG76C+hkEqOes6hyOozY0CJLCiJ+fNOXs=";
-          allowedIPs = [ "10.100.0.5/32" ];
-        }
+        # { # home-assistant
+        #   publicKey = "p+LwH6OwhJuG76C+hkEqOes6hyOozY0CJLCiJ+fNOXs=";
+        #   allowedIPs = [ "10.100.0.5/32" ];
+        # }
         { # work-laptop
           publicKey = "xajjnlHmodUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.100.0.6/32" ];

@@ -22,21 +22,6 @@
       "${args.modules}/sunshine.nix"
     ];
 
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    virtualHosts."home-assistant.internal" =  {
-      # enableACME = true;
-      # forceSSL = true;
-      # sslCertificate =; 
-      locations."/" = {
-        proxyPass = "http://192.168.1.98:8123";
-        proxyWebsockets = true; # needed if you need to use WebSocket
-      };
-    };
-  };
-
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;
@@ -110,21 +95,6 @@
   networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
   networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # minecraft, wireguard 
 
-  # networking.wireguard.interfaces = {
-  #   wg0 = {
-  #     ips = [ "10.100.0.2/24" ];
-  #     listenPort = 42069;
-  #     privateKeyFile = "/home/kamo/wg-keys/private";
-  #     peers = [
-  #       {
-  #         publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-  #         allowedIPs = [ "10.100.0.0/24" ];
-  #         endpoint = "grzymoserver.duckdns.org:42069";
-  #         persistentKeepalive = 25;
-  #       }
-  #     ];
-  #   };
-  # };
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [ "10.100.0.2/24" ];
@@ -141,8 +111,6 @@
       ];
     };
   };
-
-  
 
   system.stateVersion = "23.11";
 }

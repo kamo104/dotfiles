@@ -10,8 +10,8 @@
 
     services.displayManager.sddm.enable = true;
     services.displayManager.sddm.wayland.enable = true;
-    services.hypridle.enable = true;
-    programs.hyprlock.enable = true;
+    # services.hypridle.enable = true;
+    # programs.hyprlock.enable = true;
     programs.hyprland.enable = true;
 
     # services.geoclue2.enable = true;

@@ -19,6 +19,15 @@
     # botamusique
     # terraria-server
   ];
+  home.file = {
+    "/drives/hdd1" = {
+      enable = true;
+      # source = "${args.hmModules}/wallpapers";
+      source = null;
+      # target = "wallpapers";
+      target = "share";
+    };
+  };
 
   home.stateVersion = "23.11";
 

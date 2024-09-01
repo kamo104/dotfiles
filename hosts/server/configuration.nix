@@ -57,7 +57,7 @@ in
     { 
       device = "/drives/hdd*";
       fsType = "fuse.mergerfs";
-      options = ["nofail"];
+      options = ["nofail" "category.create=lfs" "minfreespace=20G"]; # lfs makes the drives fill up in order
     };
   services.dnsmasq = {
     enable = true;

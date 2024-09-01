@@ -138,10 +138,12 @@ in
   };
   user.groups = {nfs={};};
   users.users = {
-    # shell = pkgs.fish;
-    isNormalUser = false;
-    description = "jellyfin";
-    extraGroups = [ "nfs" ];
+    fellyfin = {
+      # shell = pkgs.fish;
+      isNormalUser = false;
+      description = "jellyfin";
+      extraGroups = [ "nfs" ];
+    };
   };
 
   services.qemuGuest.enable = true;

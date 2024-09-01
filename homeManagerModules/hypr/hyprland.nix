@@ -24,7 +24,44 @@
     };
     services.hypridle = 
     let 
-      mpv-play = "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov --hwdec=auto --taskbar-progress=no";
+      video = "/home/kamo/Videos/out-run.mov";
+      br-file = "/tmp/br-file";
+      mpv-cmd = "${pkgs.mpv}/bin/mpv --fs --loop ${video} --hwdec=auto --taskbar-progress=no --stop-screensaver=no";
+
+      on-lock = pkgs.writeShellScriptBin "on-lock.sh" ''
+        #!/usr/bin/env bash
+        if [ $(pgrep -f "${mpv-cmd}") ]; then
+          exit 0
+        fi
+        ${mpv-cmd} 2>&1 &
+        hyprlock
+        kill %1
+      '';
+      br-anim = pkgs.writeShellScriptBin "br-anim.sh" ''
+        #!/usr/bin/env bash
+        END=$1
+        STEP=$2
+        if (( END - $(brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
+        while (( $SIGN * $(brightnessctl g) + STEP < END )); do
+          brightnessctl s $(( $(brightnessctl g) + $SIGN * STEP ))
+        done
+        brightnessctl s $END
+      '';
+      on-resume = pkgs.writeShellScriptBin "on-resume.sh" ''
+        #!/usr/bin/env bash
+        BR=$(cat "${br-file}")
+        rm "${br-file}"
+        pkill -f "${br-anim}/bin/br-anim.sh"
+        ${br-anim}/bin/br-anim.sh $BR 10 & disown
+      '';
+      on-pause = pkgs.writeShellScriptBin "on-pause.sh" ''
+        #!/usr/bin/env bash
+        if [ ! -e "${br-file}" ]; then
+          brightnessctl g > "${br-file}";
+        fi
+        pkill -f "${br-anim}/bin/br-anim.sh"
+        ${br-anim}/bin/br-anim.sh 0 2 & disown
+      '';
     in
     {
       enable = true;
@@ -32,17 +69,16 @@
         general = {
             after_sleep_cmd = "hyprctl dispatch dpms on";
             before_sleep_cmd = "playerctl pause; loginctl lock-session";
-            lock_cmd = ''${mpv-play} & hyprlock && loginctl unlock-session'';
-            unlock_cmd = ''pkill -f "${mpv-play}"'';
+            lock_cmd =  "${on-lock}/bin/on-lock.sh";
           };
         listener = [
           {
-            timeout = 60;
-            on-timeout = "brightnessctl g > /tmp/.last-brightness; brightnessctl s 0";
-            on-resume = "BRIGHTNESS=$(cat /tmp/.last-brightness); brightnessctl s $BRIGHTNESS";
+            timeout = 120;
+            on-timeout = "${on-pause}/bin/on-pause.sh";
+            on-resume = "${on-resume}/bin/on-resume.sh";
           }
           {
-            timeout = 120;
+            timeout = 180;
             on-timeout = "loginctl lock-session";
           }
           {

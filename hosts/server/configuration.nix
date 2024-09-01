@@ -60,11 +60,11 @@ in
     };
     "/share/all" = {
       device = "/drives/merged/share/all";
-      fsType = "bind";
+      options = ["nofail" "bind"];
     };
     "/share/kamo" = {
       device = "/drives/merged/share/kamo";
-      fsType = "bind";
+      options = ["nofail" "bind"];
     };
   };
   services.nfs.server = {

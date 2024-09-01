@@ -75,8 +75,10 @@ in
     enable = true;
       # /share/all 10.100.0.0/24${defOpts} 10.100.1.0/24${defOpts}
       # /share/kamo 10.100.1.0/24${defOpts}
+      # /share/kamo 10.100.0.2(rw,insecure,fsid=0)
     exports = ''
-      /share/kamo 10.100.0.2(rw,insecure,fsid=0)
+      /share/all 10.100.0.0/24(rw,nohide,insecure,no_subtree_check,fsid=0) 10.100.1.0/24(rw,nohide,insecure,no_subtree_check,fsid=0)
+      /share/kamo 10.100.1.0/24(rw,nohide,insecure,no_subtree_check,fsid=1)
     '';
   };
   services.dnsmasq = {

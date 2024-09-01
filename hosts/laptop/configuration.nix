@@ -73,15 +73,15 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # machenike
-  boot.initrd.kernelModules = ["xpad"];
-  system.activationScripts = {
-    MachenikeFix.text = ''
-      echo -n "2345:e00b:ik" | tee /sys/module/usbcore/parameters/quirks
-    '';
-  };
-  services.udev.extraRules = ''
-    ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
-    '';
+  # boot.initrd.kernelModules = ["xpad"];
+  # system.activationScripts = {
+  #   MachenikeFix.text = ''
+  #     echo -n "2345:e00b:ik" | tee /sys/module/usbcore/parameters/quirks
+  #   '';
+  # };
+  # services.udev.extraRules = ''
+  #   ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
+  #   '';
 
  
   services.printing.enable = true;

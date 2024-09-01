@@ -6,6 +6,11 @@
 
   common.enable = true;
 
+  home.sessionVariables = {
+    NIX_INSTALL_TYPE="OS"; # either OS or PM
+    NIX_HOSTNAME="${args.hostname}";
+  };
+
   home.username = "kamo";
   home.homeDirectory = "/home/kamo";
 

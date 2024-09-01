@@ -26,7 +26,7 @@
             before_sleep_cmd = "playerctl pause ; loginctl lock-session";
             ignore_dbus_inhibit = false;
             lock_cmd = "mpv --fs --loop ~/Videos/out-run.mov & hyprlock";
-            unlock_cmd = "touch ~/.unlocked; pkill mpv";
+            unlock_cmd = "touch ~/.unlocked; killall mpv";
           };
         listener = [
           {

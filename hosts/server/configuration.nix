@@ -158,7 +158,6 @@ in
   };
   services.jellyfin = {
     enable = true;
-    dataDir = "/disks/merged/share";
   };
   users.groups = {nfs={gid=992;members=["kamo" "jellyfin"];};};
   users.users = {

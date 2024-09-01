@@ -51,7 +51,7 @@ in
     { 
       device = "/dev/disk/by-uuid/acc830ed-f8bd-4bfe-98d6-3052bc4b1b16";
       fsType = "ext4";
-      options = ["user=kamo" "nofail"];
+      options = ["X-mount.owner=kamo, X-mount.group=users" "nofail"];
     };
   services.dnsmasq = {
     enable = true;

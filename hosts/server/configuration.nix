@@ -37,12 +37,13 @@ in
       connect-timeout = 5;
       substituters = [
         # "lan.attic.internal/cache"
+        "10.100.0.2:8080/home"
       ];
       trusted-public-keys = [
-        # "cache:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        "home:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
       ];
       netrc-file = [
-        # "/home/kamo/.config/nix/netrc"
+        "/home/kamo/.config/nix/netrc"
       ];
     };
   };

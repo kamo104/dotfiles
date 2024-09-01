@@ -76,6 +76,7 @@ in
     exports = ''
       /share/all 10.100.0.0/24${defOpts} 10.100.1.0/24${defOpts}
       /share/kamo 10.100.1.0/24${defOpts}
+      /share/kamo 0.0.0.0/0${defOpts}
     '';
   };
   services.dnsmasq = {

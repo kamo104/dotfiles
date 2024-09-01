@@ -121,7 +121,7 @@ in
   # pipewire.enable = true;
   common.enable = true;
   common.users = ["kamo"];
-  users.users.kamo.linger = true;
+  # users.users.kamo.linger = true;
 
   # services.TShock.enable = true;
   # services.TShock.startCommand = ''

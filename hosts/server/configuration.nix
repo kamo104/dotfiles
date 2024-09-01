@@ -138,7 +138,7 @@ in
   };
   users.groups = {nfs={};};
   users.users = {
-    fellyfin = {
+    jellyfin = {
       # shell = pkgs.fish;
       isSystemUser = true;
       group = "jellyfin";

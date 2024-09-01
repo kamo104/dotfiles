@@ -140,7 +140,7 @@ in
   users.users = {
     fellyfin = {
       # shell = pkgs.fish;
-      isNormalUser = false;
+      # isNormalUser = false;
       description = "jellyfin";
       extraGroups = [ "nfs" ];
     };

@@ -236,9 +236,9 @@ in
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.enable = false;
+  # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 443 2049 ]; # dns, http, https, nfs
-  networking.firewall.allowedUDPPorts = [ 53 42069 ]; # dns, wireguard
+  networking.firewall.allowedUDPPorts = [ 53 2049 42069 ]; # dns, nfs, wireguard
 
   system.stateVersion = "23.11";
 }

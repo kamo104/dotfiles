@@ -77,8 +77,9 @@ in
       # /share/kamo 10.100.1.0/24${defOpts}
       # /share/kamo 10.100.0.2(rw,insecure,fsid=0)
     exports = ''
-      /share/all 10.100.0.0/24(rw,nohide,insecure,no_subtree_check,fsid=0) 10.100.1.0/24(rw,nohide,insecure,no_subtree_check,fsid=0)
-      /share/kamo 10.100.1.0/24(rw,nohide,insecure,no_subtree_check)
+      /share      10.100.0.0/23(r,nohide,fsid=0)
+      /share/all  10.100.0.0/23(rw,nohide,no_subtree_check)
+      /share/kamo 10.100.1.0/24(rw,nohide,no_subtree_check)
     '';
   };
   services.dnsmasq = {
@@ -238,7 +239,7 @@ in
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 53 80 443 ]; # dns, http, https
+  networking.firewall.allowedTCPPorts = [ 53 80 443 2049 ]; # dns, http, https, nfs
   networking.firewall.allowedUDPPorts = [ 53 42069 ]; # dns, wireguard
 
   system.stateVersion = "23.11";

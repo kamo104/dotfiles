@@ -27,13 +27,18 @@
       settings = {
         general = {
             after_sleep_cmd = "hyprctl dispatch dpms on";
-            before_sleep_cmd = "playerctl pause ; loginctl lock-session";
-            lock_cmd = "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov & hyprlock && loginctl unlock-session";
+            before_sleep_cmd = "playerctl pause; loginctl lock-session";
+            lock_cmd = "pidof hyprlock || ${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov & hyprlock && loginctl unlock-session";
             unlock_cmd = "pkill -f '${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov'";
           };
         listener = [
           {
-            timeout = 60;
+            timeout = 5;
+            on-timeout = "brightnessctl g > /tmp/.last-brightness; brightnessctl s 0";
+            on-resume = "BRIGHTNESS=$(cat /tmp/.last-brightness); brightnessctl s $BRIGHTNESS";
+          }
+          {
+            timeout = 120;
             on-timeout = "loginctl lock-session";
           }
           {

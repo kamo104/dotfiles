@@ -78,8 +78,9 @@ in
       # /share      10.100.0.0/16(rw,nohide,insecure,no_subtree_check,fsid=0)
       # /share/kamo 10.100.0.2(rw,insecure,fsid=0)
     exports = ''
-      /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=0)
-      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=0)
+      /share  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,ro,secure,root_squash,no_all_squash,fsid=0)
+      /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
+      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
     '';
   };
   services.dnsmasq = {
@@ -239,6 +240,7 @@ in
     users.kamo = import ./home.nix;
   };
 
+  networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 443 2049 ]; # dns, http, https, nfs
   networking.firewall.allowedUDPPorts = [ 53 42069 ]; # dns, wireguard
 

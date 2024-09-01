@@ -29,7 +29,7 @@
             after_sleep_cmd = "hyprctl dispatch dpms on";
             before_sleep_cmd = "playerctl pause ; loginctl lock-session";
             ignore_dbus_inhibit = false;
-            lock_cmd = "${pkgs.mpv} --fs --loop ~/Videos/out-run.mov & hyprlock";
+            lock_cmd = "${pkgs.mpv} --fs --loop /home/kamo/Videos/out-run.mov & hyprlock";
             unlock_cmd = "pkill ${pkgs.mpv}";
           };
         listener = [

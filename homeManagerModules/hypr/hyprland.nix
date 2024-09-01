@@ -63,6 +63,7 @@
 
       gammastep
       # geoclue2
+      mpv # for lockscreen vid playback
     ];
     # services.gammastep = {
     #   enable = true;

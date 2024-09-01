@@ -159,7 +159,7 @@ in
     enable = true;
     dataDir = "/disks/merged/share";
   };
-  users.groups = {nfs={gid=3000;members=["kamo" "jellyfin"];};};
+  users.groups = {nfs={gid=992;members=["kamo" "jellyfin"];};};
   users.users = {
     jellyfin = {
       isSystemUser = true;

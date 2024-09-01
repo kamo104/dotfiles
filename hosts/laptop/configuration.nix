@@ -57,7 +57,6 @@
     };
   };
 
-
   networking.hostName = "kamo-laptop";
   boot.loader = {
     grub = {

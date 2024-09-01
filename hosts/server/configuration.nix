@@ -141,6 +141,7 @@ in
     fellyfin = {
       # shell = pkgs.fish;
       # isNormalUser = false;
+      group = "jellyfin";
       description = "jellyfin";
       extraGroups = [ "nfs" ];
     };

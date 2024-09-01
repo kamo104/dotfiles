@@ -49,6 +49,19 @@
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="192.168.1.54" sess.latency.msec=10
   '';
 
+  fileSystems = {
+    "/mnt/all" = {
+      device = "nfs.kkf.internal:/share/all";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "nofail"];
+    };
+    "/mnt/kamo" = {
+      device = "nfs.kkf.internal:/share/kamo";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "nofail"];
+    };
+  };
+
   networking.hostName = "kamo-laptop";
   boot.loader = {
     grub = {
@@ -92,19 +105,19 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
-  networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # minecraft, wireguard 
+  networking.firewall.allowedTCPPorts = [ ];
+  networking.firewall.allowedUDPPorts = [ 42069 ]; # wireguard 
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.100.0.2/24" ];
+      address = [ "10.100.0.2/23" "10.100.1.2/23"];
       listenPort = 42069;
       privateKeyFile = "/home/kamo/wg-keys/private";
       dns = ["10.100.0.1"];
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/24" ];
+          allowedIPs = [ "10.100.0.0/23" ];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }

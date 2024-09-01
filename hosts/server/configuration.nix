@@ -136,7 +136,7 @@ in
     enable = true;
     dataDir = "/disks/merged/share";
   };
-  user.groups = {nfs={};};
+  users.groups = {nfs={};};
   users.users = {
     fellyfin = {
       # shell = pkgs.fish;

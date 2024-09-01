@@ -51,7 +51,7 @@ in
     { 
       device = "/dev/disk/by-uuid/a5055a0d-86de-447a-90c8-70cab09b6b84";
       fsType = "ext4";
-      options = ["uid=1000" "gid=100" "forceuid" "forcegid" "x-systemd.automount" "x-systemd.mount-timeout=5s"];
+      options = ["uid=1000" "gid=100"];
     };
   services.dnsmasq = {
     enable = true;

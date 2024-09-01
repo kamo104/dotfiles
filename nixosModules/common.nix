@@ -27,7 +27,7 @@
       shell = pkgs.fish;
       isNormalUser = true;
       description = "${user}";
-      extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" ];
+      extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" "nfs"];
       # packages = with pkgs; [];
     });
     

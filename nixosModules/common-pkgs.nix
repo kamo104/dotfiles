@@ -9,4 +9,5 @@ with pkgs; [
   git
   wakeonlan
   tree
+  killall
 ]

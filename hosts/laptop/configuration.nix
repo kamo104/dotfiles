@@ -29,6 +29,10 @@
   opencl.enable = true;
   opengl.enable = true;
   hyprland.enable = true;
+  services.displayManager = {
+    autoLogin.enable = true;
+    autoLogin.user = "kamo";
+  };
   # sunshine.enable = true;
   # services.xserver = {
   #   enable = true;
@@ -49,11 +53,24 @@
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="192.168.1.54" sess.latency.msec=10
   '';
 
+  # systemd.user.services.loginLock = {
+  #   description = "Lock session on startup";
+  #   # after = [ "graphical-session.target" "hypridle.service" ];
+  #   # after = [ "graphical-session.target" "hypridle.service" "default.target"];
+  #   after = [ "pipewire.service" ];
+  #   wantedBy = [ "default.target" "multi-user.target"];
+  #   script = ''
+  #     touch /tmp/service-loginLock
+  #     sleep 20; loginctl lock-session
+  #   '';
+  # };
+
   fileSystems = {
     "/mnt/kkf" = {
       device = "nfs.kkf.internal:/share";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" ];
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" 
+                  "x-systemd.requires=wg-quick-wg0.service"];
     };
   };
 

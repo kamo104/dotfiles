@@ -50,11 +50,11 @@
   '';
 
   fileSystems = {
-    # "/mnt/all" = {
-    #   device = "nfs.kkf.internal:/share/all";
-    #   fsType = "nfs";
-    #   options = [ "x-systemd.automount" "noauto" "nofail" ];
-    # };
+    "/mnt/all" = {
+      device = "nfs.kkf.internal:/share/all";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" ];
+    };
     "/mnt/kamo" = {
       device = "nfs.kkf.internal:/share/kamo";
       fsType = "nfs";

@@ -36,10 +36,10 @@ in
     settings = {
       connect-timeout = 5;
       substituters = [
-        # "lan.attic.internal/hello"
+        # "lan.attic.internal/cache"
       ];
       trusted-public-keys = [
-        # "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        # "cache:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
       ];
       netrc-file = [
         # "/home/kamo/.config/nix/netrc"
@@ -133,13 +133,15 @@ in
     };
   };
 
-  # networking.nat.enable = true;
-  # networking.nat.externalInterface = "ens18";
-  # networking.nat.kkf.internalInterfaces = [ "wg0" ];
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.all.forwarding" = true;
-    "net.ipv6.conf.all.forwarding" = true;
+  networking.nat = {
+    enable = true;
+    externalInterface = "ens18";
+    internalInterfaces = [ "wg0" ];
   };
+  # boot.kernel.sysctl = {
+  #   "net.ipv4.conf.all.forwarding" = true;
+  #   "net.ipv6.conf.all.forwarding" = true;
+  # };
 
   networking.wireguard.interfaces = {
     wg0 = {

@@ -30,7 +30,7 @@
             before_sleep_cmd = "playerctl pause ; loginctl lock-session";
             ignore_dbus_inhibit = false;
             lock_cmd = "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov & hyprlock";
-            unlock_cmd = ''pkill -f "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov"'';
+            unlock_cmd = ''pkill -f -9 "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov"'';
           };
         listener = [
           {

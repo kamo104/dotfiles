@@ -36,7 +36,7 @@ in
     settings = {
       connect-timeout = 5;
       substituters = [
-        # "lan.attic.internal/cache"
+        # "lan.attic.internal/main"
         "10.100.0.2:8080/home"
       ];
       trusted-public-keys = [
@@ -51,7 +51,13 @@ in
     { 
       device = "/dev/disk/by-uuid/acc830ed-f8bd-4bfe-98d6-3052bc4b1b16";
       fsType = "ext4";
-      options = ["X-mount.owner=kamo, X-mount.group=users" "nofail"];
+      options = ["nofail"];
+    };
+  fileSystems."/drives/merged" =
+    { 
+      device = "/drives/hdd*";
+      fsType = "fuse.mergefs";
+      options = ["nofail"];
     };
   services.dnsmasq = {
     enable = true;

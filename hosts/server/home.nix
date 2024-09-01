@@ -19,12 +19,6 @@
     # botamusique
     # terraria-server
   ];
-  home.activation = {
-    share-dir = 
-      lib.hm.dag.entryAnywhere ''
-        run mkdir -p /drives/hdd1/share 
-      '';
-  };
 
   home.stateVersion = "23.11";
 

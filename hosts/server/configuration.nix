@@ -134,6 +134,7 @@ in
   };
   services.jellyfin = {
     enable = true;
+    datadir = "/disks/merged/share";
   };
 
   services.qemuGuest.enable = true;

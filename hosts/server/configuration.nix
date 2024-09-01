@@ -67,11 +67,15 @@ in
       options = ["nofail" "bind"];
     };
   };
-  services.nfs.server = {
+  services.nfs.server = 
+  let
+    defOpts = "(rw,sync,nohide,insecure,no_subtree_check)";
+  in
+  {
     enable = true;
     exports = ''
-      /share/all 10.100.0.0/24(rw,nohide,insecure,no_subtree_check) 10.100.1.0/24(rw,nohide,insecure,no_subtree_check)
-      /share/kamo 10.100.1.0/24(rw,nohide,insecure,no_subtree_check)
+      /share/all 10.100.0.0/24${defOpts} 10.100.1.0/24${defOpts}
+      /share/kamo 10.100.1.0/24${defOpts}
     '';
   };
   services.dnsmasq = {

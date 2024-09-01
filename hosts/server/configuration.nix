@@ -80,7 +80,7 @@ in
     exports = ''
       /share  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,ro,secure,root_squash,no_all_squash,fsid=0)
       /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
-      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
+      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=2)
     '';
   };
   services.dnsmasq = {

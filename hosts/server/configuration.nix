@@ -79,7 +79,7 @@ in
       # /share/kamo 10.100.0.2(rw,insecure,fsid=0)
     exports = ''
       /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=0)
-      /share/kamo 10.100.1.0/24(rw,insecure,fsid=0)
+      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=0)
     '';
   };
   services.dnsmasq = {

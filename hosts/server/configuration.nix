@@ -237,8 +237,8 @@ in
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 443 2049 ]; # dns, http, https, nfs
-  networking.firewall.allowedUDPPorts = [ 53 2049 42069 ]; # dns, nfs, wireguard
+  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 ]; # dns, http, nfs rpc, https, nfs
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 ]; # dns, nfs rpc, nfs rpc, nfs, wireguard
 
   system.stateVersion = "23.11";
 }

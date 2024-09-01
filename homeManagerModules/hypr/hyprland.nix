@@ -22,15 +22,18 @@
       enable = true;
       extraConfig = ''${builtins.readFile ./hyprlock.conf}'';
     };
-    services.hypridle = {
+    services.hypridle = 
+    let 
+      mpv-play = "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov --hwdec=auto --taskbar-progress=no 2>/dev/null";
+    in
+    {
       enable = true;
       settings = {
         general = {
             after_sleep_cmd = "hyprctl dispatch dpms on";
             before_sleep_cmd = "playerctl pause; loginctl lock-session";
-            lock_cmd = ''${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov --hwdec=auto --taskbar-progress=no 2>/dev/null &
-              hyprlock && loginctl unlock-session'';
-            unlock_cmd = "pkill -f '${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov --hwdec=auto --taskbar-progress=no 2>/dev/null'";
+            lock_cmd = ''${mpv-play} & hyprlock && loginctl unlock-session'';
+            unlock_cmd = ''pkill -f "${mpv-play}"'';
           };
         listener = [
           {

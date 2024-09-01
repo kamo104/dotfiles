@@ -24,7 +24,7 @@
     };
     services.hypridle = 
     let 
-      mpv-play = "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov --hwdec=auto --taskbar-progress=no 2>/dev/null";
+      mpv-play = "${pkgs.mpv}/bin/mpv --fs --loop /home/kamo/Videos/out-run.mov --hwdec=auto --taskbar-progress=no";
     in
     {
       enable = true;

@@ -37,7 +37,7 @@ in
       connect-timeout = 5;
       substituters = [
         # "lan.attic.internal/main"
-        "10.100.0.2:8080/home"
+        "http://10.100.0.2:8080/home"
       ];
       trusted-public-keys = [
         "home:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="

@@ -136,6 +136,13 @@ in
     enable = true;
     dataDir = "/disks/merged/share";
   };
+  user.groups = {nfs={};};
+  users.users = {
+    # shell = pkgs.fish;
+    isNormalUser = false;
+    description = "jellyfin";
+    extraGroups = [ "nfs" ];
+  };
 
   services.qemuGuest.enable = true;
   networking.hostName = "${args.hostname}";

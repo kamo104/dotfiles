@@ -56,7 +56,7 @@ in
   fileSystems."/drives/merged" =
     { 
       device = "/drives/hdd*";
-      fsType = "fuse.mergefs";
+      fsType = "fuse.mergerfs";
       options = ["nofail"];
     };
   services.dnsmasq = {

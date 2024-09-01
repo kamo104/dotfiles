@@ -53,12 +53,12 @@
     "/mnt/all" = {
       device = "nfs.kkf.internal:/share/all";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "nofail"];
+      options = [ "x-systemd.automount" "noauto" "nofail" "insecure"];
     };
     "/mnt/kamo" = {
       device = "nfs.kkf.internal:/share/kamo";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "nofail"];
+      options = [ "x-systemd.automount" "noauto" "nofail" "insecure"];
     };
   };
 

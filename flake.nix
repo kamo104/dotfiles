@@ -43,7 +43,7 @@
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
-    secrets = "${self}/secrets";
+    secrets = "/home/kamo/secrets";
   in
   {
     nixosConfigurations = {

@@ -36,7 +36,8 @@ in
     settings = {
       connect-timeout = 5;
       substituters = [
-        "laptop.attic.internal:8080/hello"
+        "http://laptop.attic.internal:8080/hello"
+        # "laptop.attic.internal:8080/hello"
       ];
       trusted-public-keys = [
         "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="

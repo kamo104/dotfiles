@@ -46,7 +46,7 @@
   };
   environment.systemPackages = with pkgs; [
     attic
-    atticd
+    # atticd
     atticadm
   ];
   bluetooth.enable = true;

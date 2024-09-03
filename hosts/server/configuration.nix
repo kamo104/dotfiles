@@ -23,6 +23,7 @@ in
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       # inputs.nix-minecraft.nixosModules.minecraft-servers
+      inputs.attic.nixosModules.default
 
       "${args.modules}/locale.nix"
       "${args.modules}/bluetooth.nix"
@@ -31,10 +32,10 @@ in
       "${args.modules}/TShock-service.nix"
       "${args.modules}/duckdns.nix"
     ];
-  nixpkgs.overlays = [ 
-    # inputs.nix-minecraft.overlay 
-    inputs.attic.overlays.default
-  ];
+  # nixpkgs.overlays = [ 
+  #   # inputs.nix-minecraft.overlay 
+  #   inputs.attic.overlays.default
+  # ];
   nix = {
     settings = {
       connect-timeout = 5;

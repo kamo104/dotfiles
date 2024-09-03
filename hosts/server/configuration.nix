@@ -135,9 +135,9 @@ in
 
   services.atticd = {
     enable = true;
+    credentialsFile = "${args.secrets}/attic/atticd.env";
     settings = {
       listen = "[::]:8080";
-      credentialsFile = "${args.secrets}/attic/atticd.env";
       allowed-hosts = [];
       garbage-collection = {
         interval = "0";

@@ -23,7 +23,7 @@ in
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       # inputs.nix-minecraft.nixosModules.minecraft-servers
-      inputs.attic.nixosModules.default
+      inputs.attic.nixosModules.atticd
 
       "${args.modules}/locale.nix"
       "${args.modules}/bluetooth.nix"

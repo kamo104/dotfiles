@@ -44,6 +44,11 @@
       };
     };
   };
+  environment.systemPackages = with pkgs; [
+    attic
+    atticd
+    atticadm
+  ];
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;

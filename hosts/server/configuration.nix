@@ -37,7 +37,6 @@ in
       connect-timeout = 5;
       substituters = [
         "http://laptop.attic.internal:8080/hello"
-        # "laptop.attic.internal:8080/hello"
       ];
       trusted-public-keys = [
         "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
@@ -58,6 +57,7 @@ in
       fsType = "fuse.mergerfs";
       options = ["nofail" "category.create=lfs" "minfreespace=20G"]; # lfs makes the drives fill up in order
     };
+
     "/share/all" = {
       device = "/drives/merged/share/all";
       options = ["nofail" "bind"];
@@ -78,7 +78,7 @@ in
     enable = true;
     settings = {
       server = [ "8.8.8.8" "8.8.4.4" ];
-      # TODO: check if 10.100.0.1 is visible in openvpn
+      # TODO: check openvpn interoparability
       address = [
         # home-assistant
         "/home-assistant.kkf.internal/10.100.0.1"
@@ -125,6 +125,28 @@ in
       locations."/" = {
         proxyPass = "http://localhost:8096";
         proxyWebsockets = true;
+      };
+    };
+  };
+
+  services.atticd = {
+    enable = true;
+    settings = {
+      listen = "[::]:8080";
+      credentialsFile = "${args.secrets}/attic/atticd.env";
+      allowed-hosts = [];
+      garbage-collection = {
+        interval = "0";
+      };
+      storage = {
+        type = "local";
+        path = "/drives/merged/attic/storage";
+      };
+      chunking = {
+        nar-size-threshold = 64 * 1024; # 64 KiB
+        min-size = 16 * 1024; # 16 KiB
+        avg-size = 64 * 1024; # 64 KiB
+        max-size = 256 * 1024; # 256 KiB
       };
     };
   };

@@ -20,6 +20,10 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    attic = {
+      url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # sops-nix = {
     #   url = "github:Mic92/sops-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";

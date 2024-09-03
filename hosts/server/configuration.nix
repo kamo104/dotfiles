@@ -37,13 +37,12 @@ in
       connect-timeout = 5;
       substituters = [
         "laptop.attic.internal:8080/hello"
-        # "lan.attic.internal/main"
       ];
       trusted-public-keys = [
         "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
       ];
       netrc-file = [
-        "${args.secrets}/nix/neetrc"
+        "${args.secrets}/nix/netrc"
       ];
     };
   };

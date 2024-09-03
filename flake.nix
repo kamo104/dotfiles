@@ -20,13 +20,13 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # sops-nix = {
+    #   url = "github:Mic92/sops-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # nur.url = "github:nix-community/NUR";  
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
   nixConfig = {
     extra-substituters = [

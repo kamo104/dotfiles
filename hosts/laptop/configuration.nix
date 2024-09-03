@@ -30,7 +30,7 @@
       listen = "[::]:8080";
       allowed-hosts = [];
       garbage-collection = {
-        interval = "0";
+        interval = "0h";
       };
       # storage = {
       #   type = "local";

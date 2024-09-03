@@ -33,7 +33,7 @@ in
     ];
   nixpkgs.overlays = [ 
     # inputs.nix-minecraft.overlay 
-    inputs.attic.overlay
+    inputs.attic.overlays
   ];
   nix = {
     settings = {

@@ -31,7 +31,10 @@ in
       "${args.modules}/TShock-service.nix"
       "${args.modules}/duckdns.nix"
     ];
-  # nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
+  nixpkgs.overlays = [ 
+    # inputs.nix-minecraft.overlay 
+    inputs.attic.overlay
+  ];
   nix = {
     settings = {
       connect-timeout = 5;

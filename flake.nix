@@ -39,15 +39,17 @@
 
   outputs = { self, nixpkgs, ... } @inputs:
   let 
+    rootPath = "${self}";
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
+    secrets = "${self}/secrets";
   in
   {
     nixosConfigurations = {
       kamo-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs modules hmModules customPkgs;
+          inherit inputs modules hmModules customPkgs rootPath secrets;
           hostname = "kamo-laptop";
         };
         modules = [
@@ -56,7 +58,7 @@
       };
       kamo-server = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs modules hmModules customPkgs;
+          inherit inputs modules hmModules customPkgs rootPath secrets;
           hostname = "kamo-server";
         };
         modules = [

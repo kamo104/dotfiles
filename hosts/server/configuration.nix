@@ -36,14 +36,14 @@ in
     settings = {
       connect-timeout = 5;
       substituters = [
+        "laptop.attic.internal:8080/hello"
         # "lan.attic.internal/main"
-        "http://10.100.0.2:8080/home"
       ];
       trusted-public-keys = [
-        "home:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
       ];
       netrc-file = [
-        "/home/kamo/.config/nix/netrc"
+        "${args.secrets}/nix/neetrc"
       ];
     };
   };
@@ -67,13 +67,8 @@ in
       options = ["nofail" "bind"];
     };
   };
-  services.nfs.server = 
-  let
-    defOpts = "(rw,sync,nohide,insecure,no_subtree_check)";
-  in
-  {
+  services.nfs.server = {
     enable = true;
-      # /share  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,ro,secure,root_squash,no_all_squash,fsid=0)
     exports = ''
       /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
       /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=2)
@@ -83,14 +78,15 @@ in
     enable = true;
     settings = {
       server = [ "8.8.8.8" "8.8.4.4" ];
+      # TODO: check if 10.100.0.1 is visible in openvpn
       address = [
         # home-assistant
         "/home-assistant.kkf.internal/10.100.0.1"
         # tshock I guess
         "/tshock.kkf.internal/10.100.0.1"
-        # attic cache
-        "/wg.attic.kkf.internal/10.100.0.1"
-        "/lan.attic.kkf.internal/192.168.1.82"
+        # attic
+        "/attic.kkf.internal/10.100.0.1"
+        "/laptop.attic.internal/192.168.1.28"
         # jellyfin
         "/jellyfin.kkf.internal/10.100.0.1"
         # immich
@@ -117,13 +113,6 @@ in
       };
     };
     virtualHosts."wg.attic.kkf.internal" =  {
-      # forceSSL = true;
-      # sslCertificate =;
-      locations."/" = {
-        proxyPass = "http://localhost:8080";
-      };
-    };
-    virtualHosts."lan.attic.kkf.internal" =  {
       # forceSSL = true;
       # sslCertificate =;
       locations."/" = {

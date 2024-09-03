@@ -4,10 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland = {
-      # url = "git+https://github.com/hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       # url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=a8ab1b1679e639ef23952f1a1d0834859d1c01b7";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprpicker = {
       url = "git+https://github.com/hyprwm/hyprpicker";
@@ -21,10 +20,17 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ags.url = "github:Aylur/ags?rev=11150225e62462bcd431d1e55185e810190a730a";
+    attic = {
+      url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # sops-nix = {
+    #   url = "github:Mic92/sops-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # nur.url = "github:nix-community/NUR";  
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
   nixConfig = {
     extra-substituters = [
@@ -37,15 +43,17 @@
 
   outputs = { self, nixpkgs, ... } @inputs:
   let 
+    rootPath = "${self}";
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
+    secrets = "/home/kamo/secrets";
   in
   {
     nixosConfigurations = {
       kamo-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs modules hmModules customPkgs;
+          inherit inputs modules hmModules customPkgs rootPath secrets;
           hostname = "kamo-laptop";
         };
         modules = [
@@ -54,7 +62,7 @@
       };
       kamo-server = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs modules hmModules customPkgs;
+          inherit inputs modules hmModules customPkgs rootPath secrets;
           hostname = "kamo-server";
         };
         modules = [
@@ -63,7 +71,7 @@
       };
     };
     
-    # nix profile base system packages for non nixos systems
+    # base nix profile system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 
     let 
       pkgs = nixpkgs.legacyPackages."x86_64-linux";

@@ -21,16 +21,6 @@
     console.keyMap = "pl2";
 
     environment.systemPackages = import "${args.modules}/common-pkgs.nix" {inherit pkgs;};
-    # environment.systemPackages = with pkgs; [
-    #   helix
-    #   vim
-    #   wget
-    #   fish
-    #   fastfetch
-    #   git
-    #   wakeonlan
-    #   tree
-    # ];
     programs.fish.enable = true;
 
     users.users = lib.genAttrs config.common.users (user: {
@@ -38,7 +28,7 @@
       isNormalUser = true;
       description = "${user}";
       extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" ];
-      packages = with pkgs; [];
+      # packages = with pkgs; [];
     });
     
   };

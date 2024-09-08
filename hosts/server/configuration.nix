@@ -133,27 +133,27 @@ in
     };
   };
 
-  services.atticd = {
-    enable = true;
-    credentialsFile = "${args.secrets}/attic/atticd.env";
-    settings = {
-      listen = "[::]:8080";
-      allowed-hosts = [];
-      garbage-collection = {
-        interval = "0";
-      };
-      storage = {
-        type = "local";
-        path = "/drives/merged/attic/storage";
-      };
-      chunking = {
-        nar-size-threshold = 64 * 1024; # 64 KiB
-        min-size = 16 * 1024; # 16 KiB
-        avg-size = 64 * 1024; # 64 KiB
-        max-size = 256 * 1024; # 256 KiB
-      };
-    };
-  };
+  # services.atticd = {
+  #   enable = true;
+  #   credentialsFile = "${args.secrets}/attic/atticd.env";
+  #   settings = {
+  #     listen = "[::]:8080";
+  #     allowed-hosts = [];
+  #     garbage-collection = {
+  #       interval = "0";
+  #     };
+  #     storage = {
+  #       type = "local";
+  #       path = "/drives/merged/attic/storage";
+  #     };
+  #     chunking = {
+  #       nar-size-threshold = 64 * 1024; # 64 KiB
+  #       min-size = 16 * 1024; # 16 KiB
+  #       avg-size = 64 * 1024; # 64 KiB
+  #       max-size = 256 * 1024; # 256 KiB
+  #     };
+  #   };
+  # };
 
   # bluetooth.enable = true;
   locale.enable = true;

@@ -43,7 +43,7 @@
       nautilus
       dconf-editor
       gnome-font-viewer
-      gnome.gnome-control-center
+      gnome-control-center
       file-roller
       gnome-disk-utility
       loupe

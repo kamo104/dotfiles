@@ -157,20 +157,20 @@
         }
       ];
     };
-    # wg0 = {
-    #   address = [ "10.100.1.2/23" ];
-    #   listenPort = 42069;
-    #   privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-    #   dns = ["10.100.0.1"];
-    #   peers = [
-    #     {
-    #       publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-    #       allowedIPs = [ "10.100.0.0/23" ];
-    #       endpoint = "grzymoserver.duckdns.org:42069";
-    #       persistentKeepalive = 25;
-    #     }
-    #   ];
-    # };
+    wg0 = {
+      address = [ "10.100.1.2/23" ];
+      listenPort = 42069;
+      privateKeyFile = "${args.secrets}/wg-keys/internal/private";
+      dns = ["10.100.0.1"];
+      peers = [
+        {
+          publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
+          allowedIPs = [ "10.100.0.0/23" ];
+          endpoint = "grzymoserver.duckdns.org:42069";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
   };
 
   system.stateVersion = "23.11";

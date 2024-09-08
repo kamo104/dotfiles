@@ -52,7 +52,7 @@
     # services.dbus.packages = with pkgs; [ dconf hypridle ];
 
     services.udev.packages = with pkgs; [ 
-      gnome.gnome-settings-daemon 
+      gnome-settings-daemon 
     ];
 
     

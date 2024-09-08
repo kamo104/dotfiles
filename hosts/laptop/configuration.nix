@@ -145,20 +145,30 @@
   networking.firewall.allowedUDPPorts = [ 42069 ]; # wireguard 
 
   networking.wg-quick.interfaces = {
-    wg0 = {
-      address = [ "10.100.1.2/23" ];
-      listenPort = 42069;
-      privateKeyFile = "/home/kamo/wg-keys/private";
-      dns = ["10.100.0.1"];
+    wg1 = {
+      address = [ "10.71.248.192/32" ];
+      privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       peers = [
         {
-          publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/23" ];
-          endpoint = "grzymoserver.duckdns.org:42069";
-          persistentKeepalive = 25;
+          publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
+          endpoint = "se-mma-wg-001.relays.mullvad.net";
         }
       ];
     };
+    # wg0 = {
+    #   address = [ "10.100.1.2/23" ];
+    #   listenPort = 42069;
+    #   privateKeyFile = "${args.secrets}/wg-keys/internal/private";
+    #   dns = ["10.100.0.1"];
+    #   peers = [
+    #     {
+    #       publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
+    #       allowedIPs = [ "10.100.0.0/23" ];
+    #       endpoint = "grzymoserver.duckdns.org:42069";
+    #       persistentKeepalive = 25;
+    #     }
+    #   ];
+    # };
   };
 
   system.stateVersion = "23.11";

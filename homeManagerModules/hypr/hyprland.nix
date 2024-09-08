@@ -20,7 +20,7 @@
     };
     services.hypridle = 
     let 
-      video = "/home/kamo/Videos/out-run.mov";
+      video = "/home/kamo/Videos/out.mov";
       br-file = "/tmp/br-file";
       mpv-cmd = "${pkgs.mpv}/bin/mpv --fs --loop ${video} --hwdec=auto --taskbar-progress=no --stop-screensaver=no";
 

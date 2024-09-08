@@ -1,10 +1,10 @@
 { inputs, config, osConfig, pkgs, lib, ... } @args:
 {
   imports = [ 
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
     "${args.hmModules}/hypr/hyprland.nix"
 
-    inputs.ags.homeManagerModules.default
+    # inputs.ags.homeManagerModules.default
     "${args.hmModules}/ags/ags.nix"
 
     "${args.hmModules}/kitty/kitty.nix"

@@ -202,13 +202,23 @@ in
   #   "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
   # };
-
-  networking.wireguard.interfaces = {
+  networking.wg-quick.interfaces = {
+    wg1 = {
+      address = [ "10.67.130.19/32" ];
+      privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
+      dns = [ "10.64.0.1" ];
+      peers = [
+        {
+          publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
+          endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
+          allowedIPs = [ "10.64.0.1/32" ];
+        }
+      ];
+    };
     wg0 = {
-      ips = [ "10.100.0.1/23" ];
+      address = [ "10.100.0.1/23" ];
       listenPort = 42069;
-
-      privateKeyFile = "/home/kamo/wg-keys/private";
+      privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
@@ -233,7 +243,6 @@ in
       ];
     };
   };
-
 
   services.murmur = {
     enable = true;

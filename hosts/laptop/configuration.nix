@@ -4,7 +4,7 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      inputs.hyprland.nixosModules.default
+      # inputs.hyprland.nixosModules.default
       inputs.attic.nixosModules.atticd
 
       "${args.modules}/hyprland.nix"

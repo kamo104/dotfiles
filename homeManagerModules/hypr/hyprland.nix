@@ -10,9 +10,9 @@
   # ];
 
   config = lib.mkIf config.hyprlandHM.enable {
-    nixpkgs.overlays = [
-      inputs.hyprpicker.overlays.default
-    ];
+    # nixpkgs.overlays = [
+    #   inputs.hyprpicker.overlays.default
+    # ];
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;

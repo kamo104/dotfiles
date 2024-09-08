@@ -116,7 +116,7 @@ in
         proxyWebsockets = true;
       };
     };
-    virtualHosts."wg.attic.kkf.internal" =  {
+    virtualHosts."attic.kkf.internal" =  {
       # forceSSL = true;
       # sslCertificate =;
       locations."/" = {

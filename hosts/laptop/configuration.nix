@@ -148,6 +148,7 @@
     wg1 = {
       address = [ "10.71.248.192/32" ];
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
+      mtu = 1280;
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";

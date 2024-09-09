@@ -32,7 +32,6 @@
       vlc
       vcmi
       moonlight-qt
-      deluge
       blender
       thunderbird
 

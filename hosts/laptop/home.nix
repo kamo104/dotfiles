@@ -38,7 +38,8 @@
     android-studio
     # platformio
     vscode
-    transmission_4-qt6
+    # transmission_4-qt6
+    deluge
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

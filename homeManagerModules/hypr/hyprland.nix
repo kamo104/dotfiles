@@ -30,7 +30,7 @@
 
       ac-monitor = pkgs.writeShellScriptBin "ac-monitor.sh" ''
         #!/usr/bin/env bash
-        dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',path='/org/freedesktop/UPower/devices/line_power_AC'" | stdbuf -oL egrep "variant\ *boolean" | stdbuf -oL tr -s ' ' | stdbuf -oL cut -d ' ' -f 4 | while read boolean; do
+        dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',path='/org/freedesktop/UPower/devices/line_power_ACAD'" | stdbuf -oL egrep "variant\ *boolean" | stdbuf -oL tr -s ' ' | stdbuf -oL cut -d ' ' -f 4 | while read boolean; do
           if [ "$boolean" = "true" ]; then
             dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /org/freedesktop/ScreenSaver org.freedesktop.ScreenSaver.Inhibit string:"ac-inhibit" string:"ac-connected"
           fi
@@ -60,7 +60,9 @@
         #!/usr/bin/env bash
         BR=$(cat "${br-file}")
         rm "${br-file}"
+
         pkill -f "${br-anim}/bin/br-anim.sh"
+
         ${br-anim}/bin/br-anim.sh $BR 10 & disown
       '';
       on-pause = pkgs.writeShellScriptBin "on-pause.sh" ''
@@ -68,7 +70,9 @@
         if [ ! -e "${br-file}" ]; then
           brightnessctl g > "${br-file}";
         fi
+
         pkill -f "${br-anim}/bin/br-anim.sh"
+
         ${br-anim}/bin/br-anim.sh 0 2 & disown
       '';
     in

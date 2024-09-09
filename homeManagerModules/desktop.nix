@@ -109,38 +109,38 @@
     xdg.mimeApps = {
       enable = true;
       associations.added = {
-        "x-scheme-handler/chrome"="firefox";
-        "application/x-extension-htm"="firefox";
-        "application/x-extension-html"="firefox";
-        "application/x-extension-shtml"="firefox";
-        "application/xhtml+xml"="firefox";
-        "application/x-extension-xhtml"="firefox";
-        "application/x-extension-xht"="firefox";
+        "x-scheme-handler/chrome"="firefox.desktop";
+        "application/x-extension-htm"="firefox.desktop";
+        "application/x-extension-html"="firefox.desktop";
+        "application/x-extension-shtml"="firefox.desktop";
+        "application/xhtml+xml"="firefox.desktop";
+        "application/x-extension-xhtml"="firefox.desktop";
+        "application/x-extension-xht"="firefox.desktop";
 
-        "application/pdf" = "firefox";
-        "text/html" = "firefox";
-        "x-scheme-handler/http" = "firefox";
-        "x-scheme-handler/https" = "firefox";
-        "x-scheme-handler/about" = "firefox";
-        "x-scheme-handler/unknown" = "firefox";
-        "x-scheme-handler/md" = "firefox";
+        "application/pdf" = "firefox.desktop";
+        "text/html" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/unknown" = "firefox.desktop";
+        "x-scheme-handler/md" = "firefox.desktop";
       };
       defaultApplications = {
-        "x-scheme-handler/chrome"="firefox";
-        "application/x-extension-htm"="firefox";
-        "application/x-extension-html"="firefox";
-        "application/x-extension-shtml"="firefox";
-        "application/xhtml+xml"="firefox";
-        "application/x-extension-xhtml"="firefox";
-        "application/x-extension-xht"="firefox";
+        "x-scheme-handler/chrome"="firefox.desktop";
+        "application/x-extension-htm"="firefox.desktop";
+        "application/x-extension-html"="firefox.desktop";
+        "application/x-extension-shtml"="firefox.desktop";
+        "application/xhtml+xml"="firefox.desktop";
+        "application/x-extension-xhtml"="firefox.desktop";
+        "application/x-extension-xht"="firefox.desktop";
 
-        "application/pdf" = "firefox";
-        "text/html" = "firefox";
-        "x-scheme-handler/http" = "firefox";
-        "x-scheme-handler/https" = "firefox";
-        "x-scheme-handler/about" = "firefox";
-        "x-scheme-handler/unknown" = "firefox";
-        "x-scheme-handler/md" = "firefox";
+        "application/pdf" = "firefox.desktop";
+        "text/html" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/unknown" = "firefox.desktop";
+        "x-scheme-handler/md" = "firefox.desktop";
       };
     };
     gtk = {

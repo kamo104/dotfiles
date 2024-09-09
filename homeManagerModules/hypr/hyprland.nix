@@ -28,6 +28,15 @@
       br-file = "/tmp/br-file";
       mpv-cmd = "${pkgs.mpv}/bin/mpv --fs --loop ${video} --hwdec=auto --taskbar-progress=no --stop-screensaver=no";
 
+      ac-monitor = pkgs.writeShellScriptBin "ac-monitor.sh" ''
+        #!/usr/bin/env bash
+        dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',path='/org/freedesktop/UPower/devices/line_power_AC'" | stdbuf -oL egrep "variant\ *boolean" | stdbuf -oL tr -s ' ' | stdbuf -oL cut -d ' ' -f 4 | while read boolean; do
+          if [ "$boolean" = "true" ]; then
+            dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /org/freedesktop/ScreenSaver org.freedesktop.ScreenSaver.Inhibit string:"ac-inhibit" string:"ac-connected"
+          fi
+        done
+      '';
+
       on-lock = pkgs.writeShellScriptBin "on-lock.sh" ''
         #!/usr/bin/env bash
         if [ $(pgrep -f "${mpv-cmd}") ]; then

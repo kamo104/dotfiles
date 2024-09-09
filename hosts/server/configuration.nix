@@ -233,10 +233,10 @@ in
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.0.4/32" "10.100.1.4/32" ];
         }
-        # { # work-laptop
-        #   publicKey = "xajjnlHmodUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
-        #   allowedIPs = [ "10.100.0.6/32" ];
-        # }
+        { # work-laptop
+          publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
+          allowedIPs = [ "10.100.0.6/32" ];
+        }
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.0.69/32" ];

@@ -141,8 +141,8 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ ];
-  networking.firewall.allowedUDPPorts = [ 1900 42069 ]; # wireguard 
+  networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
+  networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   networking.wg-quick.interfaces = {
     wg1 = {

@@ -23,7 +23,7 @@
     bear
     wl-clipboard
     tshark
-    # python312Packages.python-lsp-server
+    python312Packages.python-lsp-server
     python312Packages.python-lsp-ruff
   ];
  

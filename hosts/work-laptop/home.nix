@@ -23,7 +23,7 @@
     bear
     wl-clipboard
     tshark
-    # qpwgraph
+    python312Packages.python-lsp-server
   ];
  
 

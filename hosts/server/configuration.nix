@@ -81,8 +81,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      # server = [ "8.8.8.8" "8.8.4.4" ];
-      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8"];
+      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8" ];
       # TODO: check openvpn interoparability
       address = [
         # home-assistant
@@ -217,6 +216,7 @@ in
     # };
     wg1 = {
       address = [ "10.67.130.19/32" ];
+      listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
       peers = [
@@ -274,7 +274,7 @@ in
 
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 ]; # dns, http, nfs rpc, https, nfs
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 ]; # dns, nfs rpc, nfs rpc, nfs, wireguard
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 42070]; # dns, nfs rpc, nfs rpc, nfs, wireguard
 
   system.stateVersion = "23.11";
 }

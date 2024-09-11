@@ -142,11 +142,11 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
-  networking.firewall.allowedUDPPorts = [ 1900 6881 ]; # upnp, deluge, wireguard 
+  networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.100.0.2/23" ];
+      address = [ "10.100.1.2/23" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];

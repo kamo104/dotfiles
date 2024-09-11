@@ -81,7 +81,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      server = [ "10.64.0.1" ];
+      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8" ];
       # TODO: check openvpn interoparability
       address = [
         # home-assistant

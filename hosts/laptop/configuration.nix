@@ -149,7 +149,8 @@
       address = [ "10.71.248.192/32" ];
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      # dns = [ "10.64.0.1" ];
+      mtu = 1280;
+      dns = [ "10.64.0.1" ];
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
@@ -162,7 +163,8 @@
       address = [ "10.100.0.2/23" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      dns = ["10.100.0.1"];
+      mtu = 1280;
+      # dns = ["10.100.0.1"];
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

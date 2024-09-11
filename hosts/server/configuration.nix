@@ -82,7 +82,7 @@ in
     enable = true;
     settings = {
       # server = [ "8.8.8.8" "8.8.4.4" ];
-      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8"];
+      server = [ "10.64.0.1"];
       # TODO: check openvpn interoparability
       address = [
         # home-assistant

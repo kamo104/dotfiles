@@ -142,13 +142,14 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
-  networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
+  networking.firewall.allowedUDPPorts = [ 1900 6881 42069 42070 ]; # upnp, deluge, wireguard 
 
   networking.wg-quick.interfaces = {
     wg1 = {
       address = [ "10.71.248.192/32" ];
+      listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      dns = [ "10.64.0.1" ];
+      # dns = [ "10.64.0.1" ];
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
@@ -159,7 +160,7 @@
     };
     wg0 = {
       address = [ "10.100.1.2/23" ];
-      # listenPort = 42069;
+      listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];
       peers = [

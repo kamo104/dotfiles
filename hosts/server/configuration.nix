@@ -82,7 +82,7 @@ in
     enable = true;
     settings = {
       # server = [ "8.8.8.8" "8.8.4.4" ];
-      server = [ "10.64.0.1" ];
+      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8"];
       # TODO: check openvpn interoparability
       address = [
         # home-assistant
@@ -196,14 +196,25 @@ in
 
   networking.nat = {
     enable = true;
-    externalInterface = "ens18";
-    internalInterfaces = [ "wg0" ];
+    # externalInterface = "ens18";
+    # internalInterfaces = [ "wg0" ];
   };
   # boot.kernel.sysctl = {
   #   "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
   # };
   networking.wg-quick.interfaces = {
+    # wg2 = {
+    #   address = [ "10.100.100.1/24" ];
+    #   listenPort = 42070;
+    #   privateKeyFile = "${args.secrets}/wg-keys/vpn/private";
+    #   peers = [
+    #     { # laptop
+    #       publicKey = "";
+    #       allowedIPs = [ "10.100.100.2/32" ];
+    #     }
+    #   ];
+    # };
     wg1 = {
       address = [ "10.67.130.19/32" ];
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
@@ -224,7 +235,7 @@ in
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
           allowedIPs = [ "10.100.0.2/32" "10.100.1.2/32" ];
-        } 
+        }
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
           allowedIPs = [ "10.100.0.3/32" "10.100.1.3/32" ];

@@ -145,26 +145,26 @@
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 42070 ]; # upnp, deluge, wireguard 
 
   networking.wg-quick.interfaces = {
-    wg1 = {
-      address = [ "10.71.248.192/32" ];
-      listenPort = 42070;
-      privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      mtu = 1280;
-      dns = [ "10.64.0.1" ];
-      peers = [
-        {
-          publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
-          endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-          allowedIPs = [ "0.0.0.0/0" ];
-        }
-      ];
-    };
+    # wg1 = {
+    #   address = [ "10.71.248.192/32" ];
+    #   listenPort = 42070;
+    #   privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
+    #   mtu = 1280;
+    #   dns = [ "10.64.0.1" ];
+    #   peers = [
+    #     {
+    #       publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
+    #       endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
+    #       allowedIPs = [ "0.0.0.0/0" ];
+    #     }
+    #   ];
+    # };
     wg0 = {
       address = [ "10.100.0.2/23" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       mtu = 1280;
-      # dns = ["10.100.0.1"];
+      dns = ["10.100.0.1"];
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

@@ -145,18 +145,6 @@
   networking.firewall.allowedUDPPorts = [ 1900 6881 ]; # upnp, deluge, wireguard 
 
   networking.wg-quick.interfaces = {
-    # wg1 = {
-    #   address = [ "10.71.248.192/32" ];
-    #   listenPort = 42070;
-    #   privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-    #   peers = [
-    #     {
-    #       publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
-    #       endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-    #       allowedIPs = [ "0.0.0.0/0" ];
-    #     }
-    #   ];
-    # };
     wg0 = {
       address = [ "10.100.0.2/23" ];
       listenPort = 42069;
@@ -168,6 +156,18 @@
           allowedIPs = [ "10.100.0.0/23" ];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
+        }
+      ];
+    };
+    wg1 = {
+      address = [ "10.71.248.192/32" ];
+      listenPort = 42070;
+      privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
+      peers = [
+        {
+          publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
+          endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
+          allowedIPs = [ "0.0.0.0/0" ];
         }
       ];
     };

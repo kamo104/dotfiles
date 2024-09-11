@@ -148,7 +148,6 @@
     wg1 = {
       address = [ "10.71.248.192/32" ];
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      # mtu = 1280;
       dns = [ "10.64.0.1" ];
       peers = [
         {
@@ -160,7 +159,7 @@
     };
     wg0 = {
       address = [ "10.100.1.2/23" ];
-      listenPort = 42069;
+      # listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];
       peers = [

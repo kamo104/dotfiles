@@ -85,7 +85,6 @@ in
       # TODO: check openvpn interoparability
       address = [
         # home-assistant
-        "/home-assistant.kkf.internal/10.100.0.1"
         "/home-assistant.internal/10.100.0.1"
         # tshock I guess
         "/tshock.kkf.internal/10.100.0.1"
@@ -110,7 +109,7 @@ in
     enable = true;
     user = "nginx";
     group = "nginx";
-    # recommendedProxySettings = true;
+    recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     virtualHosts."home-assistant.internal" =  {
       forceSSL = true;

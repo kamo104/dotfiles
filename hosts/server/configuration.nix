@@ -110,7 +110,8 @@ in
     recommendedTlsSettings = true;
     virtualHosts."home-assistant.kkf.internal" =  {
       # forceSSL = true;
-      # sslCertificate =;
+      onlySSL = true;
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
         proxyWebsockets = true;
@@ -118,6 +119,7 @@ in
     };
     virtualHosts."attic.kkf.internal" =  {
       # forceSSL = true;
+      # onlySSL = true;
       # sslCertificate =;
       locations."/" = {
         proxyPass = "http://localhost:8080";

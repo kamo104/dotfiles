@@ -203,21 +203,10 @@ in
   #   "net.ipv6.conf.all.forwarding" = true;
   # };
   networking.wg-quick.interfaces = {
-    # wg2 = {
-    #   address = [ "10.100.100.1/24" ];
-    #   listenPort = 42070;
-    #   privateKeyFile = "${args.secrets}/wg-keys/vpn/private";
-    #   peers = [
-    #     { # laptop
-    #       publicKey = "";
-    #       allowedIPs = [ "10.100.100.2/32" ];
-    #     }
-    #   ];
-    # };
     wg1 = {
       address = [ "10.67.130.19/32" ];
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      dns = [ "10.64.0.1" ];
+      # dns = [ "10.64.0.1" ];
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
@@ -227,7 +216,7 @@ in
       ];
     };
     wg0 = {
-      address = [ "10.100.0.1/23" ];
+      address = [ "10.100.0.1/16" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       peers = [

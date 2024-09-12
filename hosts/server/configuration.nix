@@ -86,6 +86,7 @@ in
       address = [
         # home-assistant
         "/home-assistant.kkf.internal/10.100.0.1"
+        "/home-assistant.internal/10.100.0.1"
         # tshock I guess
         "/tshock.kkf.internal/10.100.0.1"
         # attic
@@ -111,11 +112,11 @@ in
     group = "nginx";
     # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
-    virtualHosts."home-assistant.kkf.internal" =  {
+    virtualHosts."home-assistant.internal" =  {
       forceSSL = true;
       # onlySSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/home-assistant.kkf.internal.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/home-assistant.kkf.internal.key";
+      sslCertificate ="${args.secrets}/pki/issued/ha.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/ha.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";

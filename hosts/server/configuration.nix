@@ -113,7 +113,7 @@ in
     user = "nginx";
     group = "nginx";
     recommendedProxySettings = true;
-    recommendedTlsSettings = true;
+    # recommendedTlsSettings = true;
     virtualHosts."home-assistant.kkf.internal" =  {
       forceSSL = true;
       # onlySSL = true;

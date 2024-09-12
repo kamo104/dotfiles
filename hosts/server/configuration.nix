@@ -104,14 +104,14 @@ in
       ];
     };
   };
+  systemd.services.nginx.serviceConfig = {
+    ReadWritePaths = [ "${args.secrets}/nginx" ];
+    ProtectHome = false;
+  };
   services.nginx = {
     enable = true;
     user = "nginx";
     group = "nginx";
-    serviceConfig = {
-      ReadWritePaths = [ "${args.secrets}/nginx" ];
-      ProtectHome = false;
-    };
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."home-assistant.kkf.internal" =  {

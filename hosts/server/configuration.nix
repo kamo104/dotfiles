@@ -104,10 +104,7 @@ in
       ];
     };
   };
-  # systemd.services.nginx.serviceConfig = {
-  #   ReadWritePaths = [ "${args.secrets}/nginx" ];
-  #   # ProtectHome = false;
-  # };
+  security.pki.certificateFiles = [ "${args.secrets}/pki/ca.crt" ];
   services.nginx = {
     enable = true;
     user = "nginx";

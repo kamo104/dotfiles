@@ -111,8 +111,8 @@ in
     virtualHosts."home-assistant.kkf.internal" =  {
       # forceSSL = true;
       onlySSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      sslCertificate ="${args.secrets}/nginx/kkf.crt";
+      sslCertificateKey ="${args.secrets}/nginx/kkf.key";
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
         proxyWebsockets = true;
@@ -177,12 +177,23 @@ in
   services.jellyfin = {
     enable = true;
   };
-  users.groups = {nfs={gid=992;members=["kamo" "jellyfin"];};};
-  users.users = {
-    jellyfin = {
-      isSystemUser = true;
-      group = "jellyfin";
-      description = "jellyfin";
+  users = {
+    groups = {
+      services = {
+        members = [ "nginx" ];
+      };
+    };
+    users = {
+      jellyfin = {
+        isSystemUser = true;
+        group = "jellyfin";
+        description = "jellyfin";
+      };
+      nginx = {
+        isSystemUser = true;
+        group = "nginx";
+        description = "nginx";
+      };
     };
   };
 

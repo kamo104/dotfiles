@@ -236,29 +236,32 @@ in
       ];
     };
     wg0 = {
+      # 10.100.0.*   - server addresses
+      # 10.100.1.*   - kamo
+      # 10.100.2.*   - public shares
       address = [ "10.100.0.1/16" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
-          allowedIPs = [ "10.100.0.2/32" "10.100.1.2/32" ];
+          allowedIPs = [ "10.100.1.2/32" ];
         }
         { # phone
           publicKey = "7AEcF85PHwIStLUlOxDIz5b2DztG2M+FDjWEiSN8zT8=";
-          allowedIPs = [ "10.100.0.3/32" "10.100.1.3/32" ];
+          allowedIPs = [ "10.100.1.3/32" ];
         }
         { # desktop
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
-          allowedIPs = [ "10.100.0.4/32" "10.100.1.4/32" ];
+          allowedIPs = [ "10.100.1.4/32" ];
         }
         { # work-laptop
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
-          allowedIPs = [ "10.100.0.6/32" ];
+          allowedIPs = [ "10.100.2.6/32" ];
         }
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
-          allowedIPs = [ "10.100.0.69/32" ];
+          allowedIPs = [ "10.100.2.69/32" ];
         }
       ];
     };

@@ -85,7 +85,7 @@ in
       # TODO: check openvpn interoparability
       address = [
         # home-assistant
-        "/home-assistant.internal/10.100.0.1"
+        "/home-assistant.kkf.internal/10.100.0.1"
         # tshock I guess
         "/tshock.kkf.internal/10.100.0.1"
         # attic
@@ -111,11 +111,10 @@ in
     group = "nginx";
     recommendedProxySettings = true;
     # recommendedTlsSettings = true;
-    virtualHosts."home-assistant.internal" =  {
+    virtualHosts."home-assistant.kkf.internal" =  {
       forceSSL = true;
-      # onlySSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/ha.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/ha.key";
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
@@ -123,16 +122,19 @@ in
       };
     };
     virtualHosts."attic.kkf.internal" =  {
-      # forceSSL = true;
-      # onlySSL = true;
-      # sslCertificate =;
+      forceSSL = true;
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://localhost:8080";
       };
     };
     virtualHosts."jellyfin.kkf.internal" =  {
-      # forceSSL = true;
-      # sslCertificate =;
+      forceSSL = true;
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://localhost:8096";
         proxyWebsockets = true;

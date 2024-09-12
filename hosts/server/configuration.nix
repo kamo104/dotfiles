@@ -106,6 +106,7 @@ in
   };
   services.nginx = {
     enable = true;
+    user = "root";
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."home-assistant.kkf.internal" =  {

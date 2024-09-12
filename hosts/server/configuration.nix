@@ -104,10 +104,10 @@ in
       ];
     };
   };
-  systemd.services.nginx.serviceConfig = {
-    ReadWritePaths = [ "${args.secrets}/nginx" ];
-    # ProtectHome = false;
-  };
+  # systemd.services.nginx.serviceConfig = {
+  #   ReadWritePaths = [ "${args.secrets}/nginx" ];
+  #   # ProtectHome = false;
+  # };
   services.nginx = {
     enable = true;
     user = "nginx";

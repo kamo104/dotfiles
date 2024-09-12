@@ -47,7 +47,7 @@
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
-    secrets = "/home/secrets";
+    secrets = "/etc/secrets";
   in
   {
     nixosConfigurations = {

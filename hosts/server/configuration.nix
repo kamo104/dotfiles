@@ -112,6 +112,7 @@ in
       # forceSSL = true;
       onlySSL = true;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
         proxyWebsockets = true;

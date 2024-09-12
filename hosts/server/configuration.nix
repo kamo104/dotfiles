@@ -115,10 +115,11 @@ in
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."home-assistant.kkf.internal" =  {
-      # forceSSL = true;
-      onlySSL = true;
-      sslCertificate ="${args.secrets}/nginx/kkf.crt";
-      sslCertificateKey ="${args.secrets}/nginx/kkf.key";
+      forceSSL = true;
+      # onlySSL = true;
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://192.168.1.98:8123";
         proxyWebsockets = true;

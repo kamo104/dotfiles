@@ -104,8 +104,7 @@ in
       ];
     };
   };
-  # security.pki.certificateFiles = [ (builtins.toPath "${args.secrets}/pki/ca.crt") ];
-  security.pki.certificates = [ (builtins.readFile "${args.secrets}/pki/ca.crt") ];
+  security.pki.certificateFiles = [ (builtins.toPath "${builtins.toString args.secrets}/pki/ca.crt") ];
   services.nginx = {
     enable = true;
     user = "nginx";

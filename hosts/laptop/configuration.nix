@@ -90,6 +90,8 @@
   #   '';
   # };
 
+  security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
+
   fileSystems = {
     "/mnt/kkf" = {
       device = "nfs.kkf.internal:/share";

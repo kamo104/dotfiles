@@ -104,8 +104,8 @@ in
       ];
     };
   };
-  security.pki.certificateFiles = [ "/etc/secrets/pki/ca.crt" ];
-  # security.pki.certificateFiles = [ "${args.secrets}/pki/ca.crt" ];
+  # security.pki.certificateFiles = [ "/etc/secrets/pki/ca.crt" ];
+  security.pki.certificateFiles = [ (/. + "${args.secrets}/pki/ca.crt") ];
   services.nginx = {
     enable = true;
     user = "nginx";

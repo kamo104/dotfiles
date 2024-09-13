@@ -249,14 +249,14 @@ in
       address = [ "10.100.0.1/20" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      # postUp = ''
-      #   ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-      #   ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/20 -o ens18 -j MASQUERADE
-      # '';
-      # postDown = ''
-      #   ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
-      #   ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/20 -o ens18 -j MASQUERADE
-      # '';
+      postUp = ''
+        ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/20 -o ens18 -j MASQUERADE
+      '';
+      postDown = ''
+        ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/20 -o ens18 -j MASQUERADE
+      '';
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";

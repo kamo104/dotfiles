@@ -217,9 +217,9 @@ in
     enable = true;
     rttablesExtraConfig = ''
       200 wg1_table
-      201 wg0_table
     '';
   };
+  networking.firewall.logRefusedConnections = true;
   networking.nat = {
     enable = true;
     # externalInterface = "ens18";

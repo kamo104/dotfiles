@@ -219,14 +219,11 @@ in
       200 wg1_table
     '';
   };
-  networking.firewall.logRefusedConnections = true;
-  networking.firewall.logRefusedPackets = true;
-  networking.firewall.logReversePathDrops = true;
-  networking.nat = {
-    enable = true;
-    # externalInterface = "ens18";
-    # internalInterfaces = [ "wg0" ];
-  };
+  # networking.nat = {
+  #   enable = true;
+  #   # externalInterface = "ens18";
+  #   # internalInterfaces = [ "wg0" ];
+  # };
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
@@ -238,6 +235,18 @@ in
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
       table = "off";
+      postUp = ''
+        ip route add default dev wg1 table wg1_table
+        ip route add 10.100.0.0/20 dev wg0 table wg1_table
+        ip rule add from 10.100.0.0/20 lookup wg1_table
+        ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
+      '';
+      postDown = ''
+        ip route del default dev wg1 table wg1_table
+        ip route del 10.100.0.0/20 dev wg0 table wg1_table
+        ip rule del from 10.100.0.0/20 lookup wg1_table
+        ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
+      '';
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";

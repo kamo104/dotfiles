@@ -228,12 +228,13 @@ in
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
+      Table = "off";
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
           endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-          allowedIPs = [ "10.64.0.1/32" "8.8.8.8/32"];
-          # allowedIPs = [ "0.0.0.0/0" ];
+          # allowedIPs = [ "10.64.0.1/32" "8.8.8.8/32"];
+          allowedIPs = [ "0.0.0.0/0" ];
         }
       ];
     };

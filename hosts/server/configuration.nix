@@ -213,11 +213,11 @@ in
     };
   };
 
-  networking.nat = {
-    enable = true;
-    externalInterface = "wg1";
-    internalInterfaces = [ "wg0" ];
-  };
+  # networking.nat = {
+  #   enable = true;
+  #   externalInterface = "ens18";
+  #   internalInterfaces = [ "wg0" ];
+  # };
   # boot.kernel.sysctl = {
   #   "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;

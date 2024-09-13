@@ -148,14 +148,29 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.100.1.2/16" ];
+      address = [ "10.100.1.2/20" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/16" ];
+          allowedIPs = [ "10.100.0.0/20" ];
+          endpoint = "grzymoserver.duckdns.org:42069";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+    wg1 = {
+      autostart = false;
+      address = [ "10.100.1.2/32" ];
+      listenPort = 42070;
+      privateKeyFile = "${args.secrets}/wg-keys/internal/private";
+      dns = ["10.100.0.1"];
+      peers = [
+        {
+          publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
+          allowedIPs = [ "0.0.0.0/0" ];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }

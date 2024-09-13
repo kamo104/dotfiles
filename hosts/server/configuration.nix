@@ -225,6 +225,7 @@ in
   networking.wg-quick.interfaces = {
     wg1 = {
       address = [ "10.67.130.19/32" ];
+      listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
       peers = [
@@ -299,7 +300,7 @@ in
 
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 ]; # dns, http, nfs rpc, https, nfs
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 ]; # dns, nfs rpc, nfs, wireguard
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 42070 ]; # dns, nfs rpc, nfs, wireguard
 
   system.stateVersion = "23.11";
 }

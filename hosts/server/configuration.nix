@@ -215,7 +215,7 @@ in
 
   networking.nat = {
     enable = true;
-    externalInterface = "wg1";
+    externalInterface = "ens18";
     internalInterfaces = [ "wg0" ];
   };
   # boot.kernel.sysctl = {
@@ -232,8 +232,8 @@ in
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
           endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-          # allowedIPs = [ "10.64.0.1/32" ];
-          allowedIPs = [ "0.0.0.0/0" ];
+          allowedIPs = [ "10.64.0.1/32" ];
+          # allowedIPs = [ "0.0.0.0/0" ];
         }
       ];
     };

@@ -221,6 +221,7 @@ in
   };
   networking.firewall.logRefusedConnections = true;
   networking.firewall.logRefusedPackets = true;
+  networking.firewall.logReversePathDrops = true;
   networking.nat = {
     enable = true;
     # externalInterface = "ens18";

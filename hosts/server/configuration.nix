@@ -228,7 +228,7 @@ in
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
-      Table = "off";
+      table = "off";
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";

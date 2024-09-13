@@ -215,7 +215,7 @@ in
 
   networking.nat = {
     enable = true;
-    externalInterface = "ens18";
+    externalInterface = "wg1";
     internalInterfaces = [ "wg0" ];
   };
   boot.kernel.sysctl = {

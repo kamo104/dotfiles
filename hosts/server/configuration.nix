@@ -213,6 +213,12 @@ in
     };
   };
 
+  networking.iproute2 = {
+    enable = true;
+    rttablesExtraConfig = ''
+      200 wg1_table
+    '';
+  };
   networking.nat = {
     enable = true;
     # externalInterface = "ens18";
@@ -233,7 +239,6 @@ in
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
           endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-          # allowedIPs = [ "10.64.0.1/32" "8.8.8.8/32"];
           allowedIPs = [ "0.0.0.0/0" ];
         }
       ];

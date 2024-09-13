@@ -213,15 +213,15 @@ in
     };
   };
 
-  # networking.nat = {
-  #   enable = true;
-  #   externalInterface = "ens18";
-  #   internalInterfaces = [ "wg0" ];
-  # };
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.all.forwarding" = true;
-    # "net.ipv6.conf.all.forwarding" = true;
+  networking.nat = {
+    enable = true;
+    externalInterface = "wg1";
+    internalInterfaces = [ "wg0" ];
   };
+  # boot.kernel.sysctl = {
+  #   "net.ipv4.conf.all.forwarding" = true;
+  #   "net.ipv6.conf.all.forwarding" = true;
+  # };
   networking.wg-quick.interfaces = {
     wg1 = {
       address = [ "10.67.130.19/32" ];

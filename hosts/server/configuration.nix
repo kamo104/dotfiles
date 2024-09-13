@@ -231,7 +231,8 @@ in
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
           endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-          allowedIPs = [ "10.64.0.1/32" ];
+          # allowedIPs = [ "10.64.0.1/32" ];
+          allowedIPs = [ "0.0.0.0/0" ];
         }
       ];
     };

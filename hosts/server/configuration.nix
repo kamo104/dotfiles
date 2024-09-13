@@ -236,12 +236,25 @@ in
       ];
     };
     wg0 = {
+      # 10.100.0-127.*   - wireguard
+      # 10.100.128-255.* - ovpn
       # 10.100.0.*   - server addresses
       # 10.100.1.*   - kamo
-      # 10.100.2.*   - public shares
-      address = [ "10.100.0.1/16" ];
+      # 10.100.11.*  - ola
+      # 10.100.12.*  - kacper
+      # 10.100.13.*  - filip
+      # 10.100.100.* - public
+      address = [ "10.100.0.1/20" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
+      postUp = ''
+        ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.1/20 -o wg1 -j MASQUERADE
+      '';
+      postDown = ''
+        ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.1/20 -o wg1 -j MASQUERADE
+      '';
       peers = [
         { # laptop
           publicKey = "ryK75fBpqS2coBrAmBRFrJAGxsXLhNsU9DOhk8mWzGc=";
@@ -261,7 +274,7 @@ in
         }
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
-          allowedIPs = [ "10.100.2.69/32" ];
+          allowedIPs = [ "10.100.12.69/32" ];
         }
       ];
     };
@@ -285,7 +298,7 @@ in
 
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 ]; # dns, http, nfs rpc, https, nfs
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 ]; # dns, nfs rpc, nfs rpc, nfs, wireguard
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 ]; # dns, nfs rpc, nfs, wireguard
 
   system.stateVersion = "23.11";
 }

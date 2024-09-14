@@ -23,6 +23,21 @@
       "${args.modules}/sunshine.nix"
     ];
 
+
+  nix = {
+    settings = {
+      connect-timeout = 5;
+      substituters = [
+        "http://laptop.attic.internal:8080/hello"
+      ];
+      trusted-public-keys = [
+        "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+      ];
+      netrc-file = [
+        "${args.secrets}/nix/netrc"
+      ];
+    };
+  };
   services.atticd = {
     enable = true;
     credentialsFile = "${args.secrets}/attic/atticd.env";

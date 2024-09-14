@@ -26,7 +26,7 @@
 
   nix = {
     settings = {
-      connect-timeout = 5;
+      connect-timeout = 2;
       substituters = [
         "http://laptop.attic.internal:8080/hello"
       ];

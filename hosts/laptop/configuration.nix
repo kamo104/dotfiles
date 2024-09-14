@@ -164,7 +164,7 @@
     wg1 = {
       autostart = false;
       address = [ "10.100.1.2/32" ];
-      listenPort = 42070;
+      listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];
       peers = [

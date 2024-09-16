@@ -157,7 +157,7 @@ in
       };
       storage = {
         type = "local";
-        path = "/drives/merged/internal/attic/storage";
+        path = "/var/lib/atticd/storage";
       };
       chunking = {
         nar-size-threshold = 64 * 1024; # 64 KiB

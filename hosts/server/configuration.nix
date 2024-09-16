@@ -38,7 +38,7 @@ in
   # ];
   nix = {
     settings = {
-      connect-timeout = 5;
+      connect-timeout = 2;
       substituters = [
         "http://laptop.attic.internal:8080/hello"
       ];
@@ -290,13 +290,20 @@ in
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.1.4/32" ];
         }
+
         { # work-laptop
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.100.2.6/32" ];
         }
+
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.12.69/32" ];
+        }
+
+        { # filip-desktop
+          publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
+          allowedIPs = [ "10.100.13.1/32" ];
         }
       ];
     };

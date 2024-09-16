@@ -70,6 +70,10 @@ in
       device = "/drives/merged/share/kamo";
       options = ["nofail" "bind"];
     };
+    "/var/lib/atticd/storage" = {
+      device = "/drives/merged/internal/attic/storage";
+      options = ["nofail" "bind"];
+    };
   };
   services.nfs.server = {
     enable = true;

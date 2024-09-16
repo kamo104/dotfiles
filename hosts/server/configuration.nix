@@ -301,10 +301,10 @@ in
           allowedIPs = [ "10.100.12.69/32" ];
         }
 
-        { # filip-desktop
-          publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
-          allowedIPs = [ "10.100.13.1/32" ];
-        }
+        # { # filip-desktop
+        #   publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
+        #   allowedIPs = [ "10.100.13.1/32" ];
+        # }
       ];
     };
   };

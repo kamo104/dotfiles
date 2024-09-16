@@ -163,7 +163,7 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.100.1.2/20" ];
+      address = [ "10.100.1.2/16" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];

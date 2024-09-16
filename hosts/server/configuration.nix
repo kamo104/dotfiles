@@ -90,7 +90,7 @@ in
         "/tshock.kkf.internal/10.100.0.1"
         # attic
         "/attic.kkf.internal/10.100.0.1"
-        "/laptop.attic.internal/192.168.1.28"
+        "/laptop.attic.internal/192.168.1.27"
         # jellyfin
         "/jellyfin.kkf.internal/10.100.0.1"
         # immich

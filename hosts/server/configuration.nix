@@ -115,6 +115,7 @@ in
     group = "nginx";
     recommendedProxySettings = true;
     # recommendedTlsSettings = true;
+    clientMaxBodySize="0";
     virtualHosts."home-assistant.kkf.internal" =  {
       forceSSL = true;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";

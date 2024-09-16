@@ -127,10 +127,10 @@ in
       };
     };
     virtualHosts."attic.kkf.internal" =  {
-      # forceSSL = true;
-      # sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      # sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      # sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+      forceSSL = true;
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://localhost:8080";
       };

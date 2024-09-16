@@ -317,6 +317,7 @@ in
 
   environment.systemPackages = with pkgs; [
     mergerfs
+    attic
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};

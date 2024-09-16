@@ -184,6 +184,7 @@ in
   };
   users = {
     groups = {
+      atticd = {};
       services = {
         members = [ "nginx" "atticd" ];
       };

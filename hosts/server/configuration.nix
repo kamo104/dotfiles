@@ -151,10 +151,10 @@ in
       garbage-collection = {
         interval = "0d";
       };
-      # storage = {
-      #   type = "local";
-      #   path = "/drives/merged/attic/storage";
-      # };
+      storage = {
+        type = "local";
+        path = "/drives/merged/internal/attic/storage";
+      };
       chunking = {
         nar-size-threshold = 64 * 1024; # 64 KiB
         min-size = 16 * 1024; # 16 KiB

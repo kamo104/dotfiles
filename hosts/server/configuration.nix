@@ -40,10 +40,10 @@ in
     settings = {
       connect-timeout = 2;
       substituters = [
-        "http://laptop.attic.internal:8080/hello"
+        "http://laptop.attic.internal:8080/test"
       ];
       trusted-public-keys = [
-        "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        "test:hhtp98yUsY1K/2OTk9ZBxnhvd0PmFZucjqpaGRczTHU="
       ];
       netrc-file = [
         "${args.secrets}/nix/netrc"

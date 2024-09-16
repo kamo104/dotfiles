@@ -185,7 +185,7 @@ in
   users = {
     groups = {
       services = {
-        members = [ "nginx" ];
+        members = [ "nginx" "atticd" ];
       };
     };
     users = {
@@ -199,6 +199,11 @@ in
         isSystemUser = true;
         group = "nginx";
         description = "nginx";
+      };
+      atticd = {
+        isSystemUser = true;
+        group = "atticd";
+        description = "atticd";
       };
     };
   };

@@ -28,35 +28,14 @@
     settings = {
       connect-timeout = 2;
       substituters = [
-        # "http://laptop.attic.internal:8080/hello"
+        "https://attic.kkf.internal/home"
       ];
       trusted-public-keys = [
-        "hello:mDHjt00ORxJ/VMiZv6A3or65MpDaxAmyBqlSPfVoZqo="
+        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
       ];
       netrc-file = [
         "${args.secrets}/nix/netrc"
       ];
-    };
-  };
-  services.atticd = {
-    enable = true;
-    credentialsFile = "${args.secrets}/attic/atticd.env";
-    settings = {
-      listen = "[::]:8080";
-      allowed-hosts = [];
-      garbage-collection = {
-        interval = "0h";
-      };
-      # storage = {
-      #   type = "local";
-      #   path = "/drives/merged/attic/storage";
-      # };
-      chunking = {
-        nar-size-threshold = 64 * 1024; # 64 KiB
-        min-size = 16 * 1024; # 16 KiB
-        avg-size = 64 * 1024; # 64 KiB
-        max-size = 256 * 1024; # 256 KiB
-      };
     };
   };
   environment.systemPackages = with pkgs; [
@@ -104,8 +83,6 @@
   #     sleep 20; loginctl lock-session
   #   '';
   # };
-
-  security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
 
   fileSystems = {
     "/mnt/kkf" = {

@@ -14,6 +14,8 @@
 
     services.openssh.enable = true;
     
+    security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
+
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
 

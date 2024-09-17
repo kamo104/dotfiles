@@ -40,10 +40,10 @@ in
     settings = {
       connect-timeout = 2;
       substituters = [
-        "http://laptop.attic.internal:8080/test"
+        "https://attic.kkf.internal/home"
       ];
       trusted-public-keys = [
-        "test:hhtp98yUsY1K/2OTk9ZBxnhvd0PmFZucjqpaGRczTHU="
+        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
       ];
       netrc-file = [
         "${args.secrets}/nix/netrc"
@@ -78,7 +78,7 @@ in
   services.nfs.server = {
     enable = true;
     exports = ''
-      /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
+      /share/all  10.100.0.0/16(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
       /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=2)
     '';
   };
@@ -94,7 +94,6 @@ in
         "/tshock.kkf.internal/10.100.0.1"
         # attic
         "/attic.kkf.internal/10.100.0.1"
-        "/laptop.attic.internal/192.168.1.27"
         # jellyfin
         "/jellyfin.kkf.internal/10.100.0.1"
         # immich
@@ -108,7 +107,7 @@ in
       ];
     };
   };
-  security.pki.certificateFiles = [ (/. + "${args.secrets}/pki/ca.crt") ];
+  security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
   services.nginx = {
     enable = true;
     user = "nginx";
@@ -301,10 +300,9 @@ in
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.1.4/32" ];
         }
-
         { # work-laptop
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
-          allowedIPs = [ "10.100.2.6/32" ];
+          allowedIPs = [ "10.100.1.6/32" ];
         }
 
         { # kacper-desktop

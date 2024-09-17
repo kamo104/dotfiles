@@ -280,7 +280,7 @@ in
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
-        ip rule add from 10.100.0.0/20 lookup wg1_table
+        ip route add 10.100.0.0/20 dev wg0 table wg1_table
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/20 -o wg1 -j MASQUERADE
       '';

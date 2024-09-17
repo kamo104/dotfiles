@@ -247,14 +247,14 @@ in
       table = "off";
       postUp = ''
         ip route add default dev wg1 table wg1_table
-        ip route add 10.100.0.0/20 dev wg0 table wg1_table
+        # ip route add 10.100.0.0/20 dev wg0 table wg1_table
         ip rule add from 10.100.0.0/20 lookup wg1_table
         ip route add 10.64.0.1 dev wg1
         ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
       '';
       postDown = ''
         ip route del default dev wg1 table wg1_table
-        ip route del 10.100.0.0/20 dev wg0 table wg1_table
+        # ip route del 10.100.0.0/20 dev wg0 table wg1_table
         ip rule del from 10.100.0.0/20 lookup wg1_table
         ip route del 10.64.0.1 dev wg1
         ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
@@ -280,10 +280,12 @@ in
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
+        ip rule add from 10.100.0.0/20 lookup wg1_table
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/20 -o wg1 -j MASQUERADE
       '';
       postDown = ''
+        ip route del 10.100.0.0/20 dev wg0 table wg1_table
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/20 -o wg1 -j MASQUERADE
       '';

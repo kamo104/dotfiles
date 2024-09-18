@@ -61,13 +61,14 @@
   systemd.user.services.loginLock = {
     description = "Lock session on startup";
     wants = [ "hypridle.service" ];
+    after = [ "hypridle.service" ];
     wantedBy = [ "xdg-desktop-autostart.target" ];
 
     serviceConfig = {
       Type = "oneshot";
     };
     script = ''
-      loginctl lock-session
+      sleep 0.5; loginctl lock-session
     '';
   };
 

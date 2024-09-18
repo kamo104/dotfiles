@@ -81,7 +81,7 @@
       Type = "oneshot";
     };
     script = ''
-      sleep 1; loginctl lock-session
+      loginctl lock-session
     '';
   };
 

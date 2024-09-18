@@ -11,11 +11,11 @@
   };
   config = lib.mkIf config.vban.enable {
     networking.firewall.allowedUDPPorts = [ 6980 ];
-    systemd.user.services.VBAN = {
+    systemd.user.services.vban = {
       enable = true;
       description = "vban service";
       after = [ "pipewire.service" ];
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "default.target" "network.target" ];
       serviceConfig = {
         Restart = "always";
         RestartSec = "10s";

@@ -36,6 +36,8 @@
       thunderbird
       # terminal image viewer
       chafa
+      # for imagemagick
+      ghostscript
 
       libreoffice
       hunspell

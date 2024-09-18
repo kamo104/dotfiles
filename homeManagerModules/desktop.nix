@@ -34,6 +34,8 @@
       moonlight-qt
       blender
       thunderbird
+      # terminal image viewer
+      chafa
 
       libreoffice
       hunspell

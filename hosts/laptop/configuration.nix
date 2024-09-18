@@ -60,19 +60,14 @@
 
   systemd.user.services.loginLock = {
     description = "Lock session on startup";
-    # after = [ "hypridle.service" ];
     wants = [ "hypridle.service" ];
-    # wantedBy = [ "hyprland-session.target" ];
-    # wantedBy = [ "graphical.target" ];
     wantedBy = [ "xdg-desktop-autostart.target" ];
 
     serviceConfig = {
-      # ExecStart = "${pkgs.wallpapers}/wp.sh ${pkgs.wallpapers}/wp";
       Type = "oneshot";
     };
     script = ''
-      touch /tmp/service-loginLock
-      sleep 7; loginctl lock-session
+      sleep 1; loginctl lock-session
     '';
   };
 

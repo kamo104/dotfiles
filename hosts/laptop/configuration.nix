@@ -72,17 +72,14 @@
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10
   '';
 
-  # systemd.user.services.loginLock = {
-  #   description = "Lock session on startup";
-  #   # after = [ "graphical-session.target" "hypridle.service" ];
-  #   # after = [ "graphical-session.target" "hypridle.service" "default.target"];
-  #   after = [ "pipewire.service" ];
-  #   wantedBy = [ "default.target" "multi-user.target"];
-  #   script = ''
-  #     touch /tmp/service-loginLock
-  #     sleep 20; loginctl lock-session
-  #   '';
-  # };
+  systemd.user.services.loginLock = {
+    description = "Lock session on startup";
+    after = [ "hypridle.service" ];
+    script = ''
+      touch /tmp/service-loginLock
+      # sleep 20; loginctl lock-session
+    '';
+  };
 
   fileSystems = {
     "/mnt/kkf" = {

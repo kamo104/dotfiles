@@ -62,7 +62,9 @@
     description = "Lock session on startup";
     # after = [ "hypridle.service" ];
     wants = [ "hypridle.service" ];
-    wantedBy = [ "hyprland-session.target" ];
+    # wantedBy = [ "hyprland-session.target" ];
+    # wantedBy = [ "graphical.target" ];
+    wantedBy = [ "xdg-desktop-autostart.target" ];
 
     serviceConfig = {
       # ExecStart = "${pkgs.wallpapers}/wp.sh ${pkgs.wallpapers}/wp";

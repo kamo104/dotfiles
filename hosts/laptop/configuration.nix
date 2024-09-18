@@ -78,10 +78,13 @@
     wants = [ "hypridle.service" ];
     wantedBy = [ "hyprland-session.target" ];
 
+    serviceConfig = {
+      # ExecStart = "${pkgs.wallpapers}/wp.sh ${pkgs.wallpapers}/wp";
+      Type = "oneshot";
+    };
     script = ''
       touch /tmp/service-loginLock
-      # sleep 20; loginctl lock-session
-      while [ 1 ]; do sleep 1; echo "hello"; done
+      sleep 7; loginctl lock-session
     '';
   };
 

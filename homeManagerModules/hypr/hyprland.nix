@@ -16,7 +16,8 @@
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-      systemd.enable = true;
+      # systemd.enable = true;
+      enableXdgAutostart = true;
       extraConfig = ''${builtins.readFile ./hyprland.conf}'';
     };
     programs.hyprlock = {

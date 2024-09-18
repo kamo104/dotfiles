@@ -60,7 +60,9 @@
 
   systemd.user.services.loginLock = {
     description = "Lock session on startup";
-    after = [ "hypridle.service" ];
+    # after = [ "hypridle.service" ];
+    wants = [ "hypridle.service" ];
+
     script = ''
       touch /tmp/service-loginLock
       # sleep 20; loginctl lock-session

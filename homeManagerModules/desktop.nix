@@ -41,6 +41,8 @@
       caligula
       # gui todo list
       planify
+      # for imagemagick
+      ghostscript
 
       libreoffice
       hunspell

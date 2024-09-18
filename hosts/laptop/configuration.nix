@@ -76,10 +76,12 @@
     description = "Lock session on startup";
     # after = [ "hypridle.service" ];
     wants = [ "hypridle.service" ];
+    wantedBy = [ "hyprland-session.target" ];
 
     script = ''
       touch /tmp/service-loginLock
       # sleep 20; loginctl lock-session
+      while [ 1 ]; do sleep 1; echo "hello"; done
     '';
   };
 

@@ -312,8 +312,7 @@ in
           allowedIPs = [ "10.100.12.69/32" ];
         }
         { # kacper-babcia-laptop5
-        
-          publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4";
+          publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4=";
           allowedIPs = [ "10.100.12.70/32" ];
         }
 

@@ -70,6 +70,10 @@ in
       device = "/drives/merged/share/kamo";
       options = ["nofail" "bind"];
     };
+    "/share/ola" = {
+      device = "/drives/merged/share/ola";
+      options = ["nofail" "bind"];
+    };
     "/var/lib/atticd/storage" = {
       device = "/drives/merged/internal/attic/storage";
       options = ["nofail" "bind"];
@@ -80,6 +84,7 @@ in
     exports = ''
       /share/all  10.100.0.0/16(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
       /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=2)
+      /share/ola 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=3)
     '';
   };
   services.dnsmasq = {

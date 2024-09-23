@@ -36,6 +36,8 @@
       thunderbird
       # terminal image viewer
       chafa
+      # discs/sds flashing
+      caligula
 
       libreoffice
       hunspell

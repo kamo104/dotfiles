@@ -82,9 +82,9 @@ in
   services.nfs.server = {
     enable = true;
     exports = ''
-      /share/all  10.100.0.0/16(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
-      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=2)
-      /share/ola 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=3)
+      /share/all  10.100.0.0/16(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=1)
+      /share/kamo 10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=2)
+      /share/ola 10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=3)
     '';
   };
   services.dnsmasq = {

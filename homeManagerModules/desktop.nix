@@ -7,9 +7,9 @@
 
   config = lib.mkIf config.desktop.enable {
     home.file = {
-      "${config.home.homeDirectory}/Pictures" = {
+      "${config.home.homeDirectory}/Pictures/Screenshots" = {
         enable = true;
-        target="Screenshots";
+        # target="Screenshots";
       };
       "${config.home.homeDirectory}/Pictures" = {
         enable = true;

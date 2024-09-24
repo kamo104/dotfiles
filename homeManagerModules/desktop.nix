@@ -7,11 +7,15 @@
 
   config = lib.mkIf config.desktop.enable {
     home.file = {
-      "${config.home.homeDirectory}" = {
+      "${config.home.homeDirectory}/Pictures" = {
         enable = true;
-        source = "${args.hmModules}/wallpapers";
+        target="Screenshots";
+      };
+      "${config.home.homeDirectory}/Pictures" = {
+        enable = true;
+        source = "${args.hmModules}/Wallpapers";
         recursive = true;
-        target = "wallpapers";
+        target = "Wallpapers";
       };
     };
     home.packages = with pkgs; [
@@ -61,6 +65,7 @@
     home.sessionVariables = {
       GTK_THEME="Adwaita-dark";
       DEFAULT_BROWSER="firefox";
+      GRIM_DEFAULT_DIR="${config.home.homeDirectory}/Pictures/Screenshots";
     };
     home.pointerCursor = {
       gtk.enable = true;

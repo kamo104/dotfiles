@@ -7,15 +7,16 @@
 
   config = lib.mkIf config.desktop.enable {
     home.file = {
-      "${config.home.homeDirectory}/Pictures/Screenshots" = {
+      "${config.home.homeDirectory}/Pictures/Screenshots/.keep" = {
         enable = true;
+        text = "";
         # target="Screenshots";
       };
-      "${config.home.homeDirectory}/Pictures" = {
+      "${config.home.homeDirectory}/Pictures/Wallpapers" = {
         enable = true;
         source = "${args.hmModules}/Wallpapers";
         recursive = true;
-        target = "Wallpapers";
+        # target = "Wallpapers";
       };
     };
     home.packages = with pkgs; [

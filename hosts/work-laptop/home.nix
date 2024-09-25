@@ -2,6 +2,7 @@
 {
   imports = [ 
     "${args.hmModules}/common.nix"
+    "${args.hmModules}/kitty/kitty.nix"
     # inputs.hyprland.homeManagerModules.default
     # "${args.hmModules}/hypr/hyprland.nix"
   ];
@@ -9,6 +10,7 @@
   # hyprlandHM.enable=true;
 
   common.enable = true;
+  kitty.enable = true;
 
   home.sessionVariables = {
     NIX_INSTALL_TYPE="PM"; # either OS or PM

@@ -10,7 +10,7 @@
   # hyprlandHM.enable=true;
 
   common.enable = true;
-  kitty.enable = true;
+  # kitty.enable = true;
 
   home.sessionVariables = {
     NIX_INSTALL_TYPE="PM"; # either OS or PM

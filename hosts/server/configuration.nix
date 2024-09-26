@@ -84,7 +84,7 @@ in
     exports = ''
       /share/all  10.100.0.0/16(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=1)
       /share/kamo 10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=2)
-      /share/ola 10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=3)
+      /share/ola  10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=3)
     '';
   };
   services.dnsmasq = {
@@ -338,6 +338,10 @@ in
   environment.systemPackages = with pkgs; [
     mergerfs
     attic
+
+    # DISTRIBUTED ZWZ
+    mpi
+    gnumake
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};

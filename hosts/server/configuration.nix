@@ -338,10 +338,6 @@ in
   environment.systemPackages = with pkgs; [
     mergerfs
     attic
-
-    # DISTRIBUTED ZWZ
-    mpi
-    gnumake
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};

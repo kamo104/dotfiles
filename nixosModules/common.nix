@@ -24,7 +24,9 @@
     programs.fish.enable = true;
 
     users.users = lib.genAttrs config.common.users (user: {
-      shell = pkgs.fish;
+      # shell = pkgs.fish;
+      # TODO: PLEASE CHANGE TO FISH 
+      shell = pkgs.bash;
       isNormalUser = true;
       description = "${user}";
       extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" ];

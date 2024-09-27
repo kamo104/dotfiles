@@ -311,12 +311,19 @@ in
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.100.1.6/32" ];
         }
+        
+
+        { # ola-laptop
+          publicKey = "iigx1rGG/qUxpInRcJOORjHRdhHNZ+VQamJ67yYT0SU=";
+          allowedIPs = [ "10.100.11.1/32" ];
+        }
+
 
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.12.69/32" ];
         }
-        { # kacper-babcia-laptop5
+        { # kacper-babcia-laptop
           publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4=";
           allowedIPs = [ "10.100.12.70/32" ];
         }

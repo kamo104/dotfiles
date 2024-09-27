@@ -195,7 +195,7 @@ in
     groups = {
       atticd = {};
       services = {
-        members = [ "nginx" "atticd" ];
+        members = [ "nginx" "atticd" "murmur" ];
       };
     };
     users = {

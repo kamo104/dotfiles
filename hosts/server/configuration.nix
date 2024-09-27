@@ -317,6 +317,10 @@ in
           publicKey = "iigx1rGG/qUxpInRcJOORjHRdhHNZ+VQamJ67yYT0SU=";
           allowedIPs = [ "10.100.11.1/32" ];
         }
+        { # ola-iphone
+          publicKey = "dB7xPYW6MDXkCspiBpfBrge1NwCro9Zeab79O4opFmQ=";
+          allowedIPs = [ "10.100.11.2/32" ];
+        }
 
 
         { # kacper-desktop

@@ -340,6 +340,9 @@ in
     enable = true;
     openFirewall = true;
     bandwidth = 256000;
+    sslCa = "${args.secrets}/pki/ca.crt";
+    sslCert = "${args.secrets}/pki/issued/kkf.crt";
+    sslKey = "${args.secrets}/pki/private/kkf.key";
   };
 
   environment.systemPackages = with pkgs; [

@@ -158,6 +158,20 @@ in
     };
   };
 
+  services.murmur = {
+    enable = true;
+    openFirewall = true;
+    bandwidth = 256000;
+    sslCa = "${args.secrets}/pki/ca.crt";
+    sslCert = "${args.secrets}/pki/issued/kkf.crt";
+    sslKey = "${args.secrets}/pki/private/kkf.key";
+  };
+
+  environment.systemPackages = with pkgs; [
+    mergerfs
+    attic
+  ];
+
   # bluetooth.enable = true;
   locale.enable = true;
   # pipewire.enable = true;
@@ -200,7 +214,7 @@ in
       murmur = {
         isSystemUser = true;
         group = "murmur";
-        description = "murmur";
+        # description = "murmur";
       };
       nginx = {
         isSystemUser = true;
@@ -329,19 +343,6 @@ in
     };
   };
 
-  services.murmur = {
-    enable = true;
-    openFirewall = true;
-    bandwidth = 256000;
-    sslCa = "${args.secrets}/pki/ca.crt";
-    sslCert = "${args.secrets}/pki/issued/kkf.crt";
-    sslKey = "${args.secrets}/pki/private/kkf.key";
-  };
-
-  environment.systemPackages = with pkgs; [
-    mergerfs
-    attic
-  ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};
     useGlobalPkgs = true;

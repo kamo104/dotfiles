@@ -40,10 +40,10 @@ in
     settings = {
       connect-timeout = 2;
       substituters = [
-        "http://laptop.attic.internal:8080/test"
+        "https://attic.kkf.internal/home"
       ];
       trusted-public-keys = [
-        "test:hhtp98yUsY1K/2OTk9ZBxnhvd0PmFZucjqpaGRczTHU="
+        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
       ];
       netrc-file = [
         "${args.secrets}/nix/netrc"
@@ -70,12 +70,21 @@ in
       device = "/drives/merged/share/kamo";
       options = ["nofail" "bind"];
     };
+    "/share/ola" = {
+      device = "/drives/merged/share/ola";
+      options = ["nofail" "bind"];
+    };
+    "/var/lib/atticd/storage" = {
+      device = "/drives/merged/internal/attic/storage";
+      options = ["nofail" "bind"];
+    };
   };
   services.nfs.server = {
     enable = true;
     exports = ''
-      /share/all  10.100.0.0/23(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=1)
-      /share/kamo 10.100.1.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,root_squash,no_all_squash,fsid=2)
+      /share/all  10.100.0.0/16(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=1)
+      /share/kamo 10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=2)
+      /share/ola  10.100.1.0/24(async,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,fsid=3)
     '';
   };
   services.dnsmasq = {
@@ -90,7 +99,6 @@ in
         "/tshock.kkf.internal/10.100.0.1"
         # attic
         "/attic.kkf.internal/10.100.0.1"
-        "/laptop.attic.internal/192.168.1.27"
         # jellyfin
         "/jellyfin.kkf.internal/10.100.0.1"
         # immich
@@ -104,13 +112,14 @@ in
       ];
     };
   };
-  security.pki.certificateFiles = [ (/. + "${args.secrets}/pki/ca.crt") ];
+  security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
   services.nginx = {
     enable = true;
     user = "nginx";
     group = "nginx";
     recommendedProxySettings = true;
     # recommendedTlsSettings = true;
+    clientMaxBodySize="0";
     virtualHosts."home-assistant.kkf.internal" =  {
       forceSSL = true;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
@@ -142,27 +151,27 @@ in
     };
   };
 
-  # services.atticd = {
-  #   enable = true;
-  #   credentialsFile = "${args.secrets}/attic/atticd.env";
-  #   settings = {
-  #     listen = "[::]:8080";
-  #     allowed-hosts = [];
-  #     garbage-collection = {
-  #       interval = "0";
-  #     };
-  #     storage = {
-  #       type = "local";
-  #       path = "/drives/merged/attic/storage";
-  #     };
-  #     chunking = {
-  #       nar-size-threshold = 64 * 1024; # 64 KiB
-  #       min-size = 16 * 1024; # 16 KiB
-  #       avg-size = 64 * 1024; # 64 KiB
-  #       max-size = 256 * 1024; # 256 KiB
-  #     };
-  #   };
-  # };
+  services.atticd = {
+    enable = true;
+    credentialsFile = "${args.secrets}/attic/atticd.env";
+    settings = {
+      listen = "[::]:8080";
+      allowed-hosts = [];
+      garbage-collection = {
+        interval = "0d";
+      };
+      storage = {
+        type = "local";
+        path = "/var/lib/atticd/storage";
+      };
+      chunking = {
+        nar-size-threshold = 64 * 1024; # 64 KiB
+        min-size = 16 * 1024; # 16 KiB
+        avg-size = 64 * 1024; # 64 KiB
+        max-size = 256 * 1024; # 256 KiB
+      };
+    };
+  };
 
   # bluetooth.enable = true;
   locale.enable = true;
@@ -184,8 +193,9 @@ in
   };
   users = {
     groups = {
+      atticd = {};
       services = {
-        members = [ "nginx" ];
+        members = [ "nginx" "atticd" "murmur" ];
       };
     };
     users = {
@@ -199,6 +209,11 @@ in
         isSystemUser = true;
         group = "nginx";
         description = "nginx";
+      };
+      atticd = {
+        isSystemUser = true;
+        group = "atticd";
+        description = "atticd";
       };
     };
   };
@@ -237,16 +252,16 @@ in
       table = "off";
       postUp = ''
         ip route add default dev wg1 table wg1_table
-        ip route add 10.100.0.0/20 dev wg0 table wg1_table
-        ip rule add from 10.100.0.0/20 lookup wg1_table
+        ip rule add from 10.100.0.0/16 lookup wg1_table
         ip route add 10.64.0.1 dev wg1
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
         ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
       '';
       postDown = ''
         ip route del default dev wg1 table wg1_table
-        ip route del 10.100.0.0/20 dev wg0 table wg1_table
-        ip rule del from 10.100.0.0/20 lookup wg1_table
+        ip rule del from 10.100.0.0/16 lookup wg1_table
         ip route del 10.64.0.1 dev wg1
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
         ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
       '';
       peers = [
@@ -265,17 +280,16 @@ in
       # 10.100.11.*  - ola
       # 10.100.12.*  - kacper
       # 10.100.13.*  - filip
-      # 10.100.100.* - public
       address = [ "10.100.0.1/20" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
+        ip route add 10.100.0.0/20 dev wg0 table wg1_table
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/20 -o wg1 -j MASQUERADE
       '';
       postDown = ''
+        ip route del 10.100.0.0/20 dev wg0 table wg1_table
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/20 -o wg1 -j MASQUERADE
       '';
       peers = [
         { # laptop
@@ -290,15 +304,29 @@ in
           publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
           allowedIPs = [ "10.100.1.4/32" ];
         }
-
         { # work-laptop
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
-          allowedIPs = [ "10.100.2.6/32" ];
+          allowedIPs = [ "10.100.1.6/32" ];
         }
+        
+
+        { # ola-laptop
+          publicKey = "iigx1rGG/qUxpInRcJOORjHRdhHNZ+VQamJ67yYT0SU=";
+          allowedIPs = [ "10.100.11.1/32" ];
+        }
+        { # ola-iphone
+          publicKey = "dB7xPYW6MDXkCspiBpfBrge1NwCro9Zeab79O4opFmQ=";
+          allowedIPs = [ "10.100.11.2/32" ];
+        }
+
 
         { # kacper-desktop
           publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
           allowedIPs = [ "10.100.12.69/32" ];
+        }
+        { # kacper-babcia-laptop
+          publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4=";
+          allowedIPs = [ "10.100.12.70/32" ];
         }
 
         { # filip-desktop
@@ -313,10 +341,14 @@ in
     enable = true;
     openFirewall = true;
     bandwidth = 256000;
+    sslCa = "${args.secrets}/pki/ca.crt";
+    sslCert = "${args.secrets}/pki/issued/kkf.crt";
+    sslKey = "${args.secrets}/pki/private/kkf.key";
   };
 
   environment.systemPackages = with pkgs; [
     mergerfs
+    attic
   ];
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};

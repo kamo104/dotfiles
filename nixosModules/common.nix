@@ -16,7 +16,26 @@
     
     security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    experimental-features = [ "nix-command" "flakes" ];
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+    settings = {
+      connect-timeout = 1;
+      substituters = [
+        "https://attic.kkf.internal/home"
+      ];
+      trusted-public-keys = [
+        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
+      ];
+      netrc-file = [
+        "${args.secrets}/nix/netrc"
+      ];
+    };
+  };
+    
     nixpkgs.config.allowUnfree = true;
 
     networking.networkmanager.enable = true;

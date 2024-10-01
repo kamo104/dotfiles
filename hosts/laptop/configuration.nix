@@ -24,20 +24,6 @@
     ];
 
 
-  nix = {
-    settings = {
-      connect-timeout = 2;
-      substituters = [
-        "https://attic.kkf.internal/home"
-      ];
-      trusted-public-keys = [
-        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
-      ];
-      netrc-file = [
-        "${args.secrets}/nix/netrc"
-      ];
-    };
-  };
   environment.systemPackages = with pkgs; [
     attic
   ];
@@ -84,7 +70,6 @@
   #   '';
   # };
 
-  security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
   fileSystems = {
     "/mnt/kkf" = {
       device = "nfs.kkf.internal:/share";

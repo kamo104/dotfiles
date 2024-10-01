@@ -36,20 +36,6 @@ in
   #   # inputs.nix-minecraft.overlay 
   #   inputs.attic.overlays.default
   # ];
-  nix = {
-    settings = {
-      connect-timeout = 2;
-      substituters = [
-        "https://attic.kkf.internal/home"
-      ];
-      trusted-public-keys = [
-        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
-      ];
-      netrc-file = [
-        "${args.secrets}/nix/netrc"
-      ];
-    };
-  };
   fileSystems = {
     "/drives/hdd1" = { 
       device = "/dev/disk/by-uuid/acc830ed-f8bd-4bfe-98d6-3052bc4b1b16";
@@ -112,7 +98,6 @@ in
       ];
     };
   };
-  security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
   services.nginx = {
     enable = true;
     user = "nginx";
@@ -193,8 +178,8 @@ in
   };
   users = {
     groups = {
-      atticd = {};
-      services = {
+      # atticd = {};
+      pki = {
         members = [ "nginx" "atticd" "murmur" ];
       };
     };

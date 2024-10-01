@@ -34,10 +34,13 @@
       moonlight-qt
       blender
       thunderbird
+
       # terminal image viewer
       chafa
       # discs/sds flashing
       caligula
+      # gui todo list
+      planify
 
       libreoffice
       hunspell

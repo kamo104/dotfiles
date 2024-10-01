@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ...} @args:
+{ pkgs, lib, config, customPkgs, ...} @args:
 
 {
   options = {
@@ -41,7 +41,7 @@
     networking.networkmanager.enable = true;
     console.keyMap = "pl2";
 
-    environment.systemPackages = import "${args.modules}/common-pkgs.nix" {inherit pkgs;};
+    environment.systemPackages = import "${args.modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
     programs.fish.enable = true;
 
     users.users = lib.genAttrs config.common.users (user: {

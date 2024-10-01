@@ -1,7 +1,7 @@
 { inputs, config, osConfig, pkgs, lib, ... } @args:
 {
   imports = [ 
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
     "${args.hmModules}/hypr/hyprland.nix"
 
     inputs.ags.homeManagerModules.default
@@ -38,6 +38,8 @@
     android-studio
     # platformio
     vscode
+    # transmission_4-qt6
+    deluge
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

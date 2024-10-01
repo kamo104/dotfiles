@@ -4,7 +4,8 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      inputs.hyprland.nixosModules.default
+      # inputs.hyprland.nixosModules.default
+      inputs.attic.nixosModules.atticd
 
       "${args.modules}/hyprland.nix"
       "${args.modules}/steam.nix"
@@ -22,6 +23,24 @@
       "${args.modules}/sunshine.nix"
     ];
 
+
+  nix = {
+    settings = {
+      connect-timeout = 2;
+      substituters = [
+        "https://attic.kkf.internal/home"
+      ];
+      trusted-public-keys = [
+        "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
+      ];
+      netrc-file = [
+        "${args.secrets}/nix/netrc"
+      ];
+    };
+  };
+  environment.systemPackages = with pkgs; [
+    attic
+  ];
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;
@@ -29,6 +48,10 @@
   opencl.enable = true;
   opengl.enable = true;
   hyprland.enable = true;
+  services.displayManager = {
+    autoLogin.enable = true;
+    autoLogin.user = "kamo";
+  };
   # sunshine.enable = true;
   # services.xserver = {
   #   enable = true;
@@ -45,9 +68,30 @@
   common.users = ["kamo"];
   vban.enable = true;
   vban.startScript = ''
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="192.168.1.54" sess.latency.msec=30 &
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="192.168.1.54" sess.latency.msec=10
+    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.4" sess.latency.msec=30 &
+    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10
   '';
+
+  # systemd.user.services.loginLock = {
+  #   description = "Lock session on startup";
+  #   # after = [ "graphical-session.target" "hypridle.service" ];
+  #   # after = [ "graphical-session.target" "hypridle.service" "default.target"];
+  #   after = [ "pipewire.service" ];
+  #   wantedBy = [ "default.target" "multi-user.target"];
+  #   script = ''
+  #     touch /tmp/service-loginLock
+  #     sleep 20; loginctl lock-session
+  #   '';
+  # };
+
+  fileSystems = {
+    "/mnt/kkf" = {
+      device = "nfs.kkf.internal:/share";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" 
+                  "x-systemd.requires=wg-quick-wg0.service"];
+    };
+  };
 
   networking.hostName = "kamo-laptop";
   boot.loader = {
@@ -62,64 +106,22 @@
     };
   };
 
-  # environment.systemPackages = with pkgs; 
-  # let customKodi = pkgs.kodi-wayland.withPackages (p: with p; [
-  #     joystick
-  #     jellyfin
-  #     kodi-retroarch-advanced-launchers
-  # ]);
-  # in
-  # [
-  #   customKodi
-  #   kodi-retroarch-advanced-launchers
-  # ];
-
-
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = let
-  #     linux_pkg = { fetchgit, buildLinux, ... } @ args:
 
-  #       buildLinux (args // rec {
-  #         version = "6.10.0-rc5";
-  #         modDirVersion = version;
-
-  #         src = fetchgit
-  #           {
-  #             url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/";
-  #             rev = "f2661062f16b2de5d7b6a5c42a9a5c96326b8454";
-  #             sha256 = "sha256-jdVowvRzVO2IBWad7yVHuGZhmq6F3OM51PJVMuNjWK4=";
-  #           };
-
-  #         kernelPatches = [ ];
-
-  #         extraMeta.branch = "6.10.0-rc5";
-  #       } // (args.argsOverride or { }));
-  #     linux_6-10-5rc = pkgs.callPackage linux_pkg { };
-  #   in
-  #   pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6-10-5rc);
-  
   # machenike
-  boot.initrd.kernelModules = ["xpad"];
-  system.activationScripts = {
-    MachenikeFix.text = ''
-      echo -n "2345:e00b:ik" | tee /sys/module/usbcore/parameters/quirks
-    '';
-  };
-  services.udev.extraRules = ''
-    ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
-    '';
+  # boot.initrd.kernelModules = ["xpad"];
+  # system.activationScripts = {
+  #   MachenikeFix.text = ''
+  #     echo -n "2345:e00b:ik" | tee /sys/module/usbcore/parameters/quirks
+  #   '';
+  # };
+  # services.udev.extraRules = ''
+  #   ACTION=="add", ATTRS{idVendor}=="2345", ATTRS{idProduct}=="e00b", RUN+="/sbin/modprobe xpad" RUN+="/bin/sh -c 'echo 2345 e00b > /sys/bus/usb/drivers/xpad/new_id'"
+  #   '';
 
  
   services.printing.enable = true;
 
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [ "1c33c1ced078606c" "af78bf943600feb0"];
-    localConf.settings = { 
-      softwareUpdate = "disable";
-    };
-  };
   services.udev.packages = with pkgs; [ 
     stlink
     platformio-core.udev
@@ -133,55 +135,52 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 ]; # minecraft
-  networking.firewall.allowedUDPPorts = [ 25565 42069 ]; # minecraft, wireguard 
+  networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
+  networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
-  # services.minecraft-servers ={
-  #   openFirewall = true;
-  #   enable = true;
-  #   eula = true;
-  #   user = "kamo";
-  #   group = "users";
-  #   servers = {
-  #     rpg = {
-  #       enable = true;
-  #       autoStart = true;
-  #       package = pkgs.fabricServers.fabric-1_20_1;
-  #       serverProperties = {
-  #         online-mode = false;
-  #       };
-  #       symlinks = {
-  #         mods = with pkgs; pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
-  #           Starlight = fetchurl { url = "https://cdn.modrinth.com/data/H8CaAYZC/versions/XGIsoVGT/starlight-1.1.2%2Bfabric.dbc156f.jar"; sha512 = "6b0e363fc2d6cd2f73b466ab9ba4f16582bb079b8449b7f3ed6e11aa365734af66a9735a7203cf90f8bc9b24e7ce6409eb04d20f84e04c7c6b8e34f4cc8578bb"; };
-  #           Lithium = fetchurl { url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/ZSNsJrPI/lithium-fabric-mc1.20.1-0.11.2.jar"; sha512 = "d1b5c90ba8b4879814df7fbf6e67412febbb2870e8131858c211130e9b5546e86b213b768b912fc7a2efa37831ad91caf28d6d71ba972274618ffd59937e5d0d"; };
-  #           FerriteCore = fetchurl { url = "https://cdn.modrinth.com/data/uXXizFIs/versions/ULSumfl4/ferritecore-6.0.0-forge.jar"; sha512 = "e78ddd02cca0a4553eb135dbb3ec6cbc59200dd23febf3491d112c47a0b7e9fe2b97f97a3d43bb44d69f1a10aad01143dcd84dc575dfa5a9eaa315a3ec182b37"; };
-  #           Krypton = fetchurl { url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/jiDwS0W1/krypton-0.2.3.jar"; sha512 = "92b73a70737cfc1daebca211bd1525de7684b554be392714ee29cbd558f2a27a8bdda22accbe9176d6e531d74f9bf77798c28c3e8559c970f607422b6038bc9e"; };
-  #           LazyDFU = fetchurl { url = "https://cdn.modrinth.com/data/hvFnDODi/versions/0.1.3/lazydfu-0.1.3.jar"; sha512 = "dc3766352c645f6da92b13000dffa80584ee58093c925c2154eb3c125a2b2f9a3af298202e2658b039c6ee41e81ca9a2e9d4b942561f7085239dd4421e0cce0a"; };
-  #           C2ME = fetchurl { url = "https://cdn.modrinth.com/data/VSNURh3q/versions/t4juSkze/c2me-fabric-mc1.20.1-0.2.0%2Balpha.10.91.jar"; sha512 = "562c87a50f380c6cd7312f90b957f369625b3cf5f948e7bee286cd8075694a7206af4d0c8447879daa7a3bfe217c5092a7847247f0098cb1f5417e41c678f0c1"; };
-  #         });
-  #       };
-  #     };
-  #   };
-  # };
-
-
-  networking.wireguard.interfaces = {
+  networking.wg-quick.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.2/24" "10.101.0.2/24"];
+      address = [ "10.100.1.2/32" ];
       listenPort = 42069;
-      privateKeyFile = "/home/kamo/wg-keys/private";
+      privateKeyFile = "${args.secrets}/wg-keys/internal/private";
+      dns = ["10.100.0.1"];
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/24" "10.101.0.0/24"];
+          allowedIPs = [ "10.100.0.0/16" ];
           endpoint = "grzymoserver.duckdns.org:42069";
           persistentKeepalive = 25;
         }
       ];
     };
+    wg1 = {
+      autostart = false;
+      address = [ "10.100.1.2/32" ];
+      listenPort = 42069;
+      privateKeyFile = "${args.secrets}/wg-keys/internal/private";
+      dns = ["10.100.0.1"];
+      peers = [
+        {
+          publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "grzymoserver.duckdns.org:42069";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+    # wg1 = {
+    #   address = [ "10.71.248.192/32" ];
+    #   listenPort = 42070;
+    #   privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
+    #   peers = [
+    #     {
+    #       publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
+    #       endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
+    #       allowedIPs = [ "0.0.0.0/0" ];
+    #     }
+    #   ];
+    # };
   };
-
-  
 
   system.stateVersion = "23.11";
 }

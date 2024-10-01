@@ -8,8 +8,11 @@
   config = lib.mkIf config.hyprland.enable {
     services.upower.enable = true;
 
-    services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.wayland.enable = true;
+    services.displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+    };
+    # services.displayManager.ly.enable = true;
     services.hypridle.enable = true;
     programs.hyprlock.enable = true;
     programs.hyprland.enable = true;
@@ -20,6 +23,9 @@
       enable = true;
       xkb.layout = "pl";
       xkb.variant = "";
+      # displayManager.setupCommands = ''
+      #   loginctl lock-session
+      # '';
     };
 
     qt = {
@@ -33,6 +39,7 @@
       adwaita-qt6
       adwaita-icon-theme
       gnomeExtensions.appindicator
+      xdg-desktop-portal-hyprland
       # libsForQt5.polkit-kde-agent
     ];
     environment.sessionVariables = {
@@ -42,21 +49,16 @@
 
 
     programs.dconf.enable = true;
-    # services.dbus.packages = with pkgs; [ dconf ];
-    # xdg.portal = {
-    #   enable = true;
-    #   # gtkUsePortal = true;
-    #   extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
-    # };
+    # services.dbus.packages = with pkgs; [ dconf hypridle ];
 
     services.udev.packages = with pkgs; [ 
-      gnome.gnome-settings-daemon 
+      gnome-settings-daemon 
     ];
 
     
     services.gvfs.enable = true;
     security.pam.services.sddm.enableGnomeKeyring = true;
-    security.pam.services.hyprlock = {};
+    # security.pam.services.hyprlock = {};
     services.gnome.gnome-keyring.enable = true;
   };
 }

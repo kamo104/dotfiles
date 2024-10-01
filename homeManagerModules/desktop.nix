@@ -57,6 +57,8 @@
       loupe
       gnome-network-displays
 
+      planist
+
     ];
     home.sessionVariables = {
       GTK_THEME="Adwaita-dark";

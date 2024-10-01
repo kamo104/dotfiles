@@ -18,6 +18,8 @@
       unzip
       nil
       ffmpeg
+      # terminal todo list
+      taskwarrior3
     ];
     programs.tmux = {
       enable = true;

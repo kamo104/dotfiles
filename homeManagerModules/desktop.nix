@@ -38,8 +38,6 @@
       chafa
       # discs/sds flashing
       caligula
-      # terminal todo list
-      taskwarrior3
 
       libreoffice
       hunspell

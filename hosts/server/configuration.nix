@@ -178,7 +178,7 @@ in
   };
   users = {
     groups = {
-      # atticd = {};
+      atticd = {};
       pki = {
         members = [ "nginx" "murmur" ];
       };

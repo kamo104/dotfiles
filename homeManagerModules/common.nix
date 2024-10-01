@@ -19,8 +19,6 @@
       nil
       ffmpeg
     ];
-    # terminal todo list
-    programs.taskwarrior.enable = true;
     programs.tmux = {
       enable = true;
       mouse = true;

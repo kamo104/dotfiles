@@ -17,12 +17,12 @@
     security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
 
   nix = {
-    experimental-features = [ "nix-command" "flakes" ];
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
     '';
     settings = {
+      experimental-features = [ "nix-command" "flakes" ];
       connect-timeout = 1;
       substituters = [
         "https://attic.kkf.internal/home"

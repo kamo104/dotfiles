@@ -18,9 +18,9 @@
       unzip
       nil
       ffmpeg
-      # terminal todo list
-      taskwarrior3
     ];
+    # terminal todo list
+    programs.taskwarrior.enable = true;
     programs.tmux = {
       enable = true;
       mouse = true;

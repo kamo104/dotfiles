@@ -180,25 +180,32 @@ in
     groups = {
       # atticd = {};
       pki = {
-        members = [ "nginx" "atticd" "murmur" ];
+        members = [ "nginx" "murmur" ];
       };
     };
     users = {
       kamo.linger = true;
+      # access to storage
       jellyfin = {
         isSystemUser = true;
         group = "jellyfin";
         description = "jellyfin";
       };
-      nginx = {
-        isSystemUser = true;
-        group = "nginx";
-        description = "nginx";
-      };
       atticd = {
         isSystemUser = true;
         group = "atticd";
         description = "atticd";
+      };
+      # access to pki
+      murmur = {
+        isSystemUser = true;
+        group = "murmur";
+        description = "murmur";
+      };
+      nginx = {
+        isSystemUser = true;
+        group = "nginx";
+        description = "nginx";
       };
     };
   };

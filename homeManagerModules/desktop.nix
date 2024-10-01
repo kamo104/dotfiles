@@ -39,7 +39,7 @@
       # discs/sds flashing
       caligula
       # terminal todo list
-      taskwarrior
+      taskwarrior3
 
       libreoffice
       hunspell

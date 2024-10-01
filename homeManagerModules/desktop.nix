@@ -43,6 +43,8 @@
       chafa
       # for imagemagick
       ghostscript
+      # gui todo list
+      planify
 
       libreoffice
       hunspell
@@ -57,7 +59,6 @@
       loupe
       gnome-network-displays
 
-      planist
 
     ];
     home.sessionVariables = {

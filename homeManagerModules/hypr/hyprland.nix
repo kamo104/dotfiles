@@ -94,10 +94,10 @@
             on-timeout = "${on-pause}/bin/on-pause.sh";
             on-resume = "${on-resume}/bin/on-resume.sh";
           }
-          {
-            timeout = 180;
-            on-timeout = "loginctl lock-session";
-          }
+          # {
+          #   timeout = 180;
+          #   on-timeout = "loginctl lock-session";
+          # }
           {
             timeout = 300;
             on-timeout = "hyprctl dispatch dpms off";

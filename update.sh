@@ -36,9 +36,9 @@ if [ "$1" != "-d" ]; then
     git push
 fi
 
-if [ "$NIX_INSTALL_TYPE" = "OS" ]; then
-    sudo nixos-rebuild switch --flake .#"$NIX_HOSTNAME" --install-bootloader
-elif [ "$NIX_INSTALL_TYPE" = "PM" ]; then
-    sudo nix profile upgrade "$NIX_HOSTNAME"
-    home-manager switch --flake .#"$NIX_HOSTNAME"
+if [ "$ITYPE" = "OS" ]; then
+    sudo nixos-rebuild switch --flake .#"$HNAME" --install-bootloader --fallback
+elif [ "$ITYPE" = "PM" ]; then
+    nix profile upgrade "$HNAME"
+    home-manager switch --flake .#"$HNAME"
 fi

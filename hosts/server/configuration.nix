@@ -23,7 +23,7 @@ in
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       # inputs.nix-minecraft.nixosModules.minecraft-servers
-      inputs.attic.nixosModules.atticd
+      # inputs.attic.nixosModules.atticd
 
       "${args.modules}/locale.nix"
       "${args.modules}/bluetooth.nix"
@@ -36,6 +36,23 @@ in
   #   # inputs.nix-minecraft.overlay 
   #   inputs.attic.overlays.default
   # ];
+
+  # REMOTE BUILDS
+  # nix.buildMachines = [{
+  #   hostName = "192.168.1.28";
+  #   system = "x86_64-linux";
+  #   protocol = "ssh-ng";
+  #   # default is 1 but may keep the builder idle in between builds
+  #   maxJobs = 0;
+  #   speedFactor = 2;
+  #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  #   mandatoryFeatures = [ ];
+  # }];
+  # nix.distributedBuilds = true;
+  # nix.settings = {
+  #   builders-use-substitutes = true;
+  # };
+
   fileSystems = {
     "/drives/hdd1" = { 
       device = "/dev/disk/by-uuid/acc830ed-f8bd-4bfe-98d6-3052bc4b1b16";
@@ -60,10 +77,10 @@ in
       device = "/drives/merged/share/ola";
       options = ["nofail" "bind"];
     };
-    "/var/lib/atticd/storage" = {
-      device = "/drives/merged/internal/attic/storage";
-      options = ["nofail" "bind"];
-    };
+    # "/var/lib/atticd/storage" = {
+    #   device = "/drives/merged/internal/attic/storage";
+    #   options = ["nofail" "bind"];
+    # };
   };
   services.nfs.server = {
     enable = true;
@@ -83,8 +100,8 @@ in
         "/home-assistant.kkf.internal/10.100.0.1"
         # tshock I guess
         "/tshock.kkf.internal/10.100.0.1"
-        # attic
-        "/attic.kkf.internal/10.100.0.1"
+        # # attic
+        # "/attic.kkf.internal/10.100.0.1"
         # jellyfin
         "/jellyfin.kkf.internal/10.100.0.1"
         # immich
@@ -100,8 +117,6 @@ in
   };
   services.nginx = {
     enable = true;
-    user = "nginx";
-    group = "nginx";
     recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
@@ -115,15 +130,15 @@ in
         proxyWebsockets = true;
       };
     };
-    virtualHosts."attic.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://localhost:8080";
-      };
-    };
+    # virtualHosts."attic.kkf.internal" =  {
+    #   forceSSL = true;
+    #   sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+    #   sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+    #   sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+    #   locations."/" = {
+    #     proxyPass = "http://localhost:8080";
+    #   };
+    # };
     virtualHosts."jellyfin.kkf.internal" =  {
       forceSSL = true;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
@@ -136,27 +151,27 @@ in
     };
   };
 
-  services.atticd = {
-    enable = true;
-    credentialsFile = "${args.secrets}/attic/atticd.env";
-    settings = {
-      listen = "[::]:8080";
-      allowed-hosts = [];
-      garbage-collection = {
-        interval = "0d";
-      };
-      storage = {
-        type = "local";
-        path = "/var/lib/atticd/storage";
-      };
-      chunking = {
-        nar-size-threshold = 64 * 1024; # 64 KiB
-        min-size = 16 * 1024; # 16 KiB
-        avg-size = 64 * 1024; # 64 KiB
-        max-size = 256 * 1024; # 256 KiB
-      };
-    };
-  };
+  # services.atticd = {
+  #   enable = true;
+  #   credentialsFile = "${args.secrets}/attic/atticd.env";
+  #   settings = {
+  #     listen = "[::]:8080";
+  #     allowed-hosts = [];
+  #     garbage-collection = {
+  #       interval = "0d";
+  #     };
+  #     storage = {
+  #       type = "local";
+  #       path = "/var/lib/atticd/storage";
+  #     };
+  #     chunking = {
+  #       nar-size-threshold = 64 * 1024; # 64 KiB
+  #       min-size = 16 * 1024; # 16 KiB
+  #       avg-size = 64 * 1024; # 64 KiB
+  #       max-size = 256 * 1024; # 256 KiB
+  #     };
+  #   };
+  # };
 
   services.murmur = {
     enable = true;
@@ -169,7 +184,7 @@ in
 
   environment.systemPackages = with pkgs; [
     mergerfs
-    attic
+    # attic
   ];
 
   # bluetooth.enable = true;
@@ -185,16 +200,20 @@ in
   services.duckdns = {
     enable = true;
     domain = "grzymoserver";
-    tokenFile = "/home/kamo/duckdns/token";
+    tokenFile = "${args.secrets}/duckdns/token";
   };
   services.jellyfin = {
     enable = true;
   };
   users = {
     groups = {
-      atticd = {};
+      # atticd = {};
       pki = {
         members = [ "nginx" "murmur" ];
+      };
+      services = {
+        # members = [ "atticd" "murmur" "jellyfin" "nginx" ];
+        members = [ "murmur" "jellyfin" "nginx" ];
       };
     };
     users = {
@@ -205,11 +224,11 @@ in
         group = "jellyfin";
         description = "jellyfin";
       };
-      atticd = {
-        isSystemUser = true;
-        group = "atticd";
-        description = "atticd";
-      };
+      # atticd = {
+      #   isSystemUser = true;
+      #   group = "atticd";
+      #   description = "atticd";
+      # };
       # access to pki
       murmur = {
         isSystemUser = true;

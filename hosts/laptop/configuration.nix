@@ -5,7 +5,7 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       # inputs.hyprland.nixosModules.default
-      inputs.attic.nixosModules.atticd
+      # inputs.attic.nixosModules.atticd
 
       "${args.modules}/hyprland.nix"
       "${args.modules}/steam.nix"
@@ -24,9 +24,6 @@
     ];
 
 
-  environment.systemPackages = with pkgs; [
-    attic
-  ];
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;

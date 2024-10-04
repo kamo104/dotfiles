@@ -164,7 +164,8 @@
     gtk = {
       enable = true;
       theme = {
-        name = "Adwaita-dark";
+        # name = "Adwaita-dark";
+        name = "Adwaita";
         # name = "Gruvbox Dark";
         package = pkgs.gnome-themes-extra;
       };

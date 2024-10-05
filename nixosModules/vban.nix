@@ -14,8 +14,12 @@
     systemd.user.services.vban = {
       enable = true;
       description = "vban service";
+      wants = [ "pipewire.service" ];
       after = [ "pipewire.service" ];
-      wantedBy = [ "default.target" "network.target" ];
+      # wantedBy = [ "default.target" "network.target" ];
+      # wants = [ "hypridle.service" ];
+      # after = [ "hypridle.service" ];
+      wantedBy = [ "xdg-desktop-autostart.target" ];
       serviceConfig = {
         Restart = "always";
         RestartSec = "10s";

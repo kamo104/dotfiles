@@ -176,13 +176,11 @@ in
     };
     users = {
       kamo.linger = true;
-      # access to storage
       jellyfin = {
         isSystemUser = true;
         group = "jellyfin";
         description = "jellyfin";
       };
-      # access to pki
       murmur = {
         isSystemUser = true;
         group = "murmur";

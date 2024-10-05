@@ -22,7 +22,7 @@
     home.packages = with pkgs; [
       qpwgraph
 
-      firefox
+      # firefox
       brave
       lutris
       # obs-studio

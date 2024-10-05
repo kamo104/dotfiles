@@ -312,7 +312,7 @@ in
           allowedIPs = [ "10.100.13.1/32" ];
         }
         { # filip-macbook
-          publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
+          publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
           allowedIPs = [ "10.100.13.2/32" ];
         }
       ];

@@ -22,7 +22,7 @@
     home.packages = with pkgs; [
       qpwgraph
 
-      firefox
+      # firefox
       brave
       lutris
       # obs-studio
@@ -85,7 +85,7 @@
       ];
     };
     programs.firefox = {
-      enable = true;
+      # enable = true;
       # package = pkgs.firefox-beta;
       profiles = {
         kamo = {

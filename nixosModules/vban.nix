@@ -15,7 +15,7 @@
       enable = true;
       description = "vban service";
       wants = [ "pipewire.service" ];
-      after = [ "pipeire.service" ];
+      after = [ "pipewire.service" ];
       # wantedBy = [ "default.target" "network.target" ];
       # wants = [ "hypridle.service" ];
       # after = [ "hypridle.service" ];

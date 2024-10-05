@@ -55,10 +55,10 @@
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10
   '';
 
-  systemd.user.services.loginLock = {
+  systemd.user.services.loginlock = {
     description = "Lock session on startup";
     wants = [ "hypridle.service" ];
-    after = [ "hypridl.service" ];
+    after = [ "hypridle.service" ];
     wantedBy = [ "xdg-desktop-autostart.target" ];
 
     serviceConfig = {

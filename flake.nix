@@ -23,10 +23,6 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # attic = {
-    #   url = "github:zhaofengli/attic";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
     # nur.url = "github:nix-community/NUR";  
     # nix-minecraft.url = "github:Infinidoge/nix-minecraft";

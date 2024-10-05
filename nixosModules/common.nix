@@ -24,12 +24,12 @@
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       connect-timeout = 1;
-      substituters = [
-        # "https://attic.kkf.internal/home"
-      ];
-      trusted-public-keys = [
-        # "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
-      ];
+      # substituters = [
+      #   "https://attic.kkf.internal/home"
+      # ];
+      # trusted-public-keys = [
+      #   "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
+      # ];
       netrc-file = [
         "${args.secrets}/nix/netrc"
       ];

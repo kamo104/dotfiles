@@ -75,6 +75,10 @@ in
       device = "/drives/merged/share/ola";
       options = ["nofail" "bind"];
     };
+    "/var/lib/immich" = {
+      device = "/drives/merged/internal/immich";
+      options = ["nofail" "bind"];
+    };
   };
   services.nfs.server = {
     enable = true;
@@ -132,11 +136,23 @@ in
         proxyWebsockets = true;
       };
     };
+    virtualHosts."immich.kkf.internal" =  {
+      forceSSL = true;
+      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+      locations."/" = {
+        proxyPass = "http://localhost:3001";
+        proxyWebsockets = true;
+      };
+    };
   };
 
   services.immich = {
     enable = true;
-    # environment = {};
+    # environment = {
+    #   IMMICH_MACHINE_LEARNING_ENABLED=false;
+    # };
   };
 
   services.murmur = {
@@ -176,7 +192,7 @@ in
         members = [ "nginx" "murmur" ];
       };
       services = {
-        members = [ "murmur" "jellyfin" "nginx" ];
+        members = [ "murmur" "jellyfin" "nginx" "immich" ];
       };
     };
     users = {
@@ -185,6 +201,11 @@ in
         isSystemUser = true;
         group = "jellyfin";
         description = "jellyfin";
+      };
+      immich = {
+        isSystemUser = true;
+        group = "immich";
+        description = "immich";
       };
       murmur = {
         isSystemUser = true;

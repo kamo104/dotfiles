@@ -137,40 +137,14 @@ in
       };
     };
     virtualHosts."immich.kkf.internal" =  {
-      forceSSL = true;
+      forceSSL = false;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
       sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      # locations."/" = {
-      #   proxyPass = "http://localhost:3001";
-      #   proxyWebsockets = true;
-      # 	# recommendedProxySettings = false;
-      # };
       locations."/" = {
         proxyPass = "http://localhost:3001";
-        proxyWebsockets = false;
-      	recommendedProxySettings = false;
-
-        extraConfig = ''
-          # Headers
-          proxy_set_header Host              $host;
-          proxy_set_header X-Real-IP         $remote_addr;
-          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-
-          # Enable WebSockets
-          proxy_redirect off;
-    			proxy_http_version 1.1;
-    			proxy_set_header Upgrade $http_upgrade;
-    			proxy_set_header Connection "upgrade";
-
-
-          # Timeout settings
-          proxy_read_timeout 600s;
-          proxy_send_timeout 600s;
-          send_timeout 600s;
-        '';
-      };
+        proxyWebsockets = true;
+      	recommendedProxySettings = true;
     };
   };
 

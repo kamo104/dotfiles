@@ -1,9 +1,17 @@
 <!DOCTYPE patchbay>
-<patchbay name="default" version="0.7.2">
+<patchbay name="default" version="0.7.5">
  <items>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Firefox-2" port="Firefox:output_FL"/>
    <input node="XFW-BT" port="XFW-BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Mumble/Playback" port="Playback:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Mumble/Playback" port="Playback:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Firefox-2" port="Firefox:output_FR"/>

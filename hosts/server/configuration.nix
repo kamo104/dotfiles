@@ -137,7 +137,7 @@ in
       };
     };
     virtualHosts."immich.kkf.internal" =  {
-      forceSSL = true;
+      forceSSL = false;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
       sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";

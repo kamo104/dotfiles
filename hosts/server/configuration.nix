@@ -148,7 +148,7 @@ in
       # };
       locations."/" = {
         proxyPass = "http://localhost:3001";
-        proxyWebsockets = true;
+        proxyWebsockets = false;
       	recommendedProxySettings = false;
 
         extraConfig = ''
@@ -159,10 +159,11 @@ in
           proxy_set_header X-Forwarded-Proto $scheme;
 
           # Enable WebSockets
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "upgrade";
           proxy_redirect off;
+    			proxy_http_version 1.1;
+    			proxy_set_header Upgrade $http_upgrade;
+    			proxy_set_header Connection "upgrade";
+
 
           # Timeout settings
           proxy_read_timeout 600s;

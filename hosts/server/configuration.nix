@@ -137,14 +137,14 @@ in
       };
     };
     virtualHosts."immich.kkf.internal" =  {
-      forceSSL = false;
+      forceSSL = true;
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
       sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
         proxyPass = "http://localhost:3001";
         proxyWebsockets = true;
-      	recommendedProxySettings = true;
+      	recommendedProxySettings = false;
       };
     };
   };

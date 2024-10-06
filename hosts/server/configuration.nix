@@ -134,6 +134,11 @@ in
     };
   };
 
+  services.immich = {
+    enable = true;
+    # environment = {};
+  };
+
   services.murmur = {
     enable = true;
     openFirewall = true;

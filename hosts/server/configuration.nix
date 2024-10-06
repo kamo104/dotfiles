@@ -150,6 +150,7 @@ in
 
   services.immich = {
     enable = true;
+    mediaLocation = "/var/lib/immich";
     # environment = {
     #   IMMICH_MACHINE_LEARNING_ENABLED=false;
     # };

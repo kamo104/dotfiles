@@ -144,7 +144,7 @@ in
       locations."/" = {
         proxyPass = "http://localhost:3001";
         proxyWebsockets = true;
-      	recommendedProxySettings = false;
+      	# recommendedProxySettings = false;
       };
     };
   };

@@ -145,6 +145,7 @@ in
         proxyPass = "http://localhost:3001";
         proxyWebsockets = true;
       	recommendedProxySettings = true;
+      };
     };
   };
 

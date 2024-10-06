@@ -113,7 +113,7 @@ in
   };
   services.nginx = {
     enable = true;
-    recommendedProxySettings = true;
+    # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
     virtualHosts."home-assistant.kkf.internal" =  {
@@ -141,10 +141,34 @@ in
       sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
       sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+      # locations."/" = {
+      #   proxyPass = "http://localhost:3001";
+      #   proxyWebsockets = true;
+      # 	# recommendedProxySettings = false;
+      # };
       locations."/" = {
         proxyPass = "http://localhost:3001";
         proxyWebsockets = true;
-      	# recommendedProxySettings = false;
+      	recommendedProxySettings = false;
+
+        extraConfig = ''
+          # Headers
+          proxy_set_header Host              $http_host;
+          proxy_set_header X-Real-IP         $remote_addr;
+          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+
+          # Enable WebSockets
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_redirect off;
+
+          # Timeout settings
+          proxy_read_timeout 600s;
+          proxy_send_timeout 600s;
+          send_timeout 600s;
+        '';
       };
     };
   };

@@ -184,8 +184,17 @@
 
     programs.fish = {
       enable = true;
-      interactiveShellInit = ''
-        alias clock="bash -c 'while true; do tput clear; date +"%H : %M : %S" | ${pkgs.figlet}/bin/figlet ; sleep 1; done'"
+      interactiveShellInit = let 
+        clock = pkgs.writeShellScriptBin "clock" ''
+          #!/usr/bin/env bash
+          while true; do 
+            tput clear
+            date +"%H : %M : %S" | ${pkgs.figlet}/bin/figlet 
+            sleep 1
+          done
+        '';
+      in ''
+        alias clock="${clock}/bin/clock"
       '';
     };
   };

@@ -253,7 +253,7 @@ in
       address = [ "10.67.130.19/32" ];
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      # dns = [ "10.64.0.1" ];
+      dns = [ "10.64.0.1" ];
       table = "off";
       postUp = ''
         ip route add default dev wg1 table wg1_table

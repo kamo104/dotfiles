@@ -193,19 +193,12 @@
             sleep 1
           done
         '';
-        sctl = pkgs.writeShellScriptBin "ctl" ''
-          #!/usr/bin/env bash
-          sudo systemctl $1 wg-quick-$2.service
-        '' + "/bin/ctl";
-        sctln = a: b: "sudo systemctl ${a} wg-quick-${b}.service";
+        sctl = a: b: "sudo systemctl ${a} wg-quick-${b}.service";
       in ''
         alias clock="${clock}/bin/clock"
-        # alias vpnOn ="${sctl} stop wg0 && ${sctl} start wg1"
-        # aliss kkfOff="${sctl} stop wg0 && ${sctl} stop wg1"
-        # alias kkfOn ="${sctl} stop wg1 && ${sctl} start wg1"
-        alias vpnOn ="${sctln "stop" "wg0"} && ${sctln "start" "wg1"}"
-        alias kkfOff="${sctln "stop" "wg0"} && ${sctln "stop" "wg1"}"
-        alias kkfOn ="${sctln "stop" "wg1"} && ${sctln "start" "wg1"}"
+        alias vpnOn ="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"
+        alias kkfOff="${sctl "stop" "wg0"} && ${sctl "stop" "wg1"}"
+        alias kkfOn ="${sctl "stop" "wg1"} && ${sctl "start" "wg1"}"
       '';
     };
   };

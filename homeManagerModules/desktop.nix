@@ -199,7 +199,7 @@
         alias clock="${clock}/bin/clock"
         alias vpnOn="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"
         alias kkfOff="${sctl "stop" "wg0"} && ${sctl "stop" "wg1"}"
-        alias kkfOn="${sctl "stop" "wg1"} && ${sctl "start" "wg1"}"
+        alias kkfOn="${sctl "stop" "wg1"} && ${sctl "start" "wg0"}"
 
         alias vbanOn="${vctl "restart"}";
         alias vbanOff="${vctl "stop"}";

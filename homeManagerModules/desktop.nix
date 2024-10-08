@@ -193,8 +193,15 @@
             sleep 1
           done
         '';
+        sctl = (pkgs.writeShellScriptBin "ctl" ''
+          #!/usr/bin/env bash
+          sudo systemctl $1 wg-quick-$2.service
+        '' {}) + "/bin/ctl";
       in ''
         alias clock="${clock}/bin/clock"
+        alias vpnOn ="${sctl} stop wg0 && ${sctl} start wg1"
+        aliss kkfOff="${sctl} stop wg0 && ${sctl} stop wg1"
+        alias kkfOn ="${sctl} stop wg1 && ${sctl} start wg1"
       '';
     };
   };

@@ -193,10 +193,10 @@
             sleep 1
           done
         '';
-        sctl = (pkgs.writeShellScriptBin "ctl" ''
+        sctl = pkgs.writeShellScriptBin "ctl" ''
           #!/usr/bin/env bash
           sudo systemctl $1 wg-quick-$2.service
-        '' {}) + "/bin/ctl";
+        '' + "/bin/ctl";
       in ''
         alias clock="${clock}/bin/clock"
         alias vpnOn ="${sctl} stop wg0 && ${sctl} start wg1"

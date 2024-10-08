@@ -194,11 +194,15 @@
           done
         '';
         sctl = a: b: "sudo systemctl ${a} wg-quick-${b}.service";
+        vctl = a: "systemctl --user ${a} vban.service";
       in ''
         alias clock="${clock}/bin/clock"
         alias vpnOn="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"
         alias kkfOff="${sctl "stop" "wg0"} && ${sctl "stop" "wg1"}"
         alias kkfOn="${sctl "stop" "wg1"} && ${sctl "start" "wg1"}"
+
+        alias vbanOn="${vctl "restart"}";
+        alias vbanOff="${vctl "stop"}";
       '';
     };
   };

@@ -196,9 +196,9 @@
         sctl = a: b: "systemctl ${a} wg-quick-${b}.service";
       in ''
         alias clock="${clock}/bin/clock"
-        alias vpnOn ="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"
+        alias vpnOn="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"
         alias kkfOff="${sctl "stop" "wg0"} && ${sctl "stop" "wg1"}"
-        alias kkfOn ="${sctl "stop" "wg1"} && ${sctl "start" "wg1"}"
+        alias kkfOn="${sctl "stop" "wg1"} && ${sctl "start" "wg1"}"
       '';
     };
   };

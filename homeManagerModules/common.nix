@@ -98,7 +98,6 @@
         set fish_greeting
         alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
         alias kssh="kitten ssh"
-        alias bcl="bc -l"
       '';
     };
   };

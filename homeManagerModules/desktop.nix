@@ -193,7 +193,7 @@
             sleep 1
           done
         '';
-        sctl = a: b: "sudo systemctl ${a} wg-quick-${b}.service";
+        sctl = a: b: "systemctl ${a} wg-quick-${b}.service";
       in ''
         alias clock="${clock}/bin/clock"
         alias vpnOn ="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"

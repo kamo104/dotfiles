@@ -185,9 +185,6 @@
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
-        set fish_greeting
-        alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
-        alias kssh="kitten ssh"
         alias clock="bash -c 'while true; do tput clear; date +"%H : %M : %S" | ${pkgs.figlet}/bin/figlet ; sleep 1; done'"
       '';
     };

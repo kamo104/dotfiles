@@ -204,7 +204,7 @@
         # aliss kkfOff="${sctl} stop wg0 && ${sctl} stop wg1"
         # alias kkfOn ="${sctl} stop wg1 && ${sctl} start wg1"
         alias vpnOn ="${sctln "stop" "wg0"} && ${sctln "start" "wg1"}"
-        aliss kkfOff="${sctln "stop" "wg0"} && ${sctln "stop" "wg1"}"
+        alias kkfOff="${sctln "stop" "wg0"} && ${sctln "stop" "wg1"}"
         alias kkfOn ="${sctln "stop" "wg1"} && ${sctln "start" "wg1"}"
       '';
     };

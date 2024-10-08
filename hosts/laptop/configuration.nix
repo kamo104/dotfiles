@@ -154,18 +154,6 @@
         }
       ];
     };
-    # wg1 = {
-    #   address = [ "10.71.248.192/32" ];
-    #   listenPort = 42070;
-    #   privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-    #   peers = [
-    #     {
-    #       publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";
-    #       endpoint = "se-mma-wg-001.relays.mullvad.net:51820";
-    #       allowedIPs = [ "0.0.0.0/0" ];
-    #     }
-    #   ];
-    # };
   };
 
   system.stateVersion = "23.11";

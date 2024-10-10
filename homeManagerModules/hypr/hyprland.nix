@@ -104,7 +104,7 @@
           # "P" = "sleep 1";
 
           # second row
-          "CAPSLOCK" = "pkill ags; ags";
+          "CAPS" = "pkill ags; ags";
           "F" = "hyprctl dispatch fullscreen 0";
           # "G" = "sleep 1";
           "H" = "${homeAssistant}";

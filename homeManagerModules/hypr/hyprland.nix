@@ -58,26 +58,28 @@
             hyprctl dispatch togglespecialworkspace $WORKSPACE
           fi
         '') + "/bin/hide";
+        newWorkspace = (pkgs.writers.writeBashBin "new" ''
+          $((`${monitorId}`*10+$1+10*($1==0))) 
+        '') + "/bin/new";
         showWorkspace = (pkgs.writers.writeBashBin "show" ''
-          hyprctl dispatch workspace $((`${monitorId}`*10+$1)) 
-          # echo -n ""
+          hyprctl dispatch workspace `${newWorkspace} $1` 
           ${hideSpecial}
         '') + "/bin/show";
         moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
           cmd=movetoworkspacesilent
           if [ -z $2 ]; then cmd=movetoworkspace; fi
-          hyprctl dispatch $cmd $((`${monitorId}`*10+$1))
+          hyprctl dispatch $cmd `${newWorkspace} $1`
         '') + "/bin/move";
         # scripts
 
         # monitors config
         monitors = {
           "eDP-1" = {
-            "workspaces"= genList (x: x) 10;
+            "workspaces"= genList (x: 1+x) 10;
             "config"="1920x1080@60.02, 0x0, 1.0";
           };
           "HDMI-A-1" = {
-            "workspaces"= genList (x: 10+x) 10;
+            "workspaces"= genList (x: 1+10+x) 10;
             "config"="1920x1080@59.94Hz, 1920x0, 1";
           };
         };

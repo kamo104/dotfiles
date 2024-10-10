@@ -23,6 +23,7 @@
       # extraConfig = ''${builtins.readFile ./hyprland.conf}'';
       settings =  with builtins; with pkgs.lib.lists; 
       let
+        # programs
         terminal = "${pkgs.kitty}/bin/kitty";
         fileManager = "${pkgs.nautilus}/bin/nautilus";
         programsMenu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
@@ -34,7 +35,42 @@
         messenger = "${browser} --new-window messenger.com";
         lock = "loginctl lock-session";
         ags_windows = [ "overview" "indicator0" "indicator1" "sideright" "osk" "session" "bar0" "bar1" ];
+        # programs
 
+        # scripts...
+        monitorId = (pkgs.writers.writeBashBin "monitor" ''
+          hyprctl activeworkspace -j | ${pkgs.jq}/bin/jq '.["monitorID"]'
+        '') + "/bin/monitor";
+        specialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
+          hyprctl monitors -j | jq '.['`${monitorId}`']["specialWorkspace"]["name"]' -r | cut -d":" -f2
+        '') + "/bin/workspace";
+        hideWindow = (pkgs.writers.writeBashBin "hide" ''
+          cmd=movetoworkspacesilent
+          if [ -z $1 ]; then cmd=movetoworkspace; fi
+          hyprctl dispatch $cmd special:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
+        '') + "/bin/hide";
+        toggleFocus = (pkgs.writers.writeBashBin "focus" ''
+          ${pkgs.ags}/bin/ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
+        '') + "/bin/focus";
+        hideSpecial = (pkgs.writers.writeBashBin "hide" ''
+          WORKSPACE=`${specialWorkspace}`
+          if [ $WORKSPACE ]; then
+            hyprctl dispatch togglespecialworkspace $WORKSPACE
+          fi
+        '') + "/bin/hide";
+        showWorkspace = (pkgs.writers.writeBashBin "show" ''
+          hyprctl dispatch workspace $((`${monitorId}`*10+$1)) 
+          # echo -n ""
+          ${hideSpecial}
+        '') + "/bin/show";
+        moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
+          cmd=movetoworkspacesilent
+          if [ -z $2 ]; then cmd=movetoworkspace; fi
+          hyprctl dispatch $cmd $((`${monitorId}`*10+$1))
+        '') + "/bin/move";
+        # scripts
+
+        # monitors config
         monitors = {
           "eDP-1" = {
             "workspaces"= genList (x: x) 10;
@@ -45,14 +81,53 @@
             "config"="1920x1080@59.94Hz, 1920x0, 1";
           };
         };
-        # blurls = ags_windows;
-        # layerrule = map (win: "ignorealpha,${win}") ags_windows;
+        # monitors config
+        # binds and config:
+        mainMod = "SUPER";
+        specialWorkspaces = {
+          "A" = "a_spec";
+          "S" = "msg";
+          "D" = "d_spec";
+        };
+        keyBinds = {
+          # first row
+          "TAB" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('overview')"'';
+          "Q" = "${terminal}";
+          "W" = "${windowsMenu}";
+          "E" = "${fileManager}";
+          "R" = "${programsMenu}";
+          # "T" = "sleep 1";
+          # "Y" = "sleep 1";
+          # "U" = "sleep 1";
+          "I" = "${immich}";
+          "O" = "hyprctl dispatch togglesplit";
+          # "P" = "sleep 1";
+
+          # second row
+          "F" = "hyprctl dispatch fullscreen 0";
+          # "G" = "sleep 1";
+          "H" = "${homeAssistant}";
+          "SHIFT H" = "${hideWindow}";
+          "CONTROL H" = "${hideWindow} silent";
+          "J" = "${jellyfin}";
+          # "K" = "sleep 1";
+          "L" = "${lock}";
+
+          # third row
+          "Z" = "${toggleFocus}";
+          "X" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('session')"'';
+          "C" = "hyprctl dispatch killactive";
+          "V" = "hyprctl dispatch togglefloating";
+          "B" = "${browser}";
+          # "N" = "sleep 1";
+          "M" = "${messenger}";
+
+          "mouse_down" = "hyprctl dispatch workspace e+1";
+          "mouse_up" = "hyprctl dispatch workspace e-1";
+          "Print" = "${pkgs.grim}/bin/grim";
+        };
       in{
         monitor = attrValues (mapAttrs (name: cfg: "${name}, ${cfg."config"}") monitors);
-        # monitor = [
-        #   "eDP-1, 1920x1080@60.02, 0x0, 1.0"
-        #   "HDMI-A-1,1920x1080@59.94Hz, 1920x0, 1"
-        # ];
         exec-once = [
           "${pkgs.ags}/bin/ags"
           "${pkgs.swww}/bin/swww-daemon & sleep 1; ${pkgs.swww}/bin/swww img /home/kamo/Pictures/Wallpapers/forest.jpg"
@@ -135,49 +210,10 @@
         };
         workspace = 
           let 
-            # monWrk = win: mon: map(el:"${toString el}, monitor:${mon}") win;
             monWrk = mon: map (el: "${toString el}, monitor:${mon}");
           in [] ++ foldl (a: b: a++b) [] (attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors));
         bind =
           let
-            monitorId = (pkgs.writers.writeBashBin "monitor" ''
-              hyprctl activeworkspace -j | ${pkgs.jq}/bin/jq '.["monitorID"]'
-            '') + "/bin/monitor";
-            specialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
-              hyprctl monitors -j | jq '.['`${monitorId}`']["specialWorkspace"]["name"]' -r | cut -d":" -f2
-            '') + "/bin/workspace";
-            hideWindow = (pkgs.writers.writeBashBin "hide" ''
-              cmd=movetoworkspace
-              if [ -z $1 ]; then cmd=movetoworkspacesilent; fi
-              hyprctl dispatch $cmd special:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
-            '') + "/bin/hide1";
-            toggleFocus = (pkgs.writers.writeBashBin "focus" ''
-              ${pkgs.ags}/bin/ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
-            '') + "/bin/focus";
-            hideSpecial = (pkgs.writers.writeBashBin "hide2" ''
-              WORKSPACE=`${specialWorkspace}`
-              if [ $WORKSPACE ]; then
-                hyprctl dispatch togglespecialworkspace $WORKSPACE
-              fi
-            '') + "/bin/hide2";
-            showWorkspace = (pkgs.writers.writeBashBin "show" ''
-              hyprctl dispatch workspace $((`${monitorId}`*10+$1)) 
-              # echo -n ""
-              ${hideSpecial}
-            '') + "/bin/show";
-            moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
-              cmd=movetoworkspace
-              if [ -z $2 ]; then cmd=movetoworkspacesilent; fi
-              hyprctl dispatch $cmd $((`${monitorId}`*10+$1))
-            '') + "/bin/move";
-            
-            
-            mainMod = "SUPER";
-            specialWorkspaces = {
-              "A" = "a_spec";
-              "S" = "msg";
-              "D" = "d_spec";
-            };
             SWBinds = concatLists (attrValues (mapAttrs (key: val: [
                 "${mainMod}, ${key}, togglespecialworkspace, ${val}"
                 "${mainMod} SHIFT, ${key}, movetoworkspace, special:${val}"
@@ -195,56 +231,21 @@
               "CONTROL ${els}"="${moveToWorkspace} ${els} silent";
             });
             numBinds = foldl (a: b: a // b) {} (genNumBinds (genList (x: x) 10));
-            # keyBinds = {
-            keyBinds = numBinds // {
-              # first row
-              "TAB" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('overview')"'';
-              "Q" = "${terminal}";
-              "W" = "${windowsMenu}";
-              "E" = "${fileManager}";
-              "R" = "${programsMenu}";
-              # "T" = "sleep 1";
-              # "Y" = "sleep 1";
-              # "U" = "sleep 1";
-              "I" = "${immich}";
-              "O" = "hyprctl dispatch togglesplit";
-              # "P" = "sleep 1";
 
-              # second row
-              "F" = "hyprctl dispatch fullscreen 0";
-              # "G" = "sleep 1";
-              "H" = "${homeAssistant}";
-              "SHIFT H" = "${hideWindow}";
-              "CONTROL H" = "${hideWindow} silent";
-              "J" = "${jellyfin}";
-              # "K" = "sleep 1";
-              "L" = "${lock}";
-
-              # third row
-              "Z" = "${toggleFocus}";
-              "X" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('session')"'';
-              "C" = "hyprctl dispatch killactive";
-              "V" = "hyprctl dispatch togglefloating";
-              "B" = "${browser}";
-              # "N" = "sleep 1";
-              "M" = "${messenger}";
-
-              "mouse_down" = "hyprctl dispatch workspace e+1";
-              "mouse_up" = "hyprctl dispatch workspace e-1";
-              "Print" = "${pkgs.grim}/bin/grim";
-            };
             keyToBind = key: let keys = filter (el: typeOf el == "string") (split " " key); in
               ''${mainMod} ${concatStringsSep " " (take (length keys -1) keys)}, ${last keys}'';
             KBinds = attrValues (mapAttrs (key: val:
                 "${keyToBind key}, exec, ${val}"
-              ) keyBinds);
+              ) keyBinds // numBinds);
           in SWBinds ++ MBinds ++ KBinds;
-          # in [];
           bindl = [
             ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ",XF86AudioPlay, exec, playerctl play-pause"
             ",XF86AudioPrev, exec, playerctl previous"
             ",XF86AudioNext, exec, playerctl next"
+            ",XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
+            ",XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
+            ",XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
           ];
           bindle = [
             ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
@@ -252,10 +253,9 @@
             ",XF86MonBrightnessUp, exec, ags run-js 'brightness.screen_value += 0.05; indicator.popup(1);'"
             ",XF86MonBrightnessDown, exec, ags run-js 'brightness.screen_value -= 0.05; indicator.popup(1);'"
           ];
-          bindlr = [
-            ",XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
-            ",XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
-            ",XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
+          bindm = [
+            "$mainMod, mouse:272, movewindow"
+            "$mainMod, mouse:273, resizewindow"
           ];
       };
     };

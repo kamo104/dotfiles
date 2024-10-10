@@ -104,6 +104,7 @@
           # "P" = "sleep 1";
 
           # second row
+          "CAPSLOCK" = "pkill ags; ags";
           "F" = "hyprctl dispatch fullscreen 0";
           # "G" = "sleep 1";
           "H" = "${homeAssistant}";
@@ -132,7 +133,7 @@
           "${pkgs.ags}/bin/ags"
           "${pkgs.swww}/bin/swww-daemon & sleep 1; ${pkgs.swww}/bin/swww img /home/kamo/Pictures/Wallpapers/forest.jpg"
           "sleep 10; ${pkgs.qpwgraph}/bin/qpwgraph -m"
-          "[workspace special:msg silent] ${pkgs.signal-desktop}/bin/signal-desktop"
+          "[workspace special:${specialWorkspaces."S"} silent] ${pkgs.signal-desktop}/bin/signal-desktop"
           "[workspace special:browser silent] ${browser}"
           "[workspace special:k2xc silent] ${pkgs.keepassxc}/bin/keepassxc"
         ];

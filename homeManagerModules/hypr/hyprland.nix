@@ -255,8 +255,8 @@
             ",XF86MonBrightnessDown, exec, ags run-js 'brightness.screen_value -= 0.05; indicator.popup(1);'"
           ];
           bindm = [
-            "$mainMod, mouse:272, movewindow"
-            "$mainMod, mouse:273, resizewindow"
+            "${mainMod}, mouse:272, movewindow"
+            "${mainMod}, mouse:273, resizewindow"
           ];
       };
     };

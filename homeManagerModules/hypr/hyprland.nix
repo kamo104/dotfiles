@@ -241,7 +241,7 @@
               ) binds);
             KBinds = bindsToList (keyBinds // numBinds);
           in SWBinds ++ MBinds ++ KBinds ++ [
-            "${mainMod}, Print, exec, ${pkgs.grim}/bin/grim"
+            ", Print, exec, ${pkgs.grim}/bin/grim"
           ];
           bindl = [
             ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

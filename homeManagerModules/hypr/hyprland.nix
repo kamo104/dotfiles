@@ -195,8 +195,8 @@
               "CONTROL ${els}"="${moveToWorkspace} ${els} silent";
             });
             numBinds = foldl (a: b: a // b) {} (genNumBinds (genList (x: x) 10));
-            keyBinds = {
-            # keyBinds = numBinds // {
+            # keyBinds = {
+            keyBinds = numBinds // {
               # first row
               "TAB" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('overview')"'';
               "Q" = "${terminal}";
@@ -233,7 +233,7 @@
               "mouse_up" = "hyprctl dispatch workspace e-1";
               "Print" = "${pkgs.grim}/bin/grim";
             };
-            keyToBind = key: let keys = split " " key; in
+            keyToBind = key: let keys = filter (el: typeOf el != "list") (split " " key); in
               ''${mainMod} ${concatStringsSep " " (take (length keys -1) keys)}, ${last keys}'';
             KBinds = attrValues (mapAttrs (key: val: [
                 "${keyToBind key}, exec, ${val}"

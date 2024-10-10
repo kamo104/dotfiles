@@ -233,7 +233,7 @@
               "mouse_up" = "hyprctl dispatch workspace e-1";
               "Print" = "${pkgs.grim}/bin/grim";
             };
-            keyToBind = key: let keys = filter (el: typeOf el != "list") (split " " key); in
+            keyToBind = key: let keys = filter (el: typeOf el == "string") (split " " key); in
               ''${mainMod} ${concatStringsSep " " (take (length keys -1) keys)}, ${last keys}'';
             KBinds = attrValues (mapAttrs (key: val: [
                 "${keyToBind key}, exec, ${val}"

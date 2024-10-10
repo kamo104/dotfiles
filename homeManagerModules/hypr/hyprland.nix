@@ -140,7 +140,7 @@
           in [] ++ foldl (a: b: a++b) [] (attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors));
         bind =
           let
-            monitorId = (pkgs.writers.writeBash "monitor" ''
+            monitorId = (pkgs.writers.writeBashBin "monitor" ''
               hyprctl activeworkspace -j | ${pkgs.jq}/bin/jq '.["monitorID"]'
             '') + "/bin/monitor";
             specialWorkspace = (pkgs.writers.writeBashBin "workspace" ''

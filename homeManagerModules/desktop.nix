@@ -19,7 +19,16 @@
         # target = "Wallpapers";
       };
     };
-    home.packages = with pkgs; [
+    home.packages = with pkgs; 
+    let
+      clock = pkgs.writers.writeBashBin "clock" ''
+          while true; do 
+            tput clear
+            date +"%H : %M : %S" | ${pkgs.figlet}/bin/figlet 
+            sleep 1
+          done
+        '';
+    in [
       qpwgraph
 
       # firefox
@@ -42,14 +51,14 @@
 
       # terminal image viewer
       chafa
+      # terminal clock
+      clock
       # discs/sds flashing
       caligula
       # gui todo list
       planify
       # for imagemagick
       ghostscript
-      # gui todo list
-      planify
 
       libreoffice
       hunspell
@@ -63,8 +72,6 @@
       gnome-disk-utility
       loupe
       gnome-network-displays
-
-
     ];
     home.sessionVariables = {
       GTK_THEME="Adwaita-dark";
@@ -185,24 +192,19 @@
     programs.fish = {
       enable = true;
       interactiveShellInit = let 
-        clock = pkgs.writeShellScriptBin "clock" ''
-          #!/usr/bin/env bash
-          while true; do 
-            tput clear
-            date +"%H : %M : %S" | ${pkgs.figlet}/bin/figlet 
-            sleep 1
-          done
-        '';
         sctl = a: b: "sudo systemctl ${a} wg-quick-${b}.service";
         vctl = a: "systemctl --user ${a} vban.service";
+        hictl = a: "systemctl --user ${a} hypridle.service";
       in ''
-        alias clock="${clock}/bin/clock"
         alias vpnOn="${sctl "stop" "wg0"} && ${sctl "start" "wg1"}"
         alias kkfOff="${sctl "stop" "wg0"} && ${sctl "stop" "wg1"}"
         alias kkfOn="${sctl "stop" "wg1"} && ${sctl "start" "wg0"}"
 
         alias vbanOn="${vctl "restart"}";
         alias vbanOff="${vctl "stop"}";
+
+        alias idleOn="${hictl "restart"}";
+        alias idleOff="${hictl "stop"}";
       '';
     };
   };

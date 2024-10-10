@@ -137,7 +137,7 @@
           let 
             # monWrk = win: mon: map(el:"${toString el}, monitor:${mon}") win;
             monWrk = mon: map (el: "${toString el}, monitor:${mon}");
-          in [] ++ attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors);
+          in [] ++ foldl (a: b: a++b) (attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors));
         bind =
           let
             monitorId = pkgs.writers.writeBashBin "monitor" ''

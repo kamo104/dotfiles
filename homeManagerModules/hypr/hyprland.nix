@@ -235,27 +235,27 @@
             };
             keyToBind = key: let keys = filter (el: typeOf el == "string") (split " " key); in
               ''${mainMod} ${concatStringsSep " " (take (length keys -1) keys)}, ${last keys}'';
-            KBinds = attrValues (mapAttrs (key: val:
+            KBinds = binds: attrValues (mapAttrs (key: val:
                 "${keyToBind key}, exec, ${val}"
-              ) keyBinds);
+              ) binds);
           in SWBinds ++ MBinds ++ KBinds;
           # in [];
           bindl = [
-            "XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            "XF86AudioPlay, exec, playerctl play-pause"
-            "XF86AudioPrev, exec, playerctl previous"
-            "XF86AudioNext, exec, playerctl next"
+            ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            ",XF86AudioPlay, exec, playerctl play-pause"
+            ",XF86AudioPrev, exec, playerctl previous"
+            ",XF86AudioNext, exec, playerctl next"
           ];
           bindle = [
-            "XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-            "XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-            "XF86MonBrightnessUp, exec, ags run-js 'brightness.screen_value += 0.05; indicator.popup(1);'"
-            "XF86MonBrightnessDown, exec, ags run-js 'brightness.screen_value -= 0.05; indicator.popup(1);'"
+            ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+            ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+            ",XF86MonBrightnessUp, exec, ags run-js 'brightness.screen_value += 0.05; indicator.popup(1);'"
+            ",XF86MonBrightnessDown, exec, ags run-js 'brightness.screen_value -= 0.05; indicator.popup(1);'"
           ];
           bindlr = [
-            "XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
-            "XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
-            "XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
+            ",XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
+            ",XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
+            ",XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
           ];
       };
     };

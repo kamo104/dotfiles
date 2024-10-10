@@ -195,7 +195,7 @@
               "CONTROL ${els}"="${moveToWorkspace} ${els} silent";
             });
             numBinds = foldl (a: b: a // b) {} (genNumBinds (genList (x: x) 10));
-            keyBinds = head numBinds // {
+            keyBinds = numBinds // {
               # first row
               "TAB" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('overview')"'';
               "Q" = "${terminal}";

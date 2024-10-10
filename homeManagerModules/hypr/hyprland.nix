@@ -59,7 +59,7 @@
           fi
         '') + "/bin/hide";
         newWorkspace = (pkgs.writers.writeBashBin "new" ''
-          $((`${monitorId}`*10+$1+10*($1==0))) 
+          echo $((`${monitorId}`*10+$1+10*($1==0))) 
         '') + "/bin/new";
         showWorkspace = (pkgs.writers.writeBashBin "show" ''
           hyprctl dispatch workspace `${newWorkspace} $1` 

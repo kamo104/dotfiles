@@ -140,36 +140,36 @@
           in [] ++ foldl (a: b: a++b) [] (attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors));
         bind =
           let
-            monitorId = pkgs.writers.writeBashBin "monitor" ''
+            monitorId = (pkgs.writers.writeBash "monitor" ''
               hyprctl activeworkspace -j | ${pkgs.jq}/bin/jq '.["monitorID"]'
-            '';
-            specialWorkspace = pkgs.writers.writeBashBin "workspace" ''
+            '' {}) + "/bin/monitor";
+            specialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
               hyprctl monitors -j | jq '.['`${monitorId}`']["specialWorkspace"]["name"]' -r | cut -d":" -f2
-            '';
-            hideWindow = pkgs.writers.writeBashBin "hide" ''
+            '' {}) + "/bin/workspace";
+            hideWindow = (pkgs.writers.writeBashBin "hide" ''
               cmd=movetoworkspace
               if [ -z $1 ]; then cmd=movetoworkspacesilent; fi
               hyprctl dispatch $cmd special:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
-            '';
-            toggleFocus = pkgs.writers.writeBashBin "focus" ''
+            '' {}) + "/bin/hide1";
+            toggleFocus = (pkgs.writers.writeBashBin "focus" ''
               ${pkgs.ags}/bin/ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
-            '';
-            hideSpecial = pkgs.writers.writeBashBin "hide" ''
+            '' {}) + "/bin/focus";
+            hideSpecial = (pkgs.writers.writeBashBin "hide2" ''
               WORKSPACE=`${specialWorkspace}`
               if [ $WORKSPACE ]; then
                 hyprctl dispatch togglespecialworkspace $WORKSPACE
               fi
-            '';
-            showWorkspace = pkgs.writers.writeBashBin "show" ''
+            '' {}) + "/bin/hide2";
+            showWorkspace = (pkgs.writers.writeBashBin "show" ''
               hyprctl dispatch workspace $((`${monitorId}`*10+$1)) 
               # echo -n ""
               ${hideSpecial}
-            '';
-            moveToWorkspace = pkgs.writers.writeBashBin "move" ''
+            '' {}) + "/bin/show";
+            moveToWorkspace = (pkgs.writers.writeBash "move" ''
               cmd=movetoworkspace
               if [ -z $2 ]; then cmd=movetoworkspacesilent; fi
               hyprctl dispatch $cmd $((`${monitorId}`*10+$1))
-            '';
+            '' {}) + "/bin/move";
             
             
             mainMod = "SUPER";

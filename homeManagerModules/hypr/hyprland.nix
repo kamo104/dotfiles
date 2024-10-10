@@ -137,7 +137,7 @@
           let 
             # monWrk = win: mon: map(el:"${toString el}, monitor:${mon}") win;
             monWrk = mon: map (el: "${toString el}, monitor:${mon}");
-          in attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors);
+          in [] ++ attrValues(mapAttrs (name: cfg: monWrk name cfg."workspaces") monitors);
         bind =
           let
             monitorId = pkgs.writers.writeBashBin "monitor" ''
@@ -237,7 +237,7 @@
             KBinds = concatLists (attrValues (mapAttrs (key: val: [
                 "${keyToBind key}, exec, ${val}"
               ]) keyBinds));
-          in SWBinds;
+          in [] ++ SWBinds ++ MBinds ++ KBinds;
           bindl = [
             "XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             "XF86AudioPlay, exec, playerctl play-pause"

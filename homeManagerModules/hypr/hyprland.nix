@@ -234,9 +234,9 @@
             };
             keyToBind = key: let keys = split " " key; in
               ''${mainMod} ${concatStringsSep " " (take (length keys -1) keys)}, ${last keys}'';
-            KBinds = concatLists (attrValues (mapAttrs (key: val: [
+            KBinds = attrValues (mapAttrs (key: val: [
                 "${keyToBind key}, exec, ${val}"
-              ]) keyBinds));
+              ]) keyBinds);
           in [] ++ SWBinds ++ MBinds ++ KBinds;
           bindl = [
             "XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

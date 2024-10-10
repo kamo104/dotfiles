@@ -81,8 +81,8 @@
           gaps_in = 5;
           gaps_out = 20;
           border_size = 2;
-          col.active_border = "rgba(eae0e445)";
-          col.inactive_border = "rgba(9a8d9533)";
+          "col.active_border" = "rgba(eae0e445)";
+          "col.inactive_border" = "rgba(9a8d9533)";
           layout = "dwindle";
           allow_tearing = false;
         };
@@ -179,9 +179,9 @@
               "D" = "d_spec";
             };
             SWBinds = concatLists (attrValues (mapAttrs (key: val: [
-                "${mainMod} ${key}, togglespecialworkspace, ${val}"
-                "${mainMod} SHIFT ${key}, movetoworkspace, special:${val}"
-                "${mainMod} CONTROL ${key}, movetoworkspacesilent, special:${val}"
+                "${mainMod}, ${key}, togglespecialworkspace, ${val}"
+                "${mainMod} SHIFT, ${key}, movetoworkspace, special:${val}"
+                "${mainMod} CONTROL, ${key}, movetoworkspacesilent, special:${val}"
               ]) specialWorkspaces));
             MBinds = concatLists (map (el: let FL = substring 0 1 el; in [
               "${mainMod}, ${el}, movefocus, ${FL}"

@@ -160,7 +160,7 @@
                 hyprctl dispatch togglespecialworkspace $WORKSPACE
               fi
             '';
-            showWorkspace = pkgs.writers.writeBashBin "move" ''
+            showWorkspace = pkgs.writers.writeBashBin "show" ''
               hyprctl dispatch workspace $((`${monitorId}`*10+$1)) 
               # echo -n ""
               ${hideSpecial}
@@ -178,24 +178,24 @@
               "S" = "msg";
               "D" = "d_spec";
             };
-            SWBinds = attrValues (mapAttrs (key: val: [
+            SWBinds = concatLists (attrValues (mapAttrs (key: val: [
                 "${mainMod} ${key}, togglespecialworkspace, ${val}"
                 "${mainMod} SHIFT ${key}, movetoworkspace, special:${val}"
                 "${mainMod} CONTROL ${key}, movetoworkspacesilent, special:${val}"
-              ]) specialWorkspaces);
+              ]) specialWorkspaces));
             MBinds = concatLists (map (el: let FL = substring 0 1 el; in [
               "${mainMod}, ${el}, movefocus, ${FL}"
               "${mainMod} SHIFT, ${el}, movewindow, mon:${FL}"
               "${mainMod} CONTROL, ${el}, movewindow, mon:${FL} silent"
             ]) [ "left" "right" "up" "down" ]);
 
-            genNumBinds = map (el: {
-              "${el}"="${showWorkspace} ${el}";
-              "SHIFT ${el}"="${moveToWorkspace} ${el}";
-              "CONTROL ${el}"="${moveToWorkspace} ${el} silent";
+            genNumBinds = map (el: let els = toString el; in {
+              "${els}"="${showWorkspace} ${els}";
+              "SHIFT ${els}"="${moveToWorkspace} ${els}";
+              "CONTROL ${els}"="${moveToWorkspace} ${els} silent";
             });
             numBinds = foldl (a: b: a // b) {} (genNumBinds (genList (x: x) 10));
-            keyBinds = numBinds // {
+            keyBinds = head numBinds // {
               # first row
               "TAB" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('overview')"'';
               "Q" = "${terminal}";

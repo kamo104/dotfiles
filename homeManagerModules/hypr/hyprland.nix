@@ -127,7 +127,6 @@
 
           "mouse_down" = "hyprctl dispatch workspace e+1";
           "mouse_up" = "hyprctl dispatch workspace e-1";
-          "Print" = "${pkgs.grim}/bin/grim";
         };
       in{
         monitor = attrValues (mapAttrs (name: cfg: "${name}, ${cfg."config"}") monitors);
@@ -241,7 +240,9 @@
                 "${keyToBind key}, exec, ${val}"
               ) binds);
             KBinds = bindsToList (keyBinds // numBinds);
-          in SWBinds ++ MBinds ++ KBinds;
+          in SWBinds ++ MBinds ++ KBinds ++ [
+            "${mainMod}, Print, exec, ${pkgs.grim}/bin/grim"
+          ];
           bindl = [
             ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ",XF86AudioPlay, exec, playerctl play-pause"

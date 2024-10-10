@@ -21,7 +21,7 @@
         enableXdgAutostart = true;
       };
       # extraConfig = ''${builtins.readFile ./hyprland.conf}'';
-      settings =  with builtins pkgs.lib.lists; 
+      settings =  with builtins; with pkgs.lib.lists; 
       let
         terminal = "${pkgs.kitty}/bin/kitty";
         fileManager = "${pkgs.nautilus}/bin/nautilus";

@@ -237,8 +237,8 @@
             KBinds = attrValues (mapAttrs (key: val: [
                 "${keyToBind key}, exec, ${val}"
               ]) keyBinds);
-          # in [] ++ SWBinds ++ MBinds ++ KBinds;
-          in [];
+          in SWBinds ++ MBinds ++ KBinds;
+          # in [];
           bindl = [
             "XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             "XF86AudioPlay, exec, playerctl play-pause"

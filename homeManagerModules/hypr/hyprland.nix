@@ -165,7 +165,7 @@
               # echo -n ""
               ${hideSpecial}
             '' {}) + "/bin/show";
-            moveToWorkspace = (pkgs.writers.writeBash "move" ''
+            moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
               cmd=movetoworkspace
               if [ -z $2 ]; then cmd=movetoworkspacesilent; fi
               hyprctl dispatch $cmd $((`${monitorId}`*10+$1))

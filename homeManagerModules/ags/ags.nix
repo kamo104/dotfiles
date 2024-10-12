@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, ...}: 
+{ pkgs, lib, config, ...}: 
 
 {
   options = {
@@ -6,9 +6,9 @@
   };
 
   config = lib.mkIf config.ags.enable {
-    packageOverrides = pkgs: {
-      ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    };
+    # packageOverrides = pkgs: {
+    #   ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # };
     programs.ags = {
       enable = true;
 

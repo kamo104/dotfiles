@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ...}: 
+{ inputs, pkgs, lib, config, ...}: 
 
 {
   options = {
@@ -6,6 +6,12 @@
   };
 
   config = lib.mkIf config.hyprland.enable {
+
+    # TODO: find a better place for ags override
+    packageOverrides = pkgs: {
+      ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    };
+
     services.upower.enable = true;
 
     services.displayManager.sddm = {

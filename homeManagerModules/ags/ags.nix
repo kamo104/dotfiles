@@ -6,9 +6,6 @@
   };
 
   config = lib.mkIf config.ags.enable {
-    # packageOverrides = pkgs: {
-    #   ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    # };
     nixpkgs.overlays = [
       (final: prev: {
         ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;

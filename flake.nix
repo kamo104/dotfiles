@@ -3,30 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # hyprland = {
-    #   url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprpicker = {
-    #   url = "git+https://github.com/hyprwm/hyprpicker";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags = {
       url = "github:aylur/ags";
-      # url = "github:kamo104/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # nur.url = "github:nix-community/NUR";  
-    # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
   nixConfig = {
     extra-substituters = [
@@ -38,34 +26,46 @@
   };
 
   outputs = { self, nixpkgs, ... } @inputs:
-  let 
-    rootPath = "${self}";
+  with builtins; let 
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
-    secrets = builtins.toPath "/etc/secrets";
+    secrets = toPath "/etc/secrets";
+
+    hostNames = attrNames (readDir "${self}/hosts");
+    createHosts = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
+    hostConfiguration = host: nixpkgs.lib.nixosSystem {
+      specialArgs = {
+          inherit inputs modules hmModules customPkgs secrets;
+          hostname = "${host}";
+      };
+      modules = [
+        "${self}/hosts/${host}/configuration.nix"
+      ];
+    };
   in
   {
-    nixosConfigurations = {
-      kamo-laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs modules hmModules customPkgs rootPath secrets;
-          hostname = "kamo-laptop";
-        };
-        modules = [
-          ./hosts/laptop/configuration.nix
-        ];
-      };
-      kamo-server = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs modules hmModules customPkgs rootPath secrets;
-          hostname = "kamo-server";
-        };
-        modules = [
-          ./hosts/server/configuration.nix
-        ];
-      };
-    };
+    nixosConfigurations = createHosts hostNames;
+    # nixosConfigurations = {
+    #   kamo-laptop = nixpkgs.lib.nixosSystem {
+    #     specialArgs = {
+    #       inherit inputs modules hmModules customPkgs secrets;
+    #       hostname = "kamo-laptop";
+    #     };
+    #     modules = [
+    #       ./hosts/laptop/configuration.nix
+    #     ];
+    #   };
+    #   kamo-server = nixpkgs.lib.nixosSystem {
+    #     specialArgs = {
+    #       inherit inputs modules hmModules customPkgs secrets;
+    #       hostname = "kamo-server";
+    #     };
+    #     modules = [
+    #       ./hosts/server/configuration.nix
+    #     ];
+    #   };
+    # };
     
     # base nix profile system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 

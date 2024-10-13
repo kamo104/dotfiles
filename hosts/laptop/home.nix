@@ -12,6 +12,12 @@
     "${args.hmModules}/common.nix"
     "${args.hmModules}/desktop.nix"
   ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    })
+  ];
   hyprlandHM.enable = true;
   ags.enable = true;
   kitty.enable = true;

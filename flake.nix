@@ -33,7 +33,8 @@
     secrets = toPath "/etc/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");
-    createHosts = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
+    mapper = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
+    createHosts = listToAttrs mapper;
     hostConfiguration = host: nixpkgs.lib.nixosSystem {
       specialArgs = {
           inherit inputs modules hmModules customPkgs secrets;

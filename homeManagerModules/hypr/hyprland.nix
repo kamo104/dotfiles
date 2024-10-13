@@ -50,7 +50,7 @@
           hyprctl dispatch $cmd special:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
         '') + "/bin/hide";
         toggleFocus = (pkgs.writers.writeBashBin "focus" ''
-          ${pkgs.ags}/bin/ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
+          ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
         '') + "/bin/focus";
         hideSpecial = (pkgs.writers.writeBashBin "hide" ''
           WORKSPACE=`${specialWorkspace}`
@@ -93,7 +93,7 @@
         };
         keyBinds = {
           # first row
-          "TAB" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('overview')"'';
+          "TAB" = ''ags -r "App.toggleWindow('overview')"'';
           "Q" = "${terminal}";
           "W" = "${windowsMenu}";
           "E" = "${fileManager}";
@@ -118,7 +118,7 @@
 
           # third row
           "Z" = "${toggleFocus}";
-          "X" = ''${pkgs.ags}/bin/ags -r "App.toggleWindow('session')"'';
+          "X" = ''ags -r "App.toggleWindow('session')"'';
           "C" = "hyprctl dispatch killactive";
           "V" = "hyprctl dispatch togglefloating";
           "B" = "${browser}";
@@ -131,7 +131,7 @@
       in{
         monitor = attrValues (mapAttrs (name: cfg: "${name}, ${cfg."config"}") monitors);
         exec-once = [
-          # "${pkgs.ags}/bin/ags"
+          # "ags"
           "${pkgs.swww}/bin/swww-daemon & sleep 1; ${pkgs.swww}/bin/swww img /home/kamo/Pictures/Wallpapers/forest.jpg"
           "sleep 10; ${pkgs.qpwgraph}/bin/qpwgraph -m"
           "[workspace special:${specialWorkspaces."S"} silent] ${pkgs.signal-desktop}/bin/signal-desktop"

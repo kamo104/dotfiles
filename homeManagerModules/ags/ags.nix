@@ -14,14 +14,12 @@
     programs.ags = {
       enable = true;
       systemd.enable = true;
-      # package = config.programs.ags.finalPackage;
 
       configDir = ./.;
       extraPackages = with pkgs; [
         gtksourceview
         webkitgtk
         accountsservice
-        # libdbusmenu-gtk3
       ];
     };
   };

@@ -8,11 +8,14 @@
   config = lib.mkIf config.ags.enable {
     nixpkgs.overlays = [
       (final: prev: {
-        ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        # ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        # ags = config.programs.ags.final
+        ags = config.programs.ags.package;
       })
     ];
     programs.ags = {
       enable = true;
+      systemd.enable = true;
 
       # null or path, leave as null if you don't want hm to manage the config
       configDir = ./.;

@@ -82,6 +82,10 @@
             "workspaces"= genList (x: 1+10+x) 10;
             "config"="1920x1080@59.94Hz, 1920x0, 1";
           };
+          "headless" = {
+            "workspaces" = genList (x: 1+20+x) 20;
+            "config" = "1920x1080@60Hz, 1080x0, 1";
+          };
         };
         # monitors config
         # binds and config:

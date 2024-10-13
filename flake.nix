@@ -33,8 +33,6 @@
     secrets = toPath "/etc/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");
-    mapper = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
-    createHosts = hosts: listToAttrs (mapper hosts);
     hostConfiguration = host: nixpkgs.lib.nixosSystem {
       specialArgs = {
           inherit inputs modules hmModules customPkgs secrets;
@@ -44,29 +42,11 @@
         "${self}/hosts/${host}/configuration.nix"
       ];
     };
+    mapper = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
+    createHosts = hosts: listToAttrs (mapper hosts);
   in
   {
     nixosConfigurations = createHosts hostNames;
-    # nixosConfigurations = {
-    #   kamo-laptop = nixpkgs.lib.nixosSystem {
-    #     specialArgs = {
-    #       inherit inputs modules hmModules customPkgs secrets;
-    #       hostname = "kamo-laptop";
-    #     };
-    #     modules = [
-    #       ./hosts/laptop/configuration.nix
-    #     ];
-    #   };
-    #   kamo-server = nixpkgs.lib.nixosSystem {
-    #     specialArgs = {
-    #       inherit inputs modules hmModules customPkgs secrets;
-    #       hostname = "kamo-server";
-    #     };
-    #     modules = [
-    #       ./hosts/server/configuration.nix
-    #     ];
-    #   };
-    # };
     
     # base nix profile system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 

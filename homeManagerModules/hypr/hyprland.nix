@@ -282,15 +282,16 @@
         done
       '';
 
-      on-lock = pkgs.writers.writeBashBin "on-lock.sh" ''
+      on-lock = (pkgs.writers.writeBashBin "on-lock" ''
         if [ $(pgrep -f "${mpv-cmd}") ]; then
           exit 0
         fi
+        # TODO: start the video for every monitor 
         ${mpv-cmd} 2>&1 &
         hyprlock
         kill %1
-      '';
-      br-anim = pkgs.writers.writeBashBin "br-anim.sh" ''
+      '') + "/bin/on-lock";
+      br-anim = (pkgs.writers.writeBashBin "br-anim" ''
         END=$1
         STEP=$2
         if (( END - $(brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
@@ -298,16 +299,16 @@
           brightnessctl s $(( $(brightnessctl g) + $SIGN * STEP ))
         done
         brightnessctl s $END
-      '';
-      on-resume = pkgs.writers.writeBashBin "on-resume.sh" ''
+      '') + "/bin/br-anim";
+      on-resume = (pkgs.writers.writeBashBin "on-resume" ''
         BR=$(cat "${br-file}")
         rm "${br-file}"
 
-        pkill -f "${br-anim}/bin/br-anim.sh"
+        pkill -f "${br-anim}"
 
         ${br-anim} $BR 10 & disown
-      '';
-      on-pause = pkgs.writers.writeBashBin "on-pause.sh" ''
+      '') + "/bin/on-resume";
+      on-pause = (pkgs.writers.writeBashBin "on-pause" ''
         if [ ! -e "${br-file}" ]; then
           brightnessctl g > "${br-file}";
         fi
@@ -315,7 +316,7 @@
         pkill -f "${br-anim}"
 
         ${br-anim} 0 2 & disown
-      '';
+      '') + "/bin/on-pause";
     in
     {
       enable = true;

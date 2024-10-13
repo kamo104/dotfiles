@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ...}: 
+{ inputs, pkgs, lib, config, ...}: 
 
 {
   options = {
@@ -9,6 +9,11 @@
     # packageOverrides = pkgs: {
     #   ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # };
+    nixpkgs.overlays = [
+      (final: prev: {
+        ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      })
+    ];
     programs.ags = {
       enable = true;
 

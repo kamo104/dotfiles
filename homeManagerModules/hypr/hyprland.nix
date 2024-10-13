@@ -122,7 +122,7 @@
           "C" = "hyprctl dispatch killactive";
           "V" = "hyprctl dispatch togglefloating";
           "B" = "${browser}";
-          # "N" = "sleep 1";
+          "N" = "sleep 1";
           "M" = "${messenger}";
 
           "mouse_down" = "hyprctl dispatch workspace e+1";

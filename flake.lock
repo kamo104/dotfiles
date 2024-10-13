@@ -8,15 +8,15 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1727303518,
-        "narHash": "sha256-lO5JMynTxNZxg/+E4/Y9reeLGIz/M8cEue+Re4cP6qo=",
-        "owner": "aylur",
+        "lastModified": 1728842188,
+        "narHash": "sha256-1ns5r/BNq1BAsbjHMmP07q3k3XfVlLMfQDth49rOegA=",
+        "owner": "kamo104",
         "repo": "ags",
-        "rev": "cd543afec4d9ed708990e5ba52184716809bf248",
+        "rev": "5600fdfd63905a2c88e9839ac35c068f6fcd99af",
         "type": "github"
       },
       "original": {
-        "owner": "aylur",
+        "owner": "kamo104",
         "repo": "ags",
         "type": "github"
       }

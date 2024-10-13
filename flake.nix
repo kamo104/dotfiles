@@ -34,7 +34,7 @@
 
     hostNames = attrNames (readDir "${self}/hosts");
     mapper = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
-    createHosts = listToAttrs mapper;
+    createHosts = hosts: listToAttrs (mapper hosts);
     hostConfiguration = host: nixpkgs.lib.nixosSystem {
       specialArgs = {
           inherit inputs modules hmModules customPkgs secrets;

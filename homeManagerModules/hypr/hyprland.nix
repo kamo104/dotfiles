@@ -84,7 +84,7 @@
           };
           "headless" = {
             "workspaces" = genList (x: 1+20+x) 20;
-            "config" = "1920x1080@60Hz, 1080x0, 1";
+            "config" = "1920x1080@60Hz, 0x1080, 1";
           };
         };
         # monitors config

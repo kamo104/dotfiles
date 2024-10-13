@@ -10,7 +10,7 @@
       (final: prev: {
         # ags = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default;
         # ags = config.programs.ags.final
-        ags = config.programs.ags.package;
+        ags = config.programs.ags.finalPackage;
       })
     ];
     programs.ags = {

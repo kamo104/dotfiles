@@ -13,7 +13,7 @@
     # ];
     programs.ags = {
       enable = true;
-      # systemd.enable = true;
+      systemd.enable = true;
       # package = config.programs.ags.finalPackage;
 
       configDir = ./.;

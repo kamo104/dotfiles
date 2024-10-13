@@ -106,7 +106,7 @@
           # "P" = "sleep 1";
 
           # second row
-          "CAPS" = "pkill ags; ags";
+          # "CAPS" = "pkill ags; ags";
           "F" = "hyprctl dispatch fullscreen 0";
           # "G" = "sleep 1";
           "H" = "${homeAssistant}";
@@ -131,7 +131,7 @@
       in{
         monitor = attrValues (mapAttrs (name: cfg: "${name}, ${cfg."config"}") monitors);
         exec-once = [
-          "${pkgs.ags}/bin/ags"
+          # "${pkgs.ags}/bin/ags"
           "${pkgs.swww}/bin/swww-daemon & sleep 1; ${pkgs.swww}/bin/swww img /home/kamo/Pictures/Wallpapers/forest.jpg"
           "sleep 10; ${pkgs.qpwgraph}/bin/qpwgraph -m"
           "[workspace special:${specialWorkspaces."S"} silent] ${pkgs.signal-desktop}/bin/signal-desktop"

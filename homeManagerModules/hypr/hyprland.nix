@@ -241,7 +241,7 @@
               ) binds);
             KBinds = bindsToList (keyBinds // numBinds);
           in SWBinds ++ MBinds ++ KBinds ++ [
-            ", Print, exec, ${pkgs.grim}/bin/grim"
+            '', Print, exec, ${pkgs.grim}/bin/grim - | tee $GRIM_DEFAULT_DIR/$(date "+%Y%m%d_%Hh%Mm%Ss_grim.png") | wl-copy''
           ];
           bindl = [
             ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

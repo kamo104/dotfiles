@@ -35,7 +35,7 @@
     autoLogin.enable = true;
     autoLogin.user = "kamo";
   };
-  # sunshine.enable = true;
+  sunshine.enable = true;
   # services.xserver = {
   #   enable = true;
   #   displayManager.gdm.enable = true;

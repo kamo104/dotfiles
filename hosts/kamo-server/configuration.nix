@@ -326,7 +326,7 @@ in
 
 
         { # kacper-desktop
-          publicKey = "QCMFfpqml4LYNbqaIBtv1A1lApbwhJfBvRRDS2LCrW4=";
+          publicKey = "M62ByXdDzauQ/6E1nDCue7yOHDi+bABRnf5e2P1vBmY=";
           allowedIPs = [ "10.100.12.69/32" ];
         }
         # { # kacper-babcia-laptop

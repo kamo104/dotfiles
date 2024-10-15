@@ -7,10 +7,10 @@
 
   config = lib.mkIf config.ags.enable {
     home.packages = with pkgs; let
-      agsOff = pkgs.writeBashBin "agsOff" ''
+      agsOff = pkgs.writers.writeBashBin "agsOff" ''
         systemctl --user restart ags.service
       '';
-      agsOn = pkgs.writeBashBin "agsOn" ''
+      agsOn = pkgs.writers.writeBashBin "agsOn" ''
         systemctl --user restart ags.service
       '';
     in [

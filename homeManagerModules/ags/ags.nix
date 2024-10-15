@@ -6,11 +6,18 @@
   };
 
   config = lib.mkIf config.ags.enable {
-    # nixpkgs.overlays = [
-    #   (final: prev: {
-    #     ags = config.programs.ags.finalPackage;
-    #   })
-    # ];
+    home.packages = with pkgs; let
+      agsOff = pkgs.writeBashBin "agsOff" ''
+        systemctl --user restart ags.service
+      '';
+      agsOn = pkgs.writeBashBin "agsOn" ''
+        systemctl --user restart ags.service
+      '';
+    in [
+      agsOff
+      agsOn
+    ];
+    
     programs.ags = {
       enable = true;
       systemd.enable = true;

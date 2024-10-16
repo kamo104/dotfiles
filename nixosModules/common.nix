@@ -14,27 +14,28 @@
 
     services.openssh.enable = true;
     
-    security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
+    # security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
+    security.pki.certificateFiles = [ (/. + "./ca.crt") ];
 
-  nix = {
-    extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-    '';
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      connect-timeout = 1;
-      # substituters = [
-      #   "https://attic.kkf.internal/home"
-      # ];
-      # trusted-public-keys = [
-      #   "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
-      # ];
-      netrc-file = [
-        "${args.secrets}/nix/netrc"
-      ];
+    nix = {
+      extraOptions = ''
+        keep-outputs = true
+        keep-derivations = true
+      '';
+      settings = {
+        experimental-features = [ "nix-command" "flakes" ];
+        connect-timeout = 1;
+        # substituters = [
+        #   "https://attic.kkf.internal/home"
+        # ];
+        # trusted-public-keys = [
+        #   "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
+        # ];
+        netrc-file = [
+          "${args.secrets}/nix/netrc"
+        ];
+      };
     };
-  };
     
     nixpkgs.config.allowUnfree = true;
 

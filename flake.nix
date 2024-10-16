@@ -31,8 +31,7 @@
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
     # secrets = toPath "/etc/secrets";
-    # secrets = "/home/kamo/secrets";
-    secrets = getEnv "SECRETS_PATH";
+    secrets = "/home/kamo/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");
     hostConfiguration = host: nixpkgs.lib.nixosSystem {

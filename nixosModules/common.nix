@@ -2,7 +2,7 @@
 
 let
   caCert = pkgs.fetchurl {
-    url = "${args.secrets}/ca.crt";
+    url = "file://${args.secrets}/ca.crt";
     sha256 = "";
   };
 in
@@ -21,8 +21,8 @@ in
     services.openssh.enable = true;
     
     # security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
-    security.pki.certificateFiles = [ caCert ];
     # security.pki.certificateFiles = [ (/. + "ca.crt") ];
+    security.pki.certificateFiles = [ caCert ];
 
     nix = {
       extraOptions = ''

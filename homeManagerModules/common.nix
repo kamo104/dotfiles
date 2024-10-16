@@ -78,15 +78,13 @@
           space = {
             w = ":w";
             q = ":q";
-            # "z" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
-            # "Z" = '':set-option gutters.layout []'';
-            "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
-            "Z: turn on zen mode" = '':set-option gutters.layout []'';
+            "z" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
+            "Z" = '':set-option gutters.layout []'';
+            # custom binds tooltips:
+            # https://github.com/helix-editor/helix/pull/3958
+            # "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
+            # "Z: turn on zen mode" = '':set-option gutters.layout []'';
           };
-          # custom binds tooltips:
-          # https://github.com/helix-editor/helix/pull/3958
-          # "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
-          # "Z: turn on zen mode" = '':set-option gutters.layout []'';
 
           # cursor position persistent after leave:
           # https://github.com/helix-editor/helix/pull/9143

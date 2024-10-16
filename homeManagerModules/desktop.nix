@@ -36,9 +36,8 @@
       # games
       lutris
       # winetricks
-      winePackages.stableFull
-      # wine
-      # wine64
+      # winePackages.stableFull
+      wine64Packages.stableFull
 
       # obs-studio
       spotify

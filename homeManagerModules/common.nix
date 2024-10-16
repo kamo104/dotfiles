@@ -5,6 +5,9 @@
   };
 
   config = lib.mkIf config.common.enable {
+    home.sessionVariables = {
+      SECRETS_PATH = "/home/kamo/secrets";
+    };
     # home.language.base = "pl_PL.UTF-8"; 
     home.language.base = "en_US.UTF-8"; 
     home.packages = with pkgs; [

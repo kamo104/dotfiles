@@ -33,9 +33,11 @@
 
       # firefox
       brave
+      # games
       lutris
       winetricks
-      wine
+      wine64
+
       # obs-studio
       spotify
       spotify-tray

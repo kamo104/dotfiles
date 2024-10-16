@@ -35,8 +35,10 @@
       brave
       # games
       lutris
-      winetricks
-      wine64
+      # winetricks
+      winePackages.stableFull
+      # wine
+      # wine64
 
       # obs-studio
       spotify

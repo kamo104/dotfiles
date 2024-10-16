@@ -1,7 +1,7 @@
 { pkgs, lib, config, customPkgs, ...} @args:
 
 let
-  caCert = pkgs.fetchurl {
+  caCert = builtins.fetchurl {
     url = "file://${args.secrets}/ca.crt";
     sha256 = "";
   };

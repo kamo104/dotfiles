@@ -3,7 +3,7 @@
 let
   caCert = builtins.fetchurl {
     url = "file://${args.secrets}/ca.crt";
-    sha256 = "";
+    sha256 = "sha256:124yzgp3b94kng50rhflxxxql0i9rq07m0rmfxixlnk6igbm9gs8";
   };
 in
 {

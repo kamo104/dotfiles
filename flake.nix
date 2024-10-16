@@ -30,8 +30,6 @@
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
-    # secrets = toPath "/etc/secrets";
-    # secrets = "/home/kamo/secrets";
     secrets = "/etc/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");

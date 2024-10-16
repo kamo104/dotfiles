@@ -30,7 +30,8 @@
     modules = "${self}/nixosModules";
     hmModules = "${self}/homeManagerModules";
     customPkgs = "${self}/nixosPackages";
-    secrets = toPath "/etc/secrets";
+    # secrets = toPath "/etc/secrets";
+    secrets = "/etc/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");
     hostConfiguration = host: nixpkgs.lib.nixosSystem {

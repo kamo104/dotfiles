@@ -21,7 +21,6 @@ in
     services.openssh.enable = true;
     
     # security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
-    # security.pki.certificateFiles = [ (/. + "ca.crt") ];
     security.pki.certificateFiles = [ caCert ];
 
     nix = {

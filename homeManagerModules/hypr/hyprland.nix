@@ -80,7 +80,7 @@
           };
           "HDMI-A-1" = {
             "workspaces"= genList (x: 1+10+x) 10;
-            "config"="1920x1080@59.94Hz, 1920x0, 1, transform 1";
+            "config"="1920x1080@59.94Hz, 1920x0, 1, transform, 1";
           };
           "headless" = {
             "workspaces" = genList (x: 1+20+x) 20;

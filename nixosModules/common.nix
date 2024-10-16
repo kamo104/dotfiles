@@ -1,5 +1,11 @@
 { pkgs, lib, config, customPkgs, ...} @args:
 
+let
+  caCert = pkgs.fetchurl {
+    url = "${args.secrets}/ca.crt";
+    sha256 = "";
+  };
+in
 {
   options = {
     common.enable = lib.mkEnableOption "enables ssh, helix, git...";
@@ -15,7 +21,8 @@
     services.openssh.enable = true;
     
     # security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
-    security.pki.certificateFiles = [ (/. + "ca.crt") ];
+    security.pki.certificateFiles = [ caCert ];
+    # security.pki.certificateFiles = [ (/. + "ca.crt") ];
 
     nix = {
       extraOptions = ''

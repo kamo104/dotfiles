@@ -36,9 +36,7 @@
       # games
       lutris
       # winetricks
-      # winePackages.stableFull
       wineWowPackages.stableFull
-      # (wine.override { wineBuild = "wine64"; })
 
       # obs-studio
       spotify

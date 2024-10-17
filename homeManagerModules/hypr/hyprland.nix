@@ -29,9 +29,9 @@
         programsMenu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
         windowsMenu = "${pkgs.rofi-wayland}/bin/rofi -show window";
         browser = "${pkgs.firefox}/bin/firefox";
-        homeAssistant = "${browser} --new-window home-assistant.kkf.internal";
-        immich = "${browser} --new-window immich.kkf.internal";
-        jellyfin = "${browser} --new-window jellyfin.kkf.internal";
+        homeAssistant = ''${specialApp} "Home Assistant" ${browser} --new-window home-assistant.kkf.internal"'';
+        immich = ''${specialApp} "Immich" ${browser} --new-window immich.kkf.internal"'';
+        jellyfin = ''${specialApp} "Jellyfin" ${browser} --new-window jellyfin.kkf.internal"'';
         messenger = "${browser} --new-window messenger.com";
         lock = "loginctl lock-session";
         ags_windows = [ "overview" "indicator0" "indicator1" "sideright" "osk" "session" "bar0" "bar1" ];
@@ -41,7 +41,7 @@
         monitorId = (pkgs.writers.writeBashBin "monitor" ''
           hyprctl activeworkspace -j | ${pkgs.jq}/bin/jq '.["monitorID"]'
         '') + "/bin/monitor";
-        specialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
+        currentSpecialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
           hyprctl monitors -j | jq '.['`${monitorId}`']["specialWorkspace"]["name"]' -r | cut -d":" -f2
         '') + "/bin/workspace";
         hideWindow = (pkgs.writers.writeBashBin "hide" ''
@@ -53,7 +53,7 @@
           ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
         '') + "/bin/focus";
         hideSpecial = (pkgs.writers.writeBashBin "hide" ''
-          WORKSPACE=`${specialWorkspace}`
+          WORKSPACE=`${currentSpecialWorkspace}`
           if [ $WORKSPACE ]; then
             hyprctl dispatch togglespecialworkspace $WORKSPACE
           fi
@@ -70,6 +70,16 @@
           if [ -z $2 ]; then cmd=movetoworkspace; fi
           hyprctl dispatch $cmd `${newWorkspace} $1`
         '') + "/bin/move";
+        specialApp = (pkgs.writers.writeBashBin "app" ''
+          N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
+          if [ -n $N ]; then
+            NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"
+            NAME="\$\{NAME#special:}"
+            hyprctl dispatch togglespecialworkspace $NAME
+          else 
+            $2
+          fi
+        '') + "/bin/app";
         # scripts
 
         # monitors config
@@ -105,6 +115,8 @@
           # "T" = "sleep 1";
           # "Y" = "sleep 1";
           # "U" = "sleep 1";
+          # TODO: immich special workspace
+          # N=$(hyprctl clients -j | jq '.[].title' | grep -ni "jellyfin" | cut -d':' -f 1); NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"; A="${NAME#special:}"; hyprctl dispatch togglespecialworkspace $A
           "I" = "${immich}";
           "O" = "hyprctl dispatch togglesplit";
           # "P" = "sleep 1";
@@ -113,9 +125,11 @@
           # "CAPS" = "pkill ags; ags";
           "F" = "hyprctl dispatch fullscreen 0";
           # "G" = "sleep 1";
+          # TODO: change to a special workspace with homeAssistant
           "H" = "${homeAssistant}";
           "SHIFT H" = "${hideWindow}";
           "CONTROL H" = "${hideWindow} silent";
+          # TODO: toggle psecial workspace
           "J" = "${jellyfin}";
           # "K" = "sleep 1";
           "L" = "${lock}";

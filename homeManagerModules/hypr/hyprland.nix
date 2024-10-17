@@ -29,9 +29,9 @@
         programsMenu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
         windowsMenu = "${pkgs.rofi-wayland}/bin/rofi -show window";
         browser = "${pkgs.firefox}/bin/firefox";
-        homeAssistant = ''${specialApp} "Home Assistant" ${browser} --new-window home-assistant.kkf.internal"'';
-        immich = ''${specialApp} "Immich" ${browser} --new-window immich.kkf.internal"'';
-        jellyfin = ''${specialApp} "Jellyfin" ${browser} --new-window jellyfin.kkf.internal"'';
+        homeAssistant = ''${specialApp} "Home Assistant" "${browser} --new-window home-assistant.kkf.internal"'';
+        immich = ''${specialApp} "Immich" "${browser} --new-window immich.kkf.internal"'';
+        jellyfin = ''${specialApp} "Jellyfin" "${browser} --new-window jellyfin.kkf.internal"'';
         messenger = "${browser} --new-window messenger.com";
         lock = "loginctl lock-session";
         ags_windows = [ "overview" "indicator0" "indicator1" "sideright" "osk" "session" "bar0" "bar1" ];

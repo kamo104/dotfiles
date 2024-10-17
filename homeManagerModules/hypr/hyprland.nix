@@ -44,10 +44,13 @@
         currentSpecialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
           hyprctl monitors -j | jq '.['`${monitorId}`']["specialWorkspace"]["name"]' -r | cut -d":" -f2
         '') + "/bin/workspace";
+        random = (pkgs.writers.writeBashBin "random" ''
+          head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16
+        '') + "/bin/random";
         hideWindow = (pkgs.writers.writeBashBin "hide" ''
           cmd=movetoworkspacesilent
           if [ -z $1 ]; then cmd=movetoworkspace; fi
-          hyprctl dispatch $cmd special:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
+          hyprctl dispatch $cmd special:$(${random})
         '') + "/bin/hide";
         toggleFocus = (pkgs.writers.writeBashBin "focus" ''
           ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
@@ -75,7 +78,8 @@
         specialApp = (pkgs.writers.writeBashBin "app" ''
           N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
           if [ -z $N ]; then
-            $2 && ${hideWindow}
+            hyprctl dispatch workspace $(${random}) #
+            $2
           else 
             NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"
             NAME="''${NAME#special:}"

@@ -74,7 +74,7 @@
           N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
           if [ -n $N ]; then
             NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"
-            NAME="\$\{NAME#special:\}"
+            NAME="''${NAME#special:}"
             hyprctl dispatch togglespecialworkspace $NAME
           else 
             $2

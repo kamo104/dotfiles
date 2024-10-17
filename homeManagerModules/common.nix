@@ -5,6 +5,9 @@
   };
 
   config = lib.mkIf config.common.enable {
+    home.sessionVariables = {
+      SECRETS_PATH = "/home/kamo/secrets";
+    };
     # home.language.base = "pl_PL.UTF-8"; 
     home.language.base = "en_US.UTF-8"; 
     home.packages = with pkgs; [
@@ -77,11 +80,11 @@
             q = ":q";
             "z" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
             "Z" = '':set-option gutters.layout []'';
+            # custom binds tooltips:
+            # https://github.com/helix-editor/helix/pull/3958
+            # "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
+            # "Z: turn on zen mode" = '':set-option gutters.layout []'';
           };
-          # custom binds tooltips:
-          # https://github.com/helix-editor/helix/pull/3958
-          # "z: turn off zen mode" = '':set-option gutters.layout ["diagnostics","spacer","line-numbers","spacer","diff"]'';
-          # "Z: turn on zen mode" = '':set-option gutters.layout []'';
 
           # cursor position persistent after leave:
           # https://github.com/helix-editor/helix/pull/9143

@@ -1,5 +1,11 @@
 { pkgs, lib, config, customPkgs, ...} @args:
 
+let
+  caCert = builtins.fetchurl {
+    url = "file://${args.secrets}/ca.crt";
+    sha256 = "sha256:124yzgp3b94kng50rhflxxxql0i9rq07m0rmfxixlnk6igbm9gs8";
+  };
+in
 {
   options = {
     common.enable = lib.mkEnableOption "enables ssh, helix, git...";
@@ -14,27 +20,28 @@
 
     services.openssh.enable = true;
     
-    security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
+    # security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
+    security.pki.certificateFiles = [ caCert ];
 
-  nix = {
-    extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-    '';
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      connect-timeout = 1;
-      # substituters = [
-      #   "https://attic.kkf.internal/home"
-      # ];
-      # trusted-public-keys = [
-      #   "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
-      # ];
-      netrc-file = [
-        "${args.secrets}/nix/netrc"
-      ];
+    nix = {
+      extraOptions = ''
+        keep-outputs = true
+        keep-derivations = true
+      '';
+      settings = {
+        experimental-features = [ "nix-command" "flakes" ];
+        connect-timeout = 1;
+        # substituters = [
+        #   "https://attic.kkf.internal/home"
+        # ];
+        # trusted-public-keys = [
+        #   "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
+        # ];
+        netrc-file = [
+          "${args.secrets}/nix/netrc"
+        ];
+      };
     };
-  };
     
     nixpkgs.config.allowUnfree = true;
 

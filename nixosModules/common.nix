@@ -58,6 +58,8 @@ in
       extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" ];
       # packages = with pkgs; [];
     });
+
+    programs.git.enable = true;
     
   };
 }

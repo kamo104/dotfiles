@@ -61,20 +61,24 @@
             hyprctl dispatch togglespecialworkspace $WORKSPACE
           fi
         '') + "/bin/hide";
+        # $1 == bind number
         newWorkspace = (pkgs.writers.writeBashBin "new" ''
           echo $((`${monitorId}`*10+$1+10*($1==0))) 
         '') + "/bin/new";
+        # $1 == bind number
         showWorkspace = (pkgs.writers.writeBashBin "show" ''
           hyprctl dispatch workspace `${newWorkspace} $1` 
           ${hideSpecial}
         '') + "/bin/show";
-        # $1 == workspace Number
+        # $1 == bind number
         # $2 ? optional for silent move
         moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
           cmd=movetoworkspacesilent
           if [ -z $2 ]; then cmd=movetoworkspace; fi
           hyprctl dispatch $cmd `${newWorkspace} $1`
         '') + "/bin/move";
+        # $1 == window name to look for
+        # $2 == the command used to start the app
         specialApp = (pkgs.writers.writeBashBin "app" ''
           N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
           if [ -z $N ]; then
@@ -121,8 +125,6 @@
           # "T" = "sleep 1";
           # "Y" = "sleep 1";
           # "U" = "sleep 1";
-          # TODO: immich special workspace
-          # N=$(hyprctl clients -j | jq '.[].title' | grep -ni "jellyfin" | cut -d':' -f 1); NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"; A="${NAME#special:}"; hyprctl dispatch togglespecialworkspace $A
           "I" = "${immich}";
           "O" = "hyprctl dispatch togglesplit";
           # "P" = "sleep 1";
@@ -131,11 +133,9 @@
           # "CAPS" = "pkill ags; ags";
           "F" = "hyprctl dispatch fullscreen 0";
           # "G" = "sleep 1";
-          # TODO: change to a special workspace with homeAssistant
           "H" = "${homeAssistant}";
           "SHIFT H" = "${hideWindow}";
           "CONTROL H" = "${hideWindow} silent";
-          # TODO: toggle psecial workspace
           "J" = "${jellyfin}";
           # "K" = "sleep 1";
           "L" = "${lock}";
@@ -147,6 +147,7 @@
           "V" = "hyprctl dispatch togglefloating";
           "B" = "${browser}";
           "N" = "sleep 1";
+          # TODO: toggle special workspace
           "M" = "${messenger}";
 
           "mouse_down" = "hyprctl dispatch workspace e+1";
@@ -325,8 +326,12 @@
         brightnessctl s $END
       '') + "/bin/br-anim";
       on-resume = (pkgs.writers.writeBashBin "on-resume" ''
-        BR=$(cat "${br-file}")
-        rm "${br-file}"
+        if [ -e "${br-file}" ]; then
+          BR=$(cat "${br-file}")
+          rm "${br-file}"
+        else 
+          BR=0
+        fi
 
         pkill -f "${br-anim}"
 

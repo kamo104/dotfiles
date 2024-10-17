@@ -78,7 +78,7 @@
         specialApp = (pkgs.writers.writeBashBin "app" ''
           N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
           if [ -z $N ]; then
-            hyprctl dispatch workspace $(${random}) #
+            hyprctl dispatch workspace special:$(${random}) #
             $2
           else 
             NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"

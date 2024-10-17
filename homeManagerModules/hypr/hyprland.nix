@@ -65,6 +65,8 @@
           hyprctl dispatch workspace `${newWorkspace} $1` 
           ${hideSpecial}
         '') + "/bin/show";
+        # $1 == workspace Number
+        # $2 ? optional for silent move
         moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
           cmd=movetoworkspacesilent
           if [ -z $2 ]; then cmd=movetoworkspace; fi
@@ -72,12 +74,12 @@
         '') + "/bin/move";
         specialApp = (pkgs.writers.writeBashBin "app" ''
           N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
-          if [ -n $N ]; then
+          if [ -z $N ]; then
+            $2
+          else 
             NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"
             NAME="''${NAME#special:}"
             hyprctl dispatch togglespecialworkspace $NAME
-          else 
-            $2
           fi
         '') + "/bin/app";
         # scripts

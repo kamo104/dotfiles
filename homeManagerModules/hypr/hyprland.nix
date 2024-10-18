@@ -341,7 +341,7 @@
       '') + "/bin/on-resume";
       on-pause = (pkgs.writers.writeBashBin "on-pause" ''
         if [ ! -e "${br-file}" ]; then
-          brightnessctl g > "${br-file}";
+          ${pkgs.brightnessctl}/bin/brightnessctl g > "${br-file}";
         fi
 
         pkill -f "${br-anim}"

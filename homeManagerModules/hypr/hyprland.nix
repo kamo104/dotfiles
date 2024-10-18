@@ -319,9 +319,9 @@
       br-anim = (pkgs.writers.writeBashBin "br-anim" ''
         END=$1
         STEP=$2
-        if (( END - $(brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
-        while (( $SIGN * $(brightnessctl g) + STEP < END )); do
-          CURR=$(( $(brightnessctl g) + $SIGN * STEP ))
+        if (( END - $(${pkgs.brightnessctl}/bin/brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
+        while (( $SIGN * $(${pkgs.brightnessctl}/bin/brightnessctl g) + STEP < END )); do
+          CURR=$(( $(${pkgs.brightnessctl}/bin/brightnessctl g) + $SIGN * STEP ))
           CURR="''${CURR/#-}"
           ${pkgs.brightnessctl}/bin/brightnessctl s $CURR
         done

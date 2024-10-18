@@ -335,7 +335,7 @@
           BR=0
         fi
 
-        pkill -f "${br-anim}"
+        ${pkgs.procps}/bin/pkill -f "${br-anim}"
 
         ${br-anim} $BR 10 & disown
       '') + "/bin/on-resume";
@@ -344,7 +344,7 @@
           ${pkgs.brightnessctl}/bin/brightnessctl g > "${br-file}";
         fi
 
-        pkill -f "${br-anim}"
+        ${pkgs.procps}/bin/pkill -f "${br-anim}"
 
         ${br-anim} 0 2 & disown
       '') + "/bin/on-pause";

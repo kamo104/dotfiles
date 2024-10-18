@@ -313,7 +313,7 @@
         fi
         # TODO: start the video for every monitor 
         ${mpv-cmd} 2>&1 &
-        hyprlock
+        ${pkgs.hyprlock}/bin/hyprlock
         kill %1
       '') + "/bin/on-lock";
       br-anim = (pkgs.writers.writeBashBin "br-anim" ''
@@ -321,9 +321,9 @@
         STEP=$2
         if (( END - $(brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
         while (( $SIGN * $(brightnessctl g) + STEP < END )); do
-          brightnessctl s $(( $(brightnessctl g) + $SIGN * STEP ))
+          ${pkgs.brightnessctl}/bin/brightnessctl s $(( $(brightnessctl g) + $SIGN * STEP ))
         done
-        brightnessctl s $END
+        ${pkgs.brightnessctl}/bin/brightnessctl s $END
       '') + "/bin/br-anim";
       on-resume = (pkgs.writers.writeBashBin "on-resume" ''
         if [ -e "${br-file}" ]; then

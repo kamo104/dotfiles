@@ -321,7 +321,9 @@
         STEP=$2
         if (( END - $(brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
         while (( $SIGN * $(brightnessctl g) + STEP < END )); do
-          ${pkgs.brightnessctl}/bin/brightnessctl s $(( $(brightnessctl g) + $SIGN * STEP ))
+          CURR=$(( $(brightnessctl g) + $SIGN * STEP ))
+          CURR="''${CURR/#-}"
+          ${pkgs.brightnessctl}/bin/brightnessctl s $CURR
         done
         ${pkgs.brightnessctl}/bin/brightnessctl s $END
       '') + "/bin/br-anim";

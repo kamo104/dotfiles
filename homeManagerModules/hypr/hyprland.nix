@@ -353,7 +353,7 @@
       enable = true;
       settings = {
         general = {
-            after_sleep_cmd = "hyprctl dispatch dpms on";
+            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
             before_sleep_cmd = "playerctl pause; loginctl lock-session";
             lock_cmd =  "${on-lock}";
           };
@@ -368,9 +368,9 @@
           #   on-timeout = "loginctl lock-session";
           # }
           {
-            timeout = 300;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            timeout = 60;
+            on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+            on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           }
         ];
       };

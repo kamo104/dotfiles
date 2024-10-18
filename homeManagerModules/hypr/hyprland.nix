@@ -359,7 +359,7 @@
           };
         listener = [
           {
-            timeout = 120;
+            timeout = 60;
             on-timeout = "${on-pause}";
             on-resume = "${on-resume}";
           }
@@ -368,7 +368,7 @@
           #   on-timeout = "loginctl lock-session";
           # }
           {
-            timeout = 60;
+            timeout = 180;
             on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
             on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           }

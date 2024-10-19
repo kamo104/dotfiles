@@ -80,7 +80,7 @@
         # $1 == window name to look for
         # $2 == the command used to start the app
         specialApp = (pkgs.writers.writeBashBin "app" ''
-          N=$(hyprctl clients -j | jq '.[].title' | grep -ni "$1" | cut -d':' -f 1)
+          N=$(hyprctl clients -j | jq '.[].initialTitle' | grep -ni "$1" | cut -d':' -f 1)
           if [ -z $N ]; then
             hyprctl dispatch workspace special:$(${random}) #
             $2

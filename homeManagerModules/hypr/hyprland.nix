@@ -90,7 +90,7 @@
           N=$(hyprctl clients -j | jq '.[].tags' | grep -ni "$1" | cut -d':' -f 1)
           if [ -z $N ]; then
             hyprctl dispatch workspace special:$(${random}) #
-            echo `$2`
+            $2 &
             hyprctl dispatch tagwindow +"$1"
             # echo `$2 $1`
           else 

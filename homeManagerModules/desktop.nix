@@ -64,6 +64,9 @@
       # for imagemagick
       ghostscript
 
+      # pwa native for firefox
+      firefoxpwa
+
       libreoffice
       hunspell
       hunspellDicts.pl_PL

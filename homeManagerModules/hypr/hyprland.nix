@@ -91,6 +91,7 @@
           if [ -z $N ]; then
             hyprctl dispatch workspace special:$(${random}) #
             $2
+            sleep 1
             hyprctl dispatch tagwindow +"$1"
             # echo `$2 $1`
           else 

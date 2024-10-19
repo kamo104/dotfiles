@@ -65,7 +65,7 @@
       ghostscript
 
       # pwa native for firefox
-      firefoxpwa
+      # firefoxpwa
 
       libreoffice
       hunspell
@@ -101,7 +101,7 @@
     programs.firefox = {
       enable = true;
       # package = pkgs.firefox-beta;
-      nativeMessagingHosts = [ pkgs.firefoxpwa ];
+      # nativeMessagingHosts = [ pkgs.firefoxpwa ];
       profiles = {
         kamo = {
           id = 0;

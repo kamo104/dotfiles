@@ -31,13 +31,14 @@
         browser = "${pkgs.firefox}/bin/firefox";
         homeAssistant = ''${specialApp} "Home Assistant" "${browser} --new-window home-assistant.kkf.internal"'';
         immich = ''${specialApp} "Immich" "${browser} --new-window immich.kkf.internal"'';
-        pwa-launch = (pkgs.writers.writeBashBin "launch" ''
-          row=$(${pkgs.firefoxpwa}/bin/firefoxpwa profile list | grep "$1")
-          row=''${row#* (}
-          row=''${row%*)}
-          ${pkgs.firefoxpwa}/bin/firefoxpwa site launch $row
-        '') + "/bin/launch";
-        jellyfin = ''${specialApp} "Jellyfin" "${pwa-launch}"'';
+        # pwa-launch = (pkgs.writers.writeBashBin "launch" ''
+        #   row=$(${pkgs.firefoxpwa}/bin/firefoxpwa profile list | grep "$1")
+        #   row=''${row#* (}
+        #   row=''${row%*)}
+        #   ${pkgs.firefoxpwa}/bin/firefoxpwa site launch $row
+        # '') + "/bin/launch";
+        # jellyfin = ''${specialApp} "Jellyfin" "${pwa-launch}"'';
+        jellyfin = ''${specialApp} "Jellyfin" "${browser} --new-window jellyfin.kkf.internal"'';
         messenger = "${browser} --new-window messenger.com";
         lock = "loginctl lock-session";
         ags_windows = [ "overview" "indicator0" "indicator1" "sideright" "osk" "session" "bar0" "bar1" ];
@@ -89,7 +90,8 @@
           N=$(hyprctl clients -j | jq '.[].initialTitle' | grep -ni "$1" | cut -d':' -f 1)
           if [ -z $N ]; then
             hyprctl dispatch workspace special:$(${random}) #
-            echo `$2 $1`
+            echo `$2`
+            # echo `$2 $1`
           else 
             NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"
             NAME="''${NAME#special:}"

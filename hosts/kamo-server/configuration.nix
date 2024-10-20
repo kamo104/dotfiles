@@ -143,7 +143,7 @@ in
       sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       locations."/" = {
-        proxyPass = "http://localhost:3001";
+        proxyPass = "http://localhost:2283";
         proxyWebsockets = true;
       	# recommendedProxySettings = false;
       };
@@ -152,6 +152,7 @@ in
 
   services.immich = {
     enable = true;
+    port = 2283;
     mediaLocation = "/var/lib/immich";
     # environment = {
     #   IMMICH_MACHINE_LEARNING_ENABLED=false;

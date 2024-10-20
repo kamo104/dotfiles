@@ -23,7 +23,20 @@
       "${args.modules}/sunshine.nix"
     ];
 
-
+security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "-";
+      item = "memlock";
+      value = "8192000";
+    }
+    {
+      domain = "*";
+      type = "-";
+      item = "rtprio";
+      value = "95";
+    }
+  ];
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;

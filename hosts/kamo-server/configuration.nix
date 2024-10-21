@@ -92,7 +92,8 @@ in
     enable = true;
     settings = {
       # TODO: do we really need to use 10.64.0.1 always?
-      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8" ];
+      # server = [ "10.64.0.1" "/duckdns.org/8.8.8.8" ];
+      server = [ "8.8.8.8" "4.4.4.4" ];
       # TODO: check openvpn interoparability
       address = [
         # home-assistant

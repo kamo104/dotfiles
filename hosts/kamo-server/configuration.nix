@@ -36,20 +36,20 @@ in
   # ];
 
   # REMOTE BUILDS
-  # nix.buildMachines = [{
-  #   hostName = "192.168.1.28";
-  #   system = "x86_64-linux";
-  #   protocol = "ssh-ng";
-  #   # default is 1 but may keep the builder idle in between builds
-  #   maxJobs = 0;
-  #   speedFactor = 2;
-  #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-  #   mandatoryFeatures = [ ];
-  # }];
-  # nix.distributedBuilds = true;
-  # nix.settings = {
-  #   builders-use-substitutes = true;
-  # };
+  nix.buildMachines = [{
+    hostName = "192.168.1.27";
+    system = "x86_64-linux";
+    protocol = "ssh-ng";
+    # default is 1 but may keep the builder idle in between builds
+    maxJobs = 3;
+    speedFactor = 2;
+    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+    mandatoryFeatures = [ ];
+  }];
+  nix.distributedBuilds = true;
+  nix.settings = {
+    builders-use-substitutes = true;
+  };
 
   fileSystems = {
     "/drives/hdd1" = { 
@@ -92,7 +92,8 @@ in
     enable = true;
     settings = {
       # TODO: do we really need to use 10.64.0.1 always?
-      server = [ "10.64.0.1" "/duckdns.org/8.8.8.8" ];
+      # server = [ "10.64.0.1" "/duckdns.org/8.8.8.8" ];
+      server = [ "8.8.8.8" "4.4.4.4" ];
       # TODO: check openvpn interoparability
       address = [
         # home-assistant
@@ -117,45 +118,72 @@ in
     # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
-    virtualHosts."home-assistant.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://192.168.1.98:8123";
-        proxyWebsockets = true;
+    virtualHosts = {
+      "home-assistant.kkf.internal" =  {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://192.168.1.98:8123";
+          proxyWebsockets = true;
+        };
       };
-    };
-    virtualHosts."jellyfin.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://localhost:8096";
-        proxyWebsockets = true;
+      "jellyfin.kkf.internal" =  {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://localhost:8096";
+          proxyWebsockets = true;
+        };
       };
-    };
-    virtualHosts."immich.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://localhost:3001";
-        proxyWebsockets = true;
-      	# recommendedProxySettings = false;
+      "immich.kkf.internal" =  {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://localhost:2283";
+          proxyWebsockets = true;
+        	# recommendedProxySettings = false;
+        };
       };
+      # "gitlab.kkf.internal" = {
+      #   forceSSL = true;
+      #   sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      #   sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      #   sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+      #   locations."/" = {
+      #     proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      #     # proxyWebsockets = true;
+      #   };
+      # };
     };
   };
 
+  # services.gitlab = {
+  #   enable = true;
+  #   # openssl genrsa 512 | grep -v '\-----' | head -c 64
+  #   databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
+  #   initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #   databaseName = "gitlab";
+  #   secrets = {
+  #     secretFile = "${args.secrets}/gitlab/secret";
+  #     otpFile = "${args.secrets}/gitlab/otp";
+  #     # dbFile = "${args.secrets}/gitlab/db";
+  #     dbFile = "/var/lib/gitlab/db";
+  #     # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+  #     jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
+  #   };
+  #   user = "gitlab";
+  #   group = "gitlab";
+  # };
   services.immich = {
     enable = true;
+    port = 2283;
     mediaLocation = "/var/lib/immich";
-    # environment = {
-    #   IMMICH_MACHINE_LEARNING_ENABLED=false;
-    # };
   };
 
   services.murmur = {
@@ -183,7 +211,9 @@ in
   # '';
   services.duckdns = {
     enable = true;
-    domain = "grzymoserver";
+    user = "duckdns";
+    group = "duckdns";
+    domains = [ "grzymoserver" ];
     tokenFile = "${args.secrets}/duckdns/token";
   };
   services.jellyfin = {
@@ -191,11 +221,13 @@ in
   };
   users = {
     groups = {
+      duckdns = {};
+      gitlab = {};
       pki = {
         members = [ "nginx" "murmur" ];
       };
       services = {
-        members = [ "murmur" "jellyfin" "nginx" "immich" ];
+        members = [ "murmur" "jellyfin" "nginx" "immich" "gitlab" "duckdns" ];
       };
     };
     users = {
@@ -219,6 +251,16 @@ in
         isSystemUser = true;
         group = "nginx";
         description = "nginx";
+      };
+      gitlab = {
+        isSystemUser = true;
+        group = "gitlab";
+        description = "gitlab";
+      };
+      duckdns = {
+        isSystemUser = true;
+        group = "duckdns";
+        description = "duckdns";
       };
     };
   };
@@ -326,7 +368,7 @@ in
 
 
         { # kacper-desktop
-          publicKey = "aUoBe14XYsRkUwIgBmQPoFG9+j/xzNLMLE/GeQ3v3F8=";
+          publicKey = "M62ByXdDzauQ/6E1nDCue7yOHDi+bABRnf5e2P1vBmY=";
           allowedIPs = [ "10.100.12.69/32" ];
         }
         # { # kacper-babcia-laptop

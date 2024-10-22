@@ -7,7 +7,7 @@ with pkgs; [
   wget
   fish
   fastfetch
-  git
+  # git
   wakeonlan
   tree
   killall

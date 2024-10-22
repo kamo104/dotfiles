@@ -150,36 +150,36 @@ in
         	# recommendedProxySettings = false;
         };
       };
-      "gitlab.kkf.internal" = {
-        forceSSL = true;
-        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-        locations."/" = {
-          proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-          # proxyWebsockets = true;
-        };
-      };
+      # "gitlab.kkf.internal" = {
+      #   forceSSL = true;
+      #   sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      #   sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      #   sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+      #   locations."/" = {
+      #     proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      #     # proxyWebsockets = true;
+      #   };
+      # };
     };
   };
 
-  services.gitlab = {
-    enable = true;
-    # openssl genrsa 512 | grep -v '\-----' | head -c 64
-    databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
-    initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
-    databaseName = "gitlab";
-    secrets = {
-      secretFile = "${args.secrets}/gitlab/secret";
-      otpFile = "${args.secrets}/gitlab/otp";
-      # dbFile = "${args.secrets}/gitlab/db";
-      dbFile = "/var/lib/gitlab/db";
-      # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
-      jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
-    };
-    user = "gitlab";
-    group = "gitlab";
-  };
+  # services.gitlab = {
+  #   enable = true;
+  #   # openssl genrsa 512 | grep -v '\-----' | head -c 64
+  #   databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
+  #   initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #   databaseName = "gitlab";
+  #   secrets = {
+  #     secretFile = "${args.secrets}/gitlab/secret";
+  #     otpFile = "${args.secrets}/gitlab/otp";
+  #     # dbFile = "${args.secrets}/gitlab/db";
+  #     dbFile = "/var/lib/gitlab/db";
+  #     # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+  #     jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
+  #   };
+  #   user = "gitlab";
+  #   group = "gitlab";
+  # };
   services.immich = {
     enable = true;
     port = 2283;

@@ -210,6 +210,8 @@ in
   };
   users = {
     groups = {
+      duckdns = {};
+      gitlab = {};
       pki = {
         members = [ "nginx" "murmur" ];
       };

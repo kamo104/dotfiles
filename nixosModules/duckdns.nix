@@ -20,7 +20,7 @@ in
       default = "duckdns";
     };
     group = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       description = "Group to run the duckdns service as.";
       default = "duckdns";
     };
@@ -38,10 +38,10 @@ in
         Group = cfg.group;
       };
       script = ''
-        #!/usr/bin/env bash
-        echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
-        &token=$(cat ${cfg.tokenFile})&ip=" \
-        | ${pkgs.curl}/bin/curl -k -o ~/duckdns/duck.log -K -
+        cat ${cfg.tokenFile}
+        # echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
+        # &token=$(cat ${cfg.tokenFile})&ip=" \
+        # | ${pkgs.curl}/bin/curl -k -o ~/duckdns/duck.log -K -
       '';
     };
   };

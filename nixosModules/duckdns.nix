@@ -11,7 +11,7 @@ in
       description = "The domains to update with DuckDNS.";
     };
     tokenFile = lib.mkOption {
-      type = lib.types.path;
+      type = lib.types.str;
       description = "Path to the file containing the DuckDNS token.";
     };
     user = lib.mkOption {
@@ -38,10 +38,9 @@ in
         Group = cfg.group;
       };
       script = ''
-        cat ${cfg.tokenFile}
-        # echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
-        # &token=$(cat ${cfg.tokenFile})&ip=" \
-        # | ${pkgs.curl}/bin/curl -k -o ~/duckdns/duck.log -K -
+        echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
+        &token=$(cat ${cfg.tokenFile})&ip=" \
+        | ${pkgs.curl}/bin/curl -K -
       '';
     };
   };

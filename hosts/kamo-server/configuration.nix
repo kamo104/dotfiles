@@ -166,6 +166,8 @@ in
   services.gitlab = {
     enable = true;
     initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+    user = "gitlab";
+    group = "gitlab";
   };
   services.immich = {
     enable = true;
@@ -213,7 +215,7 @@ in
         members = [ "nginx" "murmur" ];
       };
       services = {
-        members = [ "murmur" "jellyfin" "nginx" "immich" ];
+        members = [ "murmur" "jellyfin" "nginx" "immich" "gitlab" ];
       };
     };
     users = {
@@ -237,6 +239,11 @@ in
         isSystemUser = true;
         group = "nginx";
         description = "nginx";
+      };
+      gitlab = {
+        isSystemUser = true;
+        group = "gitlab";
+        description = "gitlab";
       };
     };
   };

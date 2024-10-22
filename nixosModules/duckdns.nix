@@ -7,7 +7,7 @@ in
   options.services.duckdns = {
     enable = lib.mkEnableOption "enables duckdns";
     domains = lib.mkOption {
-      type = lib.types.list;
+      type = lib.types.listOf lib.types.str;
       description = "The domains to update with DuckDNS.";
     };
     tokenFile = lib.mkOption {

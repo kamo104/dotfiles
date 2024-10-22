@@ -173,9 +173,6 @@ in
     enable = true;
     port = 2283;
     mediaLocation = "/var/lib/immich";
-    # environment = {
-    #   IMMICH_MACHINE_LEARNING_ENABLED=false;
-    # };
   };
 
   services.murmur = {
@@ -203,7 +200,9 @@ in
   # '';
   services.duckdns = {
     enable = true;
-    domain = "grzymoserver";
+    user = "duckdns";
+    group = "duckdns";
+    domains = [ "grzymoserver" ];
     tokenFile = "${args.secrets}/duckdns/token";
   };
   services.jellyfin = {
@@ -215,7 +214,7 @@ in
         members = [ "nginx" "murmur" ];
       };
       services = {
-        members = [ "murmur" "jellyfin" "nginx" "immich" "gitlab" ];
+        members = [ "murmur" "jellyfin" "nginx" "immich" "gitlab" "duckdns" ];
       };
     };
     users = {
@@ -244,6 +243,11 @@ in
         isSystemUser = true;
         group = "gitlab";
         description = "gitlab";
+      };
+      duckdns = {
+        isSystemUser = true;
+        group = "duckdns";
+        description = "duckdns";
       };
     };
   };

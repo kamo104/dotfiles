@@ -163,12 +163,12 @@ in
     };
   };
 
-  services.gitlab = {
-    enable = true;
-    initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
-    user = "gitlab";
-    group = "gitlab";
-  };
+  # services.gitlab = {
+  #   enable = true;
+  #   initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #   user = "gitlab";
+  #   group = "gitlab";
+  # };
   services.immich = {
     enable = true;
     port = 2283;

@@ -168,6 +168,7 @@ in
     # openssl genrsa 512 | grep -v '\-----' | head -c 64
     databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
     initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+    databaseName = "gitlab";
     secrets = {
       secretFile = "${args.secrets}/gitlab/secret";
       otpFile = "${args.secrets}/gitlab/otp";

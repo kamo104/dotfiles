@@ -118,39 +118,55 @@ in
     # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
-    virtualHosts."home-assistant.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://192.168.1.98:8123";
-        proxyWebsockets = true;
+    virtualHosts = {
+      "home-assistant.kkf.internal" =  {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://192.168.1.98:8123";
+          proxyWebsockets = true;
+        };
       };
-    };
-    virtualHosts."jellyfin.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://localhost:8096";
-        proxyWebsockets = true;
+      "jellyfin.kkf.internal" =  {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://localhost:8096";
+          proxyWebsockets = true;
+        };
       };
-    };
-    virtualHosts."immich.kkf.internal" =  {
-      forceSSL = true;
-      sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-      sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-      sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-      locations."/" = {
-        proxyPass = "http://localhost:2283";
-        proxyWebsockets = true;
-      	# recommendedProxySettings = false;
+      "immich.kkf.internal" =  {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://localhost:2283";
+          proxyWebsockets = true;
+        	# recommendedProxySettings = false;
+        };
+      };
+      "gitlab.kkf.internal" = {
+        forceSSL = true;
+        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+        locations."/" = {
+          proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+          # proxyWebsockets = true;
+        };
       };
     };
   };
 
+  services.gitlab = {
+    enable = true;
+    initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  };
   services.immich = {
     enable = true;
     port = 2283;

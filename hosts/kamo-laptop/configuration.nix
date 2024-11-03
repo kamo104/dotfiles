@@ -137,6 +137,8 @@
   networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
+  services.zerotierone.enable = true;
+
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = false;

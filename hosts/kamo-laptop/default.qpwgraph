@@ -1,6 +1,22 @@
 <!DOCTYPE patchbay>
-<patchbay name="default" version="0.7.5">
+<patchbay name="default" version="0.7.8">
  <items>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Signal Calling" port="Signal Calling:output_FL"/>
+   <input node="Mumble/Capture" port="Capture:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Signal Calling" port="Signal Calling:output_FR"/>
+   <input node="Mumble/Capture" port="Capture:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Mumble/Playback" port="Playback:output_FL"/>
+   <input node="Signal Calling" port="Signal Calling:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Mumble/Playback" port="Playback:output_FR"/>
+   <input node="Signal Calling" port="Signal Calling:input_FR"/>
+  </item>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_MONO"/>
    <input node="GNOME Settings" port="GNOME Settings:input_MONO"/>

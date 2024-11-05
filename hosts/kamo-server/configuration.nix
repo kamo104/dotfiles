@@ -153,7 +153,7 @@ in
     clientMaxBodySize="0";
     streamConfig = ''
       server {
-        listen 10.100.0.1:42042 tcp reuseport;
+        listen 10.100.0.1:42042;
         proxy_timeout 120s;
         proxy_pass 192.168.100.11:25565;
       }

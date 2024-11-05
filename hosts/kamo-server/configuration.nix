@@ -154,7 +154,7 @@ in
         proxy_timeout 120s;
         proxy_pass 192.168.100.11:25565;
 
-        proxy_ssl on;
+        proxy_ssl off;
         # proxy_ssl_protocols TLSv1.2 TLSv1.3;
         # proxy_ssl_ciphers HIGH:!aNULL:!MD5;
 

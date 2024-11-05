@@ -155,7 +155,7 @@ in
         proxy_pass 192.168.100.11:25565;
 
         proxy_ssl on;
-        proxy_ssl_protocols TLSv1.2 TLSv1.3;
+        proxy_ssl_protocols TLSv1.3;
         proxy_ssl_verify off;
         # proxy_ssl_ciphers HIGH:!aNULL:!MD5;
 
@@ -163,7 +163,7 @@ in
         ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
         ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
 
-        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_protocols TLSv1.3;
         # ssl_ciphers HIGH:!aNULL:!MD5;
       }
     '';

@@ -163,7 +163,7 @@ in
 
         ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
         ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
-        proxy_ssl on;
+        # proxy_ssl on;
       }
     '';
     virtualHosts = {

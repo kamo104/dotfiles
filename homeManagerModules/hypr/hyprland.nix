@@ -198,11 +198,11 @@
           "col.inactive_border" = "rgba(9a8d9533)";
           layout = "dwindle";
           allow_tearing = false;
-          snap = {
-            enabled = true;
-            window_gap = 25;
-            monitor_gap = 10;
-          };
+          # snap = {
+          #   enabled = true;
+          #   window_gap = 25;
+          #   monitor_gap = 10;
+          # };
         };
         decoration = {
           rounding = 10;

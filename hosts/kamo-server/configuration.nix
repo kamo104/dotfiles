@@ -36,19 +36,33 @@ in
   # ];
 
   # REMOTE BUILDS
-  nix.buildMachines = [{
-    hostName = "192.168.1.27";
-    system = "x86_64-linux";
-    protocol = "ssh-ng";
-    # default is 1 but may keep the builder idle in between builds
-    maxJobs = 3;
-    speedFactor = 2;
-    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-    mandatoryFeatures = [ ];
-  }];
-  nix.distributedBuilds = true;
-  nix.settings = {
-    builders-use-substitutes = true;
+  # nix.buildMachines = [{
+  #   hostName = "192.168.1.27";
+  #   system = "x86_64-linux";
+  #   protocol = "ssh-ng";
+  #   # default is 1 but may keep the builder idle in between builds
+  #   maxJobs = 3;
+  #   speedFactor = 2;
+  #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  #   mandatoryFeatures = [ ];
+  # }];
+  # nix.distributedBuilds = true;
+  # nix.settings = {
+  #   builders-use-substitutes = true;
+  # };
+
+  containers = {
+    test = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = "192.168.100.10";
+      localAddress = "192.168.100.11";
+      # hostAddress6 = "fc00::1";
+      # localAddress6 = "fc00::2";
+      config = { config, pkgs, lib, ... }: {
+
+      };
+    };
   };
 
   fileSystems = {

@@ -156,6 +156,7 @@ in
 
         proxy_ssl on;
         proxy_ssl_protocols TLSv1.2 TLSv1.3;
+        proxy_ssl_verify off;
         # proxy_ssl_ciphers HIGH:!aNULL:!MD5;
 
 

@@ -14,8 +14,16 @@
    <input node="Signal Calling" port="Signal Calling:input_FL"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
+   <input node="Mpow Flame" port="Mpow Flame:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Mumble/Playback" port="Playback:output_FR"/>
    <input node="Signal Calling" port="Signal Calling:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
+   <input node="Mpow Flame" port="Mpow Flame:playback_FL"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_MONO"/>

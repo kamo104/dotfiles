@@ -40,6 +40,7 @@
         # jellyfin = ''${specialApp} "Jellyfin" "${pwa-launch}"'';
         jellyfin = ''${specialApp} "Jellyfin" "${browser} --new-window jellyfin.kkf.internal"'';
         messenger = "${browser} --new-window messenger.com";
+        mumble = "${pkgs.mumble}/bin/mumble -m";
         lock = "loginctl lock-session";
         ags_windows = [ "overview" "indicator0" "indicator1" "sideright" "osk" "session" "bar0" "bar1" ];
         # programs
@@ -158,7 +159,7 @@
           "B" = "${browser}";
           "N" = "sleep 1";
           # TODO: toggle special workspace
-          "M" = "${messenger}";
+          "M" = "${mumble}";
 
           "mouse_down" = "hyprctl dispatch workspace e+1";
           "mouse_up" = "hyprctl dispatch workspace e-1";
@@ -197,6 +198,11 @@
           "col.inactive_border" = "rgba(9a8d9533)";
           layout = "dwindle";
           allow_tearing = false;
+          snap = {
+            enabled = true;
+            window_gap = 25;
+            monitor_gap = 10;
+          };
         };
         decoration = {
           rounding = 10;

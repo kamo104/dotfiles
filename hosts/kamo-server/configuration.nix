@@ -66,7 +66,7 @@ in
           };
           # Use systemd-resolved inside the container
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-          useHostResolvConf = lib.mkForce false;
+          # useHostResolvConf = lib.mkForce false;
         };
         services.murmur = {
           enable = true;
@@ -74,9 +74,7 @@ in
           port = 25565;
           bandwidth = 256000;
         };
-
-    
-        services.resolved.enable = true;
+        # services.resolved.enable = true;
       };
     };
   };

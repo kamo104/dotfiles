@@ -52,6 +52,7 @@ in
   # };
 
   containers = {
+    # private.mumble.kkf.internal
     mumble = {
       autoStart = true;
       privateNetwork = true;
@@ -65,7 +66,7 @@ in
           };
           # Use systemd-resolved inside the container
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-          # useHostResolvConf = lib.mkForce false;
+          useHostResolvConf = lib.mkForce false;
         };
         services.murmur = {
           enable = true;
@@ -75,7 +76,7 @@ in
         };
 
     
-        # services.resolved.enable = true;
+        services.resolved.enable = true;
       };
     };
   };
@@ -156,13 +157,13 @@ in
         listen 10.100.0.1:42042 udp;
         proxy_pass mumble;
       }
-
       server {
         listen 10.100.0.1:42042;
         proxy_pass mumble;
 
         ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
         ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
+        proxy_ssl on;
       }
     '';
     virtualHosts = {

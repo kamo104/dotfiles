@@ -149,14 +149,20 @@ in
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
     streamConfig = ''
+      upstream mumble {
+        server 192.168.100.11:25565;
+      }
+      server {
+        listen 10.100.0.1:42042 udp;
+        proxy_pass mumble;
+      }
+
       server {
         listen 10.100.0.1:42042;
-        proxy_timeout 120s;
-        proxy_pass 192.168.100.11:25565;
+        proxy_pass mumble;
 
         ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
         ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
-
       }
     '';
     virtualHosts = {
@@ -438,7 +444,7 @@ in
 
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 42042 ]; # dns, http, nfs rpc, https, nfs, private mumble
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 42070 ]; # dns, nfs rpc, nfs, wireguard
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 42042 42069 42070 ]; # dns, nfs rpc, nfs, private mumble, wg0, wg1
 
   system.stateVersion = "23.11";
 }

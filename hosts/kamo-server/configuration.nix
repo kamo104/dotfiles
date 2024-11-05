@@ -59,6 +59,12 @@ in
       localAddress = "192.168.100.11";
       config = { config, pkgs, lib, ... }: {
         system.stateVersion = "23.11";
+        bindMounts = {
+          "${args.secrets}" = {
+            hostPath = "${args.secrets}";
+            isReadOnly = true;
+          };
+        };
         networking = {
           firewall = {
             enable = true;

@@ -138,7 +138,7 @@
           # "U" = "sleep 1";
           "I" = "${immich}";
           "O" = "hyprctl dispatch togglesplit";
-          # "P" = "sleep 1";
+          "P" = "hyprctl dispatch pin";
 
           # second row
           # "CAPS" = "pkill ags; ags";

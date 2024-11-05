@@ -53,18 +53,18 @@ in
 
   containers = {
     mumble = {
+      bindMounts = {
+        "${args.secrets}" = {
+          hostPath = "${args.secrets}";
+          isReadOnly = true;
+        };
+      };
       autoStart = true;
       privateNetwork = true;
       hostAddress = "192.168.100.10";
       localAddress = "192.168.100.11";
       config = { config, pkgs, lib, ... }: {
         system.stateVersion = "23.11";
-        bindMounts = {
-          "${args.secrets}" = {
-            hostPath = "${args.secrets}";
-            isReadOnly = true;
-          };
-        };
         networking = {
           firewall = {
             enable = true;

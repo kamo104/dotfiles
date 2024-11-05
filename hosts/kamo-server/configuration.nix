@@ -52,20 +52,16 @@ in
   # };
 
   containers = {
-    test = {
+    mumble = {
       autoStart = true;
       privateNetwork = true;
       hostAddress = "192.168.100.10";
       localAddress = "192.168.100.11";
-      # hostAddress6 = "fc00::1";
-      # localAddress6 = "fc00::2";
       config = { config, pkgs, lib, ... }: {
         system.stateVersion = "23.11";
         networking = {
           firewall = {
             enable = true;
-            # allowedTCPPorts = [ 64738 ];
-            # allowedUDPPorts = [ 64738 ];
           };
           # Use systemd-resolved inside the container
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
@@ -74,7 +70,7 @@ in
         services.murmur = {
           enable = true;
           openFirewall = true;
-          # port = ;
+          port = 25565;
           bandwidth = 256000;
           sslCa = "${args.secrets}/pki/ca.crt";
           sslCert = "${args.secrets}/pki/issued/kkf.crt";
@@ -142,6 +138,7 @@ in
         "/immich.kkf.internal/10.100.0.1"
         # mumble stuff
         "/mumble.kkf.internal/10.100.0.1"
+        "/private.mumble.kkf.internal/10.100.0.1"
         # nfs
         "/nfs.kkf.internal/10.100.0.1"
         # smb
@@ -154,6 +151,13 @@ in
     # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
+    streamConfig = ''
+      server {
+        listen 10.100.0.1:42042 tcp reuseport;
+        proxy_timeout 120s;
+        proxy_pass 192.168.100.11:25565;
+      }
+    '';
     virtualHosts = {
       "home-assistant.kkf.internal" =  {
         forceSSL = true;
@@ -432,7 +436,7 @@ in
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 ]; # dns, http, nfs rpc, https, nfs
+  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 42042 ]; # dns, http, nfs rpc, https, nfs, private mumble
   networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 42070 ]; # dns, nfs rpc, nfs, wireguard
 
   system.stateVersion = "23.11";

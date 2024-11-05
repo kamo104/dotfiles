@@ -154,10 +154,6 @@ in
         proxy_timeout 120s;
         proxy_pass 192.168.100.11:25565;
 
-        # Path to the SSL certificate and private key files
-        ssl_certificate     /etc/nginx/ssl/server.crt;
-        ssl_certificate_key /etc/nginx/ssl/server.key;
-
         ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
         ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
 

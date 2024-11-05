@@ -60,7 +60,29 @@ in
       # hostAddress6 = "fc00::1";
       # localAddress6 = "fc00::2";
       config = { config, pkgs, lib, ... }: {
+        system.stateVersion = "23.11";
+        networking = {
+          firewall = {
+            enable = true;
+            # allowedTCPPorts = [ 64738 ];
+            # allowedUDPPorts = [ 64738 ];
+          };
+          # Use systemd-resolved inside the container
+          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+          # useHostResolvConf = lib.mkForce false;
+        };
+        services.murmur = {
+          enable = true;
+          openFirewall = true;
+          # port = ;
+          bandwidth = 256000;
+          sslCa = "${args.secrets}/pki/ca.crt";
+          sslCert = "${args.secrets}/pki/issued/kkf.crt";
+          sslKey = "${args.secrets}/pki/private/kkf.key";
+        };
 
+    
+        # services.resolved.enable = true;
       };
     };
   };

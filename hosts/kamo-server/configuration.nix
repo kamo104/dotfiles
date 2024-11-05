@@ -53,12 +53,6 @@ in
 
   containers = {
     mumble = {
-      bindMounts = {
-        "${args.secrets}" = {
-          hostPath = "${args.secrets}";
-          isReadOnly = true;
-        };
-      };
       autoStart = true;
       privateNetwork = true;
       hostAddress = "192.168.100.10";
@@ -78,9 +72,6 @@ in
           openFirewall = true;
           port = 25565;
           bandwidth = 256000;
-          sslCa = "${args.secrets}/pki/ca.crt";
-          sslCert = "${args.secrets}/pki/issued/kkf.crt";
-          sslKey = "${args.secrets}/pki/private/kkf.key";
         };
 
     
@@ -162,6 +153,17 @@ in
         listen 10.100.0.1:42042;
         proxy_timeout 120s;
         proxy_pass 192.168.100.11:25565;
+
+        # Path to the SSL certificate and private key files
+        ssl_certificate     /etc/nginx/ssl/server.crt;
+        ssl_certificate_key /etc/nginx/ssl/server.key;
+
+        ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
+        ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
+
+        # # SSL settings
+        # ssl_protocols TLSv1.2 TLSv1.3;  # Enable TLS protocols only
+        # ssl_ciphers HIGH:!aNULL:!MD5;   # Recommended ciphers
       }
     '';
     virtualHosts = {

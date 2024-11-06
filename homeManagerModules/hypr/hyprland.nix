@@ -292,6 +292,7 @@
             ",XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
             ",XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
             ",XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
+            ",XF86Display , exec, echo 1 > /tmp/helpme.txt'"
           ];
           bindle = [
             ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"

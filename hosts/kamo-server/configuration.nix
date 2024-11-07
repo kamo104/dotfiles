@@ -51,33 +51,33 @@ in
   #   builders-use-substitutes = true;
   # };
 
-  containers = {
-    # private.mumble.kkf.internal
-    mumble = {
-      autoStart = true;
-      privateNetwork = true;
-      hostAddress = "192.168.100.10";
-      localAddress = "192.168.100.11";
-      config = { config, pkgs, lib, ... }: {
-        system.stateVersion = "23.11";
-        networking = {
-          firewall = {
-            enable = true;
-          };
-          # Use systemd-resolved inside the container
-          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-          # useHostResolvConf = lib.mkForce false;
-        };
-        services.murmur = {
-          enable = true;
-          openFirewall = true;
-          port = 25565;
-          bandwidth = 256000;
-        };
-        # services.resolved.enable = true;
-      };
-    };
-  };
+  # containers = {
+  #   # private.mumble.kkf.internal
+  #   mumble = {
+  #     autoStart = true;
+  #     privateNetwork = true;
+  #     hostAddress = "192.168.100.10";
+  #     localAddress = "192.168.100.11";
+  #     config = { config, pkgs, lib, ... }: {
+  #       system.stateVersion = "23.11";
+  #       networking = {
+  #         firewall = {
+  #           enable = true;
+  #         };
+  #         # Use systemd-resolved inside the container
+  #         # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+  #         # useHostResolvConf = lib.mkForce false;
+  #       };
+  #       services.murmur = {
+  #         enable = true;
+  #         openFirewall = true;
+  #         port = 25565;
+  #         bandwidth = 256000;
+  #       };
+  #       # services.resolved.enable = true;
+  #     };
+  #   };
+  # };
 
   fileSystems = {
     "/drives/hdd1" = { 
@@ -134,7 +134,7 @@ in
         "/immich.kkf.internal/10.100.0.1"
         # mumble stuff
         "/mumble.kkf.internal/10.100.0.1"
-        "/private.mumble.kkf.internal/10.100.0.1"
+        # "/private.mumble.kkf.internal/10.100.0.1"
         # nfs
         "/nfs.kkf.internal/10.100.0.1"
         # smb
@@ -147,23 +147,23 @@ in
     # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
-    streamConfig = ''
-      upstream mumble {
-        server 192.168.100.11:25565;
-      }
-      server {
-        listen 10.100.0.1:42042 udp;
-        proxy_pass mumble;
-      }
-      server {
-        listen 10.100.0.1:42042;
-        proxy_pass mumble;
+    # streamConfig = ''
+    #   upstream mumble {
+    #     server 192.168.100.11:25565;
+    #   }
+    #   server {
+    #     listen 10.100.0.1:42042 udp;
+    #     proxy_pass mumble;
+    #   }
+    #   server {
+    #     listen 10.100.0.1:42042;
+    #     proxy_pass mumble;
 
-        ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
-        ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
-        # proxy_ssl on;
-      }
-    '';
+    #     ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
+    #     ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
+    #     # proxy_ssl on;
+    #   }
+    # '';
     virtualHosts = {
       "home-assistant.kkf.internal" =  {
         forceSSL = true;

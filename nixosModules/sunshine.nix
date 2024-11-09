@@ -11,7 +11,7 @@
       capSysAdmin = true;
       openFirewall = true;
       settings = {
-        output_name="headless";
+        output_name=1;
       };
       applications = {
         env = {};

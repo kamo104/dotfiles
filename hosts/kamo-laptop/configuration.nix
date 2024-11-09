@@ -49,12 +49,7 @@
     autoLogin.enable = true;
     autoLogin.user = "kamo";
   };
-  # sunshine.enable = true;
-  # services.xserver = {
-  #   enable = true;
-  #   displayManager.gdm.enable = true;
-  #   desktopManager.gnome.enable = true;
-  # };
+  sunshine.enable = true;
   steam.enable = true;
   virt.enable = true;
   virt.users = ["kamo"];

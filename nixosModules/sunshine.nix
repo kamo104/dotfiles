@@ -10,6 +10,9 @@
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
+      settings = {
+        output_name="headless";
+      };
       applications = {
         env = {};
         apps = [

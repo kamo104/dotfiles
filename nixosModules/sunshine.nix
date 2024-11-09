@@ -11,7 +11,8 @@
       capSysAdmin = true;
       openFirewall = true;
       settings = {
-        output_name=1;
+        # BUG: needs to be created even before connecting to the session
+        output_name="headless";
       };
       applications = {
         env = {};

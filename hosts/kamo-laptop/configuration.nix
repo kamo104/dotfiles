@@ -49,7 +49,7 @@
     autoLogin.enable = true;
     autoLogin.user = "kamo";
   };
-  sunshine.enable = true;
+  # sunshine.enable = true;
   steam.enable = true;
   virt.enable = true;
   virt.users = ["kamo"];

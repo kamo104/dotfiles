@@ -40,6 +40,9 @@
     vscode
     # transmission_4-qt6
     deluge
+
+    easyeffects
+    bambu-studio
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

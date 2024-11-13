@@ -2,14 +2,6 @@
 <patchbay name="default" version="0.7.8">
  <items>
   <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave-2" port="Brave:output_FR"/>
-   <input node="Signal Calling" port="Signal Calling:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
-   <input node="Mpow Flame" port="Mpow Flame:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Brave-2" port="Brave:output_FL"/>
    <input node="Signal Calling" port="Signal Calling:input_FL"/>
   </item>
@@ -18,16 +10,24 @@
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
+   <input node="Mpow Flame" port="Mpow Flame:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Brave-2" port="Brave:output_FR"/>
+   <input node="Signal Calling" port="Signal Calling:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
+   <input node="Mpow Flame" port="Mpow Flame:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
    <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_MONO"/>
    <input node="GNOME Settings" port="GNOME Settings:input_MONO"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="audio" port="audio:receive_FR"/>
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
-   <input node="Mpow Flame" port="Mpow Flame:playback_FL"/>
   </item>
  </items>
 </patchbay>

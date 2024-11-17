@@ -107,7 +107,7 @@
         monitors = {
           "eDP-1" = {
             "workspaces"= genList (x: 1+x) 10;
-            "config"="1920x1080@60.02, 0x0, 1.0";
+            "config"="1920x1080@60.02, 0x0, 1";
           };
           "HDMI-A-1" = {
             "workspaces"= genList (x: 1+10+x) 10;
@@ -115,7 +115,7 @@
           };
           "headless" = {
             "workspaces" = genList (x: 1+20+x) 20;
-            "config" = "1920x1080@60Hz, 0x1080, 1";
+            "config" = "1920x1080@60Hz, 0x-1080, 1";
           };
         };
         # monitors config
@@ -325,7 +325,7 @@
       '';
 
       on-lock = (pkgs.writers.writeBashBin "on-lock" ''
-        if [ $(pgrep -f "${mpv-cmd}") ]; then
+        if [ $(${pkgs.procps}/bin/pgrep -f "${mpv-cmd}") ]; then
           exit 0
         fi
         # TODO: start the video for every monitor 

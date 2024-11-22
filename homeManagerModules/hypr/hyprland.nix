@@ -21,6 +21,12 @@
         enableXdgAutostart = true;
       };
       # extraConfig = ''${builtins.readFile ./hyprland.conf}'';
+      extraConfig = ''
+        bind=SUPER,escape,submap,moonlight
+        submap=moonlight
+        bind=SUPER,escape,submap,reset
+        submap=reset
+      '';
       settings =  with builtins; with pkgs.lib.lists; 
       let
         # programs

@@ -46,7 +46,7 @@
       pavucontrol
       btop
       gparted
-      cava
+      # cava
       vlc
       vcmi
       moonlight-qt

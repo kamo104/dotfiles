@@ -28,6 +28,11 @@
     # python312Packages.python-lsp-server
     # python312Packages.python-lsp-ruff
   ];
+
+  programs.fish.interactiveShellInit = ''
+    alias teeeeee=echo "teeeee"
+    '';
+
  
 
   home.stateVersion = "24.05";

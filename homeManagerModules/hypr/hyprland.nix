@@ -34,7 +34,7 @@
         fileManager = "${pkgs.nautilus}/bin/nautilus";
         programsMenu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
         windowsMenu = "${pkgs.rofi-wayland}/bin/rofi -show window";
-        browser = "${pkgs.firefox}/bin/firefox";
+        browser = "${pkgs.firefox-bin}/bin/firefox";
         homeAssistant = ''${specialApp} "Home-Assistant" "${browser} --new-window home-assistant.kkf.internal"'';
         immich = ''${specialApp} "Immich" "${browser} --new-window immich.kkf.internal"'';
         # pwa-launch = (pkgs.writers.writeBashBin "launch" ''

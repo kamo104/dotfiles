@@ -29,8 +29,25 @@
     # python312Packages.python-lsp-ruff
   ];
 
-  programs.fish.interactiveShellInit = ''
-    alias teeeeee=echo "teeeee"
+  programs.fish.interactiveShellInit = 
+  let
+    ovpn = "sudo ${pkgs.openvpn}/bin/openvpn --config /home/kgrzymkowski/Downloads/KamilGrzymkowski.ovpn";
+    ftvpn = "sudo openfortivpn";
+    on = (pkgs.writers.writeBashBin "on" ''
+      ${ovpn} &
+      ${ftvpn} &
+      sudo wg-quick up wg0
+    '') + "/bin/on";
+    off = (pkgs.writers.writeBashBin "off" ''
+
+      ${pkgs.procps}/bin/pkill -f "${ovpn}"
+      ${pkgs.procps}/bin/pkill -f "${ftvpn}"
+      sudo wg-quick down wg0
+    '') + "/bin/off";
+
+  in ''
+    alias vpnOn="${on}"
+    alias vpnOff="${off}"
     '';
 
  

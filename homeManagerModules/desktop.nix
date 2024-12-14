@@ -101,7 +101,7 @@
     programs.firefox = {
       enable = true;
       # package = pkgs.firefox-beta;
-      package = pkgs.firefox-bin;
+      package = pkgs.firefox;
       # nativeMessagingHosts = [ pkgs.firefoxpwa ];
       profiles = {
         kamo = {

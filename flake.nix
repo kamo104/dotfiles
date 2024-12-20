@@ -14,11 +14,11 @@
       url = "tarball+https://codeload.github.com/nix-community/home-manager/tar.gz/1395379a7a36e40f2a76e7b9936cc52950baa1be";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags = {
-      # url = "github:aylur/ags";
-      url = "tarball+https://codeload.github.com/Aylur/ags/tar.gz/27cd93147aba09142fa585fd16f13c56268b696c";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # ags = {
+    #   # url = "github:aylur/ags";
+    #   url = "tarball+https://codeload.github.com/Aylur/ags/tar.gz/27cd93147aba09142fa585fd16f13c56268b696c";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = { self, nixpkgs, ... } @inputs:

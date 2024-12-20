@@ -2,19 +2,23 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     # hyprland = {
     #   url = "github:hyprwm/Hyprland";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "tarball+https://codeload.github.com/NixOS/nixpkgs/tar.gz/b47fd6fa00c6afca88b8ee46cfdb00e104f50bca";
+
     home-manager = {
-      url = "github:nix-community/home-manager";
+      # url = "github:nix-community/home-manager";
+      url = "tarball+https://codeload.github.com/nix-community/home-manager/tar.gz/1395379a7a36e40f2a76e7b9936cc52950baa1be";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ags = {
-    #   url = "github:aylur/ags";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    ags = {
+      # url = "github:aylur/ags";
+      url = "tarball+https://codeload.github.com/Aylur/ags/tar.gz/27cd93147aba09142fa585fd16f13c56268b696c";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @inputs:

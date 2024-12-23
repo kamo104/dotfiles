@@ -1,6 +1,6 @@
 {
   "nodes": {
-        "ags": {
+    "ags": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -8,7 +8,7 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1728326430,
+        "lastModified": 1734622215,
         "narHash": "sha256-tV1ABHuA1HItMdCTuNdA8fMB+qw7LpjvI945VwMSABI=",
         "owner": "aylur",
         "repo": "ags",
@@ -23,7 +23,7 @@
     },
     "systems": {
       "locked": {
-        "lastModified": 1689347949,
+        "lastModified": 1734622215,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
         "owner": "nix-systems",
         "repo": "default-linux",
@@ -36,8 +36,6 @@
         "type": "github"
       }
     },
-
-
 
     "home-manager": {
       "inputs": {

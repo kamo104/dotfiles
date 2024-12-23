@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "ags": {
+        "ags": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -36,6 +36,8 @@
         "type": "github"
       }
     },
+
+
 
     "home-manager": {
       "inputs": {

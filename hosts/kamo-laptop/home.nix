@@ -34,6 +34,11 @@
     signal-desktop
     keepassxc
 
+    # spotify
+    spotify
+    spotify-tray
+
+
     jetbrains.idea-community
     android-studio
     # platformio

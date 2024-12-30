@@ -25,6 +25,11 @@
     bear
     wl-clipboard
     tshark
+
+    # spotify
+    spotify
+    spotify-tray
+
     # python312Packages.python-lsp-server
     # python312Packages.python-lsp-ruff
   ];

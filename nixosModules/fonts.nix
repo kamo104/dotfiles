@@ -11,7 +11,8 @@
       noto-fonts-emoji
       xorg.libXfont
       material-symbols
-     (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka"  ]; })
+      (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka"  ]; })
+      unifont
     ];
   };
   

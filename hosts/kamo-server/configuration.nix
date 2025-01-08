@@ -408,7 +408,7 @@ in
         
 
         { # ola-laptop
-          publicKey = "iigx1rGG/qUxpInRcJOORjHRdhHNZ+VQamJ67yYT0SU=";
+          publicKey = "OnK+NCGjH0cpt0jJfc/Gn52OvFIUrjX7/lnxovopVxY=";
           allowedIPs = [ "10.100.11.1/32" ];
         }
         { # ola-iphone

@@ -12,10 +12,11 @@
       material-symbols
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka"  ]; })
 
-      unifont
+      # unifont
       noto-fonts-emoji
-      noto-fonts-cjk-sans
+      # noto-fonts-cjk-sans
     ];
+
   };
   
 }

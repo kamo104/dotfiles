@@ -8,11 +8,13 @@
   config = lib.mkIf config.cfonts.enable {
     fonts.packages = with pkgs; [
       font-awesome
-      noto-fonts-emoji
       xorg.libXfont
       material-symbols
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka"  ]; })
+
       unifont
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
     ];
   };
   

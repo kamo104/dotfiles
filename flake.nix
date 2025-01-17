@@ -13,8 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags = {
-      # url = "github:aylur/ags";
-      url = "tarball+https://codeload.github.com/Aylur/ags/tar.gz/60180a184cfb32b61a1d871c058b31a3b9b0743d";
+      url = "github:aylur/ags?rev=60180a184cfb32b61a1d871c058b31a3b9b0743d";
+      # url = "tarball+https://codeload.github.com/Aylur/ags/tar.gz/60180a184cfb32b61a1d871c058b31a3b9b0743d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

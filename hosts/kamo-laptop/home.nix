@@ -34,8 +34,8 @@
     signal-desktop
     keepassxc
 
-    jetbrains.idea-community
-    android-studio
+    # jetbrains.idea-community
+    # android-studio
     # platformio
     vscode
     # transmission_4-qt6

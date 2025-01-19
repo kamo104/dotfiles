@@ -30,15 +30,19 @@
 
   home.stateVersion = "23.11";
 
-  home.packages = with pkgs; [
-    signal-desktop
+  home.packages = with pkgs; 
+  let
+    workingSignalPkgs = import (builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/e24b4c09e963677b1beea49d411cd315a024ad3a.tar.gz";
+    }) {};
+  in[
+    workingSignalPkgs.signal-desktop
     keepassxc
 
     # jetbrains.idea-community
     # android-studio
     # platformio
     vscode
-    # transmission_4-qt6
     deluge
 
     easyeffects

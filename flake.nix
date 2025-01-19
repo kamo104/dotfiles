@@ -6,7 +6,7 @@
     #   url = "github:hyprwm/Hyprland";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    signalPkgs.url = "github:nixos/nixpkgs?rev=e24b4c09e963677b1beea49d411cd315a024ad3a";
+    signalPkgs.url = "github:nixos/nixpkgs?rev=b47fd6fa00c6afca88b8ee46cfdb00e104f50bca";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {

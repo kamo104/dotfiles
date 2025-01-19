@@ -32,8 +32,8 @@
 
   home.packages = with pkgs; 
   [
-    # signal-desktop
-    (import inputs.signalPkgs {inherit system;}).signal-desktop
+    signal-desktop
+    # (import inputs.signalPkgs {inherit system;}).signal-desktop
     keepassxc
 
     # jetbrains.idea-community

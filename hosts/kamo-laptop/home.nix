@@ -36,8 +36,9 @@
       url = "https://github.com/NixOS/nixpkgs/archive/e24b4c09e963677b1beea49d411cd315a024ad3a.tar.gz";
       sha256 = "sha256-u1gk5I1an975FOAMMdS6oBKnSIsZza5ZKhaeBZAskVo=";
     }) {};
-  in[
-    workingSignalPkgs.signal-desktop
+  in
+  [
+    workingSignalPkgs.legacyPackages.x86_64-linux.signal-desktop
     keepassxc
 
     # jetbrains.idea-community

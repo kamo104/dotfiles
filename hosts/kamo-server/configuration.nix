@@ -340,6 +340,8 @@ in
     "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
   };
+  boot.kernelModules = [ "fuse" ];
+  
   networking.wg-quick.interfaces = {
     wg1 = {
       address = [ "10.67.130.19/32" ];

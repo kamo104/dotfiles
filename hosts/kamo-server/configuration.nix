@@ -382,12 +382,14 @@ in
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
         ip route add 10.100.0.0/20 dev wg0 table wg1_table
+        ip route add 192.168.1.0/24 dev ens18 table wg1_table
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-        # ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.1.0/24 -d 10.100.1.101 -p icmp -j DNAT --to-destination 192.168.1.94
-        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 192.168.1.94 -d 10.100.1.0/24 -j MASQUERADE
+        # ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 192.168.1.94 -d 10.100.0.0/23 -j MASQUERADE
       '';
       postDown = ''
         ip route del 10.100.0.0/20 dev wg0 table wg1_table
+        ip route del 192.168.1.0/24 dev ens18 table wg1_table
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
       '';
       peers = [

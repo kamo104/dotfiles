@@ -22,6 +22,22 @@
         "type": "github"
       }
     },
+    "bambuPkgs": {
+      "locked": {
+        "lastModified": 1713076203,
+        "narHash": "sha256-P5eaPKIadApIYbi+Hngnx5UagsXBRWhK+vnZANDK2H4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "03a60cc32d650164edc4459fe43e6726bd3170ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "03a60cc32d650164edc4459fe43e6726bd3170ae",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -61,6 +77,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "bambuPkgs": "bambuPkgs",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "signalPkgs": "signalPkgs"

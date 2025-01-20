@@ -43,7 +43,8 @@
     deluge
 
     easyeffects
-    bambu-studio
+    # bambu-studio
+    orca-slicer
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

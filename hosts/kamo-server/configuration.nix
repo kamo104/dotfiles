@@ -383,6 +383,8 @@ in
       postUp = ''
         ip route add 10.100.0.0/20 dev wg0 table wg1_table
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+        # ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.1.0/24 -d 10.100.1.101 -p icmp -j DNAT --to-destination 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 192.168.1.94 -d 10.100.1.0/24 -j MASQUERADE
       '';
       postDown = ''
         ip route del 10.100.0.0/20 dev wg0 table wg1_table
@@ -448,6 +450,10 @@ in
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 42042 ]; # dns, http, nfs rpc, https, nfs, private mumble
   networking.firewall.allowedUDPPorts = [ 53 111 2049 42042 42069 42070 ]; # dns, nfs rpc, nfs, private mumble, wg0, wg1
+
+  # firewall logging
+  networking.firewall.logRefusedPackets = true;
+  networking.firewall.logRefusedConnections = true;
 
   system.stateVersion = "23.11";
 }

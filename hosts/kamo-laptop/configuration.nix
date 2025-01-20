@@ -23,7 +23,21 @@
       "${args.modules}/sunshine.nix"
     ];
 
-
+  # guitarix pipewire.jack
+  # security.pam.loginLimits = [
+  #   {
+  #     domain = "*";
+  #     type = "-";
+  #     item = "memlock";
+  #     value = "8192000";
+  #   }
+  #   {
+  #     domain = "*";
+  #     type = "-";
+  #     item = "rtprio";
+  #     value = "95";
+  #   }
+  # ];
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;
@@ -36,11 +50,6 @@
     autoLogin.user = "kamo";
   };
   # sunshine.enable = true;
-  # services.xserver = {
-  #   enable = true;
-  #   displayManager.gdm.enable = true;
-  #   desktopManager.gnome.enable = true;
-  # };
   steam.enable = true;
   virt.enable = true;
   virt.users = ["kamo"];
@@ -122,6 +131,11 @@
 
   networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
+
+  # services.zerotierone = {
+  #   enable = true;
+  #   joinNetworks = ["1c33c1ced078606c"];
+  # };
 
   networking.wg-quick.interfaces = {
     wg0 = {

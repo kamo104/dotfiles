@@ -12,6 +12,8 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      # guitarix pipewire.jack
+      # jack.enable = true;
     };
   };
   

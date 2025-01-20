@@ -46,7 +46,7 @@
       pavucontrol
       btop
       gparted
-      cava
+      # cava
       vlc
       vcmi
       moonlight-qt
@@ -63,6 +63,9 @@
       planify
       # for imagemagick
       ghostscript
+
+      # pwa native for firefox
+      # firefoxpwa
 
       libreoffice
       hunspell
@@ -98,6 +101,8 @@
     programs.firefox = {
       enable = true;
       # package = pkgs.firefox-beta;
+      package = pkgs.firefox;
+      # nativeMessagingHosts = [ pkgs.firefoxpwa ];
       profiles = {
         kamo = {
           id = 0;

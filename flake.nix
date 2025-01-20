@@ -2,27 +2,22 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    signalPkgs.url = "github:nixos/nixpkgs?rev=b1000dc9e4790cbbd69b9140b23e28afad3bf34f";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags = {
-      url = "github:aylur/ags";
+      url = "github:aylur/ags?rev=60180a184cfb32b61a1d871c058b31a3b9b0743d";
+      # url = "tarball+https://codeload.github.com/Aylur/ags/tar.gz/60180a184cfb32b61a1d871c058b31a3b9b0743d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-  nixConfig = {
-    extra-substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
   };
 
   outputs = { self, nixpkgs, ... } @inputs:

@@ -21,6 +21,12 @@
         enableXdgAutostart = true;
       };
       # extraConfig = ''${builtins.readFile ./hyprland.conf}'';
+      extraConfig = ''
+        bind=SUPER,escape,submap,moonlight
+        submap=moonlight
+        bind=SUPER,escape,submap,reset
+        submap=reset
+      '';
       settings =  with builtins; with pkgs.lib.lists; 
       let
         # programs
@@ -28,11 +34,19 @@
         fileManager = "${pkgs.nautilus}/bin/nautilus";
         programsMenu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
         windowsMenu = "${pkgs.rofi-wayland}/bin/rofi -show window";
-        browser = "${pkgs.firefox}/bin/firefox";
-        homeAssistant = "${browser} --new-window home-assistant.kkf.internal";
-        immich = "${browser} --new-window immich.kkf.internal";
-        jellyfin = "${browser} --new-window jellyfin.kkf.internal";
+        browser = "${pkgs.firefox-bin}/bin/firefox";
+        homeAssistant = ''${specialApp} "Home-Assistant" "${browser} --new-window home-assistant.kkf.internal"'';
+        immich = ''${specialApp} "Immich" "${browser} --new-window immich.kkf.internal"'';
+        # pwa-launch = (pkgs.writers.writeBashBin "launch" ''
+        #   row=$(${pkgs.firefoxpwa}/bin/firefoxpwa profile list | grep "$1")
+        #   row=''${row#* (}
+        #   row=''${row%*)}
+        #   ${pkgs.firefoxpwa}/bin/firefoxpwa site launch $row
+        # '') + "/bin/launch";
+        # jellyfin = ''${specialApp} "Jellyfin" "${pwa-launch}"'';
+        jellyfin = ''${specialApp} "Jellyfin" "${browser} --new-window jellyfin.kkf.internal"'';
         messenger = "${browser} --new-window messenger.com";
+        mumble = "${pkgs.mumble}/bin/mumble -m";
         lock = "loginctl lock-session";
         ags_windows = [ "overview" "indicator0" "indicator1" "sideright" "osk" "session" "bar0" "bar1" ];
         # programs
@@ -41,42 +55,65 @@
         monitorId = (pkgs.writers.writeBashBin "monitor" ''
           hyprctl activeworkspace -j | ${pkgs.jq}/bin/jq '.["monitorID"]'
         '') + "/bin/monitor";
-        specialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
+        currentSpecialWorkspace = (pkgs.writers.writeBashBin "workspace" ''
           hyprctl monitors -j | jq '.['`${monitorId}`']["specialWorkspace"]["name"]' -r | cut -d":" -f2
         '') + "/bin/workspace";
+        random = (pkgs.writers.writeBashBin "random" ''
+          head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16
+        '') + "/bin/random";
         hideWindow = (pkgs.writers.writeBashBin "hide" ''
           cmd=movetoworkspacesilent
           if [ -z $1 ]; then cmd=movetoworkspace; fi
-          hyprctl dispatch $cmd special:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
+          hyprctl dispatch $cmd special:$(${random})
         '') + "/bin/hide";
         toggleFocus = (pkgs.writers.writeBashBin "focus" ''
           ags -r "App.toggleWindow(\"bar`${monitorId}`\")"
         '') + "/bin/focus";
         hideSpecial = (pkgs.writers.writeBashBin "hide" ''
-          WORKSPACE=`${specialWorkspace}`
+          WORKSPACE=`${currentSpecialWorkspace}`
           if [ $WORKSPACE ]; then
             hyprctl dispatch togglespecialworkspace $WORKSPACE
           fi
         '') + "/bin/hide";
+        # $1 == bind number
         newWorkspace = (pkgs.writers.writeBashBin "new" ''
           echo $((`${monitorId}`*10+$1+10*($1==0))) 
         '') + "/bin/new";
+        # $1 == bind number
         showWorkspace = (pkgs.writers.writeBashBin "show" ''
           hyprctl dispatch workspace `${newWorkspace} $1` 
           ${hideSpecial}
         '') + "/bin/show";
+        # $1 == bind number
+        # $2 ? optional for silent move
         moveToWorkspace = (pkgs.writers.writeBashBin "move" ''
           cmd=movetoworkspacesilent
           if [ -z $2 ]; then cmd=movetoworkspace; fi
           hyprctl dispatch $cmd `${newWorkspace} $1`
         '') + "/bin/move";
+        # $1 == window name to look for
+        # $2 == the command used to start the app
+        specialApp = (pkgs.writers.writeBashBin "app" ''
+          N=$(hyprctl clients -j | jq -c '.[].tags' | grep -ni "$1" | cut -d':' -f 1)
+          if [ -z $N ]; then
+            hyprctl dispatch workspace special:$(${random}) #
+            $2
+            sleep 1
+            hyprctl dispatch tagwindow +"$1"
+            # echo `$2 $1`
+          else 
+            NAME="$(hyprctl clients -j | jq '.['$(($N-1))'].workspace.name' -r)"
+            NAME="''${NAME#special:}"
+            hyprctl dispatch togglespecialworkspace $NAME
+          fi
+        '') + "/bin/app";
         # scripts
 
         # monitors config
         monitors = {
           "eDP-1" = {
             "workspaces"= genList (x: 1+x) 10;
-            "config"="1920x1080@60.02, 0x0, 1.0";
+            "config"="1920x1080@60.02, 0x0, 1";
           };
           "HDMI-A-1" = {
             "workspaces"= genList (x: 1+10+x) 10;
@@ -84,7 +121,7 @@
           };
           "headless" = {
             "workspaces" = genList (x: 1+20+x) 20;
-            "config" = "1920x1080@60Hz, 0x1080, 1";
+            "config" = "1920x1080@60Hz, 0x-1080, 1";
           };
         };
         # monitors config
@@ -107,7 +144,7 @@
           # "U" = "sleep 1";
           "I" = "${immich}";
           "O" = "hyprctl dispatch togglesplit";
-          # "P" = "sleep 1";
+          "P" = "hyprctl dispatch pin";
 
           # second row
           # "CAPS" = "pkill ags; ags";
@@ -127,7 +164,8 @@
           "V" = "hyprctl dispatch togglefloating";
           "B" = "${browser}";
           "N" = "sleep 1";
-          "M" = "${messenger}";
+          # TODO: toggle special workspace
+          "M" = "${mumble}";
 
           "mouse_down" = "hyprctl dispatch workspace e+1";
           "mouse_up" = "hyprctl dispatch workspace e-1";
@@ -166,6 +204,11 @@
           "col.inactive_border" = "rgba(9a8d9533)";
           layout = "dwindle";
           allow_tearing = false;
+          # snap = {
+          #   enabled = true;
+          #   window_gap = 25;
+          #   monitor_gap = 10;
+          # };
         };
         decoration = {
           rounding = 10;
@@ -175,10 +218,10 @@
               passes = 2;
               vibrancy = 0.1696;
           };
-          drop_shadow = true;
-          shadow_range = 4;
-          shadow_render_power = 3;
-          "col.shadow" = "rgba(1a1a1aee)";
+          # drop_shadow = true;
+          # shadow_range = 4;
+          # shadow_render_power = 3;
+          # "col.shadow" = "rgba(1a1a1aee)";
 
           # blur on ags windows
           # inherit blurls;
@@ -255,6 +298,7 @@
             ",XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
             ",XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
             ",XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
+            # ",XF86Display , exec, echo 1 > /tmp/helpme.txt'"
           ];
           bindle = [
             ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
@@ -287,37 +331,43 @@
       '';
 
       on-lock = (pkgs.writers.writeBashBin "on-lock" ''
-        if [ $(pgrep -f "${mpv-cmd}") ]; then
+        if [ $(${pkgs.procps}/bin/pgrep -f "${mpv-cmd}") ]; then
           exit 0
         fi
         # TODO: start the video for every monitor 
         ${mpv-cmd} 2>&1 &
-        hyprlock
+        ${pkgs.hyprlock}/bin/hyprlock
         kill %1
       '') + "/bin/on-lock";
       br-anim = (pkgs.writers.writeBashBin "br-anim" ''
         END=$1
         STEP=$2
-        if (( END - $(brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
-        while (( $SIGN * $(brightnessctl g) + STEP < END )); do
-          brightnessctl s $(( $(brightnessctl g) + $SIGN * STEP ))
+        if (( END - $(${pkgs.brightnessctl}/bin/brightnessctl g) > 0 )); then SIGN="1"; else SIGN="-1"; fi
+        while (( $SIGN * $(${pkgs.brightnessctl}/bin/brightnessctl g) + STEP < END )); do
+          CURR=$(( $(${pkgs.brightnessctl}/bin/brightnessctl g) + $SIGN * STEP ))
+          CURR="''${CURR/#-}"
+          ${pkgs.brightnessctl}/bin/brightnessctl s $CURR
         done
-        brightnessctl s $END
+        ${pkgs.brightnessctl}/bin/brightnessctl s $END
       '') + "/bin/br-anim";
       on-resume = (pkgs.writers.writeBashBin "on-resume" ''
-        BR=$(cat "${br-file}")
-        rm "${br-file}"
+        if [ -e "${br-file}" ]; then
+          BR=$(cat "${br-file}")
+          rm "${br-file}"
+        else 
+          BR=0
+        fi
 
-        pkill -f "${br-anim}"
+        ${pkgs.procps}/bin/pkill -f "${br-anim}"
 
         ${br-anim} $BR 10 & disown
       '') + "/bin/on-resume";
       on-pause = (pkgs.writers.writeBashBin "on-pause" ''
         if [ ! -e "${br-file}" ]; then
-          brightnessctl g > "${br-file}";
+          ${pkgs.brightnessctl}/bin/brightnessctl g > "${br-file}";
         fi
 
-        pkill -f "${br-anim}"
+        ${pkgs.procps}/bin/pkill -f "${br-anim}"
 
         ${br-anim} 0 2 & disown
       '') + "/bin/on-pause";
@@ -326,13 +376,13 @@
       enable = true;
       settings = {
         general = {
-            after_sleep_cmd = "hyprctl dispatch dpms on";
+            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
             before_sleep_cmd = "playerctl pause; loginctl lock-session";
             lock_cmd =  "${on-lock}";
           };
         listener = [
           {
-            timeout = 120;
+            timeout = 60;
             on-timeout = "${on-pause}";
             on-resume = "${on-resume}";
           }
@@ -341,9 +391,9 @@
           #   on-timeout = "loginctl lock-session";
           # }
           {
-            timeout = 300;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            timeout = 180;
+            on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+            on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           }
         ];
       };

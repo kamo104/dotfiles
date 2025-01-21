@@ -44,9 +44,9 @@
 
     easyeffects
 
-    (import inputs.bambuPkgs {inherit system;}).bambu-studio
+    # (import inputs.bambuPkgs {inherit system;}).bambu-studio
     # bambu-studio
-    # orca-slicer
+    orca-slicer
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

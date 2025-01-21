@@ -24,17 +24,17 @@
     },
     "bambuPkgs": {
       "locked": {
-        "lastModified": 1713076203,
-        "narHash": "sha256-P5eaPKIadApIYbi+Hngnx5UagsXBRWhK+vnZANDK2H4=",
+        "lastModified": 1728739585,
+        "narHash": "sha256-+00ycu6U9q7+v9ydyaINTdM5a+dG2/j9fKpaC4qFcgQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "03a60cc32d650164edc4459fe43e6726bd3170ae",
+        "rev": "18fcf074a288cebc14a8334ea62da0c25b39574b",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "03a60cc32d650164edc4459fe43e6726bd3170ae",
+        "rev": "18fcf074a288cebc14a8334ea62da0c25b39574b",
         "type": "github"
       }
     },

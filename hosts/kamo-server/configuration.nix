@@ -340,7 +340,7 @@ in
     "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
   };
-  boot.kernelModules = [ "fuse" ];
+  # boot.kernelModules = [ "fuse" ];
   
   networking.wg-quick.interfaces = {
     wg1 = {

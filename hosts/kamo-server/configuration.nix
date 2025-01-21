@@ -389,17 +389,16 @@ in
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
 
         # enable routing from server,kamo 10.100.1.101 == 192.168.1.94
-        ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
-        # mask as the server ip
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
+        # ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
       '';
       postDown = ''
         ip route del 10.100.0.0/20 dev wg0 table wg1_table
         ip route del 192.168.1.0/24 dev ens18 table wg1_table
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
 
-        ${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
+        # ${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
 
       '';
       peers = [
@@ -464,8 +463,8 @@ in
   networking.firewall.allowedUDPPorts = [ 53 111 2049 42042 42069 42070 ]; # dns, nfs rpc, nfs, private mumble, wg0, wg1
 
   # firewall logging
-  networking.firewall.logRefusedPackets = true;
-  networking.firewall.logRefusedConnections = true;
+  # networking.firewall.logRefusedPackets = true;
+  # networking.firewall.logRefusedConnections = true;
 
   system.stateVersion = "23.11";
 }

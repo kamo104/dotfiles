@@ -47,6 +47,7 @@
     # (import inputs.bambuPkgs {inherit system;}).bambu-studio
     # bambu-studio
     orca-slicer
+    freecad
 
     (pkgs.writers.writeBashBin "sendToPrinter" ''
       if [ -z "$1" ]; then

@@ -53,7 +53,7 @@
         echo "Error: No file specified to send to the printer."
         exit 1
       fi
-      ${pkgs.lftp}/bin/lftp -c "set ftp:ssl-force true; set ssl:verify-certificate no; open ${builtins.readFile (args.secrets + "/bambu-lab/bambu-cred")}; cd cache; put $1"
+      ${pkgs.lftp}/bin/lftp -c "set ftp:ssl-force true; set ssl:verify-certificate no; open ${builtins.readFile "secrets/bambu-address"}; cd cache; put $1"
     ''
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;

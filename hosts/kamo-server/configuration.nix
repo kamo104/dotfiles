@@ -477,7 +477,7 @@ in
           allowedIPs = [ "10.100.13.2/32" ];
         }
         { # filip-iphone
-          publicKey = "1eHXJGvMgw8LQwgk956/hiM4unafxCBGJsbhGuhirR0=";
+          publicKey = "KvYB+fVGAWk1vefrvooJiiBMkBwpJ3Z/FH4bpd1w/EU=";
           allowedIPs = [ "10.100.13.3/32" ];
         }
       ];

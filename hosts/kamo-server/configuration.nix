@@ -476,10 +476,10 @@ in
           publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
           allowedIPs = [ "10.100.13.2/32" ];
         }
-        # { # filip-iphone
-        #   publicKey = "";
-        #   allowedIPs = [ "10.100.13.3/32" ];
-        # }
+        { # filip-iphone
+          publicKey = "1eHXJGvMgw8LQwgk956/hiM4unafxCBGJsbhGuhirR0=";
+          allowedIPs = [ "10.100.13.3/32" ];
+        }
       ];
     };
   };

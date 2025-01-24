@@ -48,13 +48,13 @@
     # bambu-studio
     orca-slicer
 
-    pkgs.writers.writeBashBin "sendToPrinter" ''
+    (pkgs.writers.writeBashBin "sendToPrinter" ''
       if [ -z "$1" ]; then
         echo "Error: No file specified to send to the printer."
         exit 1
       fi
       ${pkgs.lftp}/bin/lftp -c "set ftp:ssl-force true; set ssl:verify-certificate no; open $(cat /home/kamo/nixos/secrets/bambu-address); cd cache; put $1"
-    ''
+    '')
   ];
   systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 

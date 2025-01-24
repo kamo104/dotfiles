@@ -47,8 +47,6 @@
     # (import inputs.bambuPkgs {inherit system;}).bambu-studio
     # bambu-studio
     orca-slicer
-    # lftp -c "set ftp:ssl-force true; set ssl:verify-certificate no; open ftps://bblp:31818722@192.168.1.94:990; cd cache; put $1"
-    # (pkgs.v)
 
     pkgs.writers.writeBashBin "sendToPrinter" ''
       if [ -z "$1" ]; then

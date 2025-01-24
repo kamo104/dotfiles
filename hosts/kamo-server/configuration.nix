@@ -51,49 +51,49 @@ in
   #   builders-use-substitutes = true;
   # };
 
-  containers = {
-    gitlab = {
-      autoStart = true;
-      privateNetwork = true;
-      hostAddress = "192.168.100.10";
-      localAddress = "192.168.100.11";
-      config = { config, pkgs, lib, ... }: {
-        system.stateVersion = "23.11";
-        networking = {
-          firewall = {
-            enable = true;
-            allowedTCPPorts = [ 80 443 8080];
-          };
-          # Use systemd-resolved inside the container
-          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-          # useHostResolvConf = lib.mkForce false;
-        };
-        services.gitlab = {
-          enable = true;
-          # openssl genrsa 512 | grep -v '\-----' | head -c 64
-          # databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
-          # initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
-          # databaseName = "gitlab";
-          # secrets = {
-          #   secretFile = "${args.secrets}/gitlab/secret";
-          #   otpFile = "${args.secrets}/gitlab/otp";
-          #   # dbFile = "${args.secrets}/gitlab/db";
-          #   dbFile = "/var/lib/gitlab/db";
-          #   # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
-          #   jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
-          # };
-          databasePasswordFile = pkgs.writeText "dbPassword" "zgvcyfwsxzcwr85l";
-          initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
-          secrets = {
-            secretFile = pkgs.writeText "secret" "Aig5zaic";
-            otpFile = pkgs.writeText "otpsecret" "Riew9mue";
-            dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-            jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
-          };
-        };
-      };
-    };
-  };
+  # containers = {
+  #   gitlab = {
+  #     autoStart = true;
+  #     privateNetwork = true;
+  #     hostAddress = "192.168.100.10";
+  #     localAddress = "192.168.100.11";
+  #     config = { config, pkgs, lib, ... }: {
+  #       system.stateVersion = "23.11";
+  #       networking = {
+  #         firewall = {
+  #           enable = true;
+  #           allowedTCPPorts = [ 80 443 8080];
+  #         };
+  #         # Use systemd-resolved inside the container
+  #         # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+  #         # useHostResolvConf = lib.mkForce false;
+  #       };
+  #       services.gitlab = {
+  #         enable = true;
+  #         # openssl genrsa 512 | grep -v '\-----' | head -c 64
+  #         # databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
+  #         # initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #         # databaseName = "gitlab";
+  #         # secrets = {
+  #         #   secretFile = "${args.secrets}/gitlab/secret";
+  #         #   otpFile = "${args.secrets}/gitlab/otp";
+  #         #   # dbFile = "${args.secrets}/gitlab/db";
+  #         #   dbFile = "/var/lib/gitlab/db";
+  #         #   # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+  #         #   jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
+  #         # };
+  #         databasePasswordFile = pkgs.writeText "dbPassword" "zgvcyfwsxzcwr85l";
+  #         initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #         secrets = {
+  #           secretFile = pkgs.writeText "secret" "Aig5zaic";
+  #           otpFile = pkgs.writeText "otpsecret" "Riew9mue";
+  #           dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
+  #           jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
   # containers = {
   #   # private.mumble.kkf.internal
   #   mumble = {
@@ -186,8 +186,8 @@ in
         "/nfs.kkf.internal/10.100.0.1"
         # smb
         "/smb.kkf.internal/10.100.0.1"
-        # gitlab
-        "/gitlab.kkf.internal/10.100.0.1"
+        # # gitlab
+        # "/gitlab.kkf.internal/10.100.0.1"
       ];
     };
   };
@@ -245,17 +245,17 @@ in
         	# recommendedProxySettings = false;
         };
       };
-      "gitlab.kkf.internal" = {
-        forceSSL = true;
-        sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
-        sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
-        sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
-        locations."/" = {
-          # proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-          proxyPass = "http://192.168.100.11:8080";
-          # proxyWebsockets = true;
-        };
-      };
+      # "gitlab.kkf.internal" = {
+      #   forceSSL = true;
+      #   sslCertificate ="${args.secrets}/pki/issued/kkf.crt";
+      #   sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
+      #   sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
+      #   locations."/" = {
+      #     # proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      #     proxyPass = "http://192.168.100.11:8080";
+      #     # proxyWebsockets = true;
+      #   };
+      # };
     };
   };
 
@@ -476,6 +476,10 @@ in
           publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
           allowedIPs = [ "10.100.13.2/32" ];
         }
+        # { # filip-iphone
+        #   publicKey = "";
+        #   allowedIPs = [ "10.100.13.3/32" ];
+        # }
       ];
     };
   };

@@ -32,6 +32,7 @@
     systemd.user.services.ags = {
       serviceConfig = {
         StandardOutput=false;
+        StandardError=false;
       };
     };
   };

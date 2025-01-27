@@ -31,8 +31,8 @@
     };
     systemd.user.services.ags = {
       Service = {
-        StandardOutput=null;
-        StandardError=null;
+        StandardOutput="null";
+        StandardError="null";
       };
     };
   };

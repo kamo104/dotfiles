@@ -30,9 +30,9 @@
       ];
     };
     systemd.user.services.ags = {
-      serviceConfig = {
-        StandardOutput=false;
-        StandardError=false;
+      Service = {
+        StandardOutput=null;
+        StandardError=null;
       };
     };
   };

@@ -31,7 +31,7 @@
     };
     systemd.user.services.ags = {
       serviceConfig = {
-        StandardOutput=null;
+        StandardOutput=false;
       };
     };
   };

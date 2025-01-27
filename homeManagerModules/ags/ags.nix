@@ -29,7 +29,7 @@
         accountsservice
       ];
     };
-    systemd.user.services.ags = lib.mkMerge {
+    systemd.user.services.ags = {
       serviceConfig = {
         StandardOutput=null;
       };

@@ -54,15 +54,9 @@
       ${pkgs.procps}/bin/pkill -f "${ovpn}"
       ${pkgs.procps}/bin/pkill -f "${ftvpn}"
     '') + "/bin/off";
-
-    ban = (pkgs.writers.writeBashBin "vban" '' 
-      pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=48000 sess.name="work-audio" destination.ip="10.100.1.2" sess.latency.msec=10 &
-      pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="work-samson" source.ip="10.100.1.2" sess.latency.msec=30
-    '') + "/bin/vban";
   in ''
     alias vpnOn="${on}"
     alias vpnOff="${off}"
-    alias vbanOn="${ban}"
     '';
 
  

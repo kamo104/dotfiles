@@ -10,7 +10,7 @@ import {
     ModuleInvertColors,
     ModuleIdleInhibitor,
     ModuleEditIcon,
-    ModuleReloadIcon,
+    // ModuleReloadIcon,
     ModuleSettingsIcon,
     ModulePowerIcon,
     ModuleRawInput
@@ -69,7 +69,7 @@ const timeRow = Box({
         }),
         Widget.Box({ hexpand: true }),
         // ModuleEditIcon({ hpack: 'end' }), // TODO: Make this work
-        ModuleReloadIcon({ hpack: 'end' }),
+        // ModuleReloadIcon({ hpack: 'end' }),
         ModuleSettingsIcon({ hpack: 'end' }),
         ModulePowerIcon({ hpack: 'end' }),
     ]

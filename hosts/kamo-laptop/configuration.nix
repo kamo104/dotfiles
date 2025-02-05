@@ -128,7 +128,7 @@
   ];
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname; secrets = args.secrets;};
+    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname; secrets = args.secrets;customPkgs = args.customPkgs;};
     useGlobalPkgs = true;
     useUserPackages  = true;
     users.kamo = import ./home.nix;

@@ -44,9 +44,8 @@
 
     easyeffects
 
-    # (import inputs.bambuPkgs {inherit system;}).bambu-studio
-    # bambu-studio
-    orca-slicer
+    # orca-slicer
+    "${args.customPkgs}/orca-slicer/package.nix"
     freecad
 
     (pkgs.writers.writeBashBin "sendToPrinter" ''

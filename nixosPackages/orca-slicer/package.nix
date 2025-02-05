@@ -141,7 +141,6 @@ stdenv.mkDerivation rec {
     "-I${opencv.out}/include/opencv4"
     "-Wno-error=template-id-cdtor"
     "-Wno-error=incompatible-pointer-types"
-    "-Wno-template-id-cdtor"
     "-Wno-uninitialized"
     "-Wno-unused-result"
     "-Wno-deprecated-declarations"

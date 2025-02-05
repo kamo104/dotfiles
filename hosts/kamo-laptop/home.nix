@@ -45,7 +45,7 @@
     easyeffects
 
     # orca-slicer
-    "${args.customPkgs}/orca-slicer/package.nix"
+    (pkgs.callPackage "${args.customPkgs}/orca-slicer/package.nix" {})
     freecad
 
     (pkgs.writers.writeBashBin "sendToPrinter" ''

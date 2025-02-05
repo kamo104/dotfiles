@@ -139,7 +139,6 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = toString [
     "-Wno-ignored-attributes"
     "-I${opencv.out}/include/opencv4"
-    "-Wno-error=template-id-cdtor"
     "-Wno-error=incompatible-pointer-types"
     "-Wno-uninitialized"
     "-Wno-unused-result"

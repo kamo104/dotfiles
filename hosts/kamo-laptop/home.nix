@@ -30,16 +30,16 @@
 
   home.stateVersion = "23.11";
 
-  home.packages = with pkgs; [
-    signal-desktop
+  home.packages = with pkgs; 
+  [
+    # signal-desktop
+    (import inputs.signalPkgs {inherit system;}).signal-desktop
     keepassxc
 
-
-    jetbrains.idea-community
-    android-studio
+    # jetbrains.idea-community
+    # android-studio
     # platformio
     vscode
-    # transmission_4-qt6
     deluge
 
     easyeffects

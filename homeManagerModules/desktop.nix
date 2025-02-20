@@ -46,7 +46,7 @@
       pavucontrol
       btop
       gparted
-      cava
+      # cava
       vlc
       vcmi
       moonlight-qt
@@ -101,6 +101,7 @@
     programs.firefox = {
       enable = true;
       # package = pkgs.firefox-beta;
+      package = pkgs.firefox;
       # nativeMessagingHosts = [ pkgs.firefoxpwa ];
       profiles = {
         kamo = {

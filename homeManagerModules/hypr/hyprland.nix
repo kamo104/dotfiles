@@ -34,7 +34,7 @@
         fileManager = "${pkgs.nautilus}/bin/nautilus";
         programsMenu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
         windowsMenu = "${pkgs.rofi-wayland}/bin/rofi -show window";
-        browser = "${pkgs.firefox}/bin/firefox";
+        browser = "${pkgs.firefox-bin}/bin/firefox";
         homeAssistant = ''${specialApp} "Home-Assistant" "${browser} --new-window home-assistant.kkf.internal"'';
         immich = ''${specialApp} "Immich" "${browser} --new-window immich.kkf.internal"'';
         # pwa-launch = (pkgs.writers.writeBashBin "launch" ''
@@ -218,10 +218,10 @@
               passes = 2;
               vibrancy = 0.1696;
           };
-          drop_shadow = true;
-          shadow_range = 4;
-          shadow_render_power = 3;
-          "col.shadow" = "rgba(1a1a1aee)";
+          # drop_shadow = true;
+          # shadow_range = 4;
+          # shadow_render_power = 3;
+          # "col.shadow" = "rgba(1a1a1aee)";
 
           # blur on ags windows
           # inherit blurls;

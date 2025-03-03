@@ -149,7 +149,7 @@
       address = [ "10.100.1.2/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      dns = ["10.100.0.1"];
+      dns = ["10.100.0.1" "~kkf.internal"];
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

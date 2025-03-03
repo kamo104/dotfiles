@@ -137,10 +137,10 @@
   networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
-  # services.zerotierone = {
-  #   enable = true;
-  #   joinNetworks = ["1c33c1ced078606c"];
-  # };
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = ["1c33c1ced078606c"];
+  };
 
   services.resolved.enable = true;
   networking.wg-quick.interfaces = {

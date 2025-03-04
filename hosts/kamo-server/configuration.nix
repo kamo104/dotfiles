@@ -36,20 +36,52 @@ in
   # ];
 
   # REMOTE BUILDS
-  nix.buildMachines = [{
-    hostName = "192.168.1.27";
-    system = "x86_64-linux";
-    protocol = "ssh-ng";
-    # default is 1 but may keep the builder idle in between builds
-    maxJobs = 3;
-    speedFactor = 2;
-    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-    mandatoryFeatures = [ ];
-  }];
-  nix.distributedBuilds = true;
-  nix.settings = {
-    builders-use-substitutes = true;
-  };
+  # nix.buildMachines = [{
+  #   hostName = "192.168.1.27";
+  #   system = "x86_64-linux";
+  #   protocol = "ssh-ng";
+  #   # default is 1 but may keep the builder idle in between builds
+  #   maxJobs = 3;
+  #   speedFactor = 2;
+  #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  #   mandatoryFeatures = [ ];
+  # }];
+  # nix.distributedBuilds = true;
+  # nix.settings = {
+  #   builders-use-substitutes = true;
+  # };
+
+  # containers = {
+  #   # private.mumble.kkf.internal
+  #   mumble = {
+  #     autoStart = true;
+  #     privateNetwork = true;
+  #     hostAddress = "192.168.100.10";
+  #     localAddress = "192.168.100.11";
+  #     config = { config, pkgs, lib, ... }: {
+  #       system.stateVersion = "23.11";
+  #       networking = {
+  #         firewall = {
+  #           enable = true;
+  #         };
+  #         # Use systemd-resolved inside the container
+  #         # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+  #         # useHostResolvConf = lib.mkForce false;
+  #       };
+  #       services.murmur = {
+  #         enable = true;
+  #         openFirewall = true;
+  #         port = 25565;
+  #         bandwidth = 256000;
+  #       };
+  #       # services.resolved.enable = true;
+  #     };
+  #   };
+  # };
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 4*1024;
+  } ];
 
   fileSystems = {
     "/drives/hdd1" = { 
@@ -106,6 +138,7 @@ in
         "/immich.kkf.internal/10.100.0.1"
         # mumble stuff
         "/mumble.kkf.internal/10.100.0.1"
+        # "/private.mumble.kkf.internal/10.100.0.1"
         # nfs
         "/nfs.kkf.internal/10.100.0.1"
         # smb
@@ -118,6 +151,23 @@ in
     # recommendedProxySettings = true;
     # recommendedTlsSettings = true;
     clientMaxBodySize="0";
+    # streamConfig = ''
+    #   upstream mumble {
+    #     server 192.168.100.11:25565;
+    #   }
+    #   server {
+    #     listen 10.100.0.1:42042 udp;
+    #     proxy_pass mumble;
+    #   }
+    #   server {
+    #     listen 10.100.0.1:42042;
+    #     proxy_pass mumble;
+
+    #     ssl_certificate      ${args.secrets}/pki/issued/kkf.crt;
+    #     ssl_certificate_key   ${args.secrets}/pki/private/kkf.key;
+    #     # proxy_ssl on;
+    #   }
+    # '';
     virtualHosts = {
       "home-assistant.kkf.internal" =  {
         forceSSL = true;
@@ -358,7 +408,7 @@ in
         
 
         { # ola-laptop
-          publicKey = "iigx1rGG/qUxpInRcJOORjHRdhHNZ+VQamJ67yYT0SU=";
+          publicKey = "OnK+NCGjH0cpt0jJfc/Gn52OvFIUrjX7/lnxovopVxY=";
           allowedIPs = [ "10.100.11.1/32" ];
         }
         { # ola-iphone
@@ -396,8 +446,8 @@ in
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 ]; # dns, http, nfs rpc, https, nfs
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 42069 42070 ]; # dns, nfs rpc, nfs, wireguard
+  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 42042 ]; # dns, http, nfs rpc, https, nfs, private mumble
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 42042 42069 42070 ]; # dns, nfs rpc, nfs, private mumble, wg0, wg1
 
   system.stateVersion = "23.11";
 }

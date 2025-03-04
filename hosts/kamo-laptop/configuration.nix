@@ -108,9 +108,8 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # force deep sleep for lower battery drain
   boot.kernelParams = [ "mem_sleep_default=deep" ];
-  # services.thermald.enable = true;
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       # performance on AC
       CPU_ENERGY_PERF_POLICY_ON_AC="performance";

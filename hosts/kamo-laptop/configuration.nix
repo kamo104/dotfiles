@@ -109,7 +109,7 @@
   # force deep sleep for lower battery drain
   boot.kernelParams = [ "mem_sleep_default=deep" ];
   services.tlp = {
-    enable = false;
+    enable = true;
     settings = {
       # performance on AC
       CPU_ENERGY_PERF_POLICY_ON_AC="performance";

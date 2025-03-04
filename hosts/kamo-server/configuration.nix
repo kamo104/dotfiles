@@ -266,7 +266,7 @@ in
   };
 
   services.murmur = {
-    package = (pkgs.callPackage "${args.customPkgs}/murmur" {});
+    # package = (pkgs.callPackage "${args.customPkgs}/murmur" {});
     enable = true;
     openFirewall = true;
     bandwidth = 256000;

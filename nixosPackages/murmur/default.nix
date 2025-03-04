@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.services.murmur;
+  cfg = config.services.murmur-dev;
   forking = cfg.logFile != null;
   configFile = pkgs.writeText "murmurd.ini" ''
     database=${cfg.stateDir}/murmur.sqlite
@@ -54,7 +54,7 @@ in
   ];
 
   options = {
-    services.murmur = {
+    services.murmur-dev = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -331,7 +331,7 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
-    systemd.services.murmur = {
+    systemd.services.murmur-dev = {
       description = "Murmur Chat Service";
       wantedBy    = [ "multi-user.target" ];
       after       = [ "network.target" ];

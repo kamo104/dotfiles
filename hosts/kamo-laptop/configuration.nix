@@ -107,7 +107,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # force deep sleep for lower battery drain
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  # boot.kernelParams = [ "mem_sleep_default=deep" ];
   services.tlp = {
     enable = true;
     settings = {
@@ -120,6 +120,8 @@
       CPU_BOOST_ON_BAT=0;
       CPU_HWP_DYN_BOOST_ON_BAT=0;
       AMDGPU_ABM_LEVEL_ON_BAT=3;
+      MEM_SLEEP_ON_AC="s2idle";
+      MEM_SLEEP_ON_BAT="deep";
     };
   };
 

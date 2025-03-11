@@ -40,13 +40,17 @@
     # android-studio
     # platformio
     vscode
+    # CYBER-SEC PACKAGES
+    burpsuite
+    # CYBER-SEC PACKAGES
+
     deluge
 
     easyeffects
 
     orca-slicer
     # (pkgs.callPackage "${args.customPkgs}/orca-slicer/package.nix" {})
-    freecad
+    # freecad
 
     (pkgs.writers.writeBashBin "sendToPrinter" ''
       if [ -z "$1" ]; then

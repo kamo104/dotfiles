@@ -37,7 +37,7 @@ if [ "$1" != "-d" ]; then
 fi
 
 if [ "$NIX_INSTALL_TYPE" = "OS" ]; then
-    sudo nixos-rebuild switch --flake .#"$NIX_HOSTNAME" --install-bootloader --fallback
+    sudo nixos-rebuild switch --flake .#"$NIX_HOSTNAME" --install-bootloader --fallback --option subtitute false
 elif [ "$NIX_INSTALL_TYPE" = "PM" ]; then
     sudo nix profile upgrade "$NIX_HOSTNAME"
     home-manager switch --flake .#"$NIX_HOSTNAME"

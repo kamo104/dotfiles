@@ -69,6 +69,7 @@
           line-number = "relative";
           lsp.display-messages = true;
           soft-wrap.enable = true;
+          # inline-diagnostics.cursor-line = "warning";
         };
         keys.normal = {
           esc = [ "collapse_selection" "keep_primary_selection" ];

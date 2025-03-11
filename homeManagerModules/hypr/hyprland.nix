@@ -377,7 +377,7 @@
       settings = {
         general = {
             after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-            before_sleep_cmd = "playerctl pause; loginctl lock-session";
+            before_sleep_cmd = "${pkgs.playerctl}/bin/playerctl pause; loginctl lock-session";
             lock_cmd =  "${on-lock}";
           };
         listener = [

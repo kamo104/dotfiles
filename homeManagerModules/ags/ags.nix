@@ -29,5 +29,11 @@
         accountsservice
       ];
     };
+    systemd.user.services.ags = {
+      Service = {
+        StandardOutput="null";
+        StandardError="null";
+      };
+    };
   };
 }

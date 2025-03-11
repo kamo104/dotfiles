@@ -7,6 +7,7 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
     signalPkgs.url = "github:nixos/nixpkgs?rev=b1000dc9e4790cbbd69b9140b23e28afad3bf34f";
+    # bambuPkgs.url = "github:nixos/nixpkgs?rev=18fcf074a288cebc14a8334ea62da0c25b39574b";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {

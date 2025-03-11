@@ -21,7 +21,7 @@
       # after = [ "hypridle.service" ];
       wantedBy = [ "xdg-desktop-autostart.target" ];
       serviceConfig = {
-        Restart = "always";
+        Restart = "on-failure";
         RestartSec = "10s";
         StartLimitInterval = "5min";
         StartLimitBurst = 3;

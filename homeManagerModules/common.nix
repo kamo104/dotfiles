@@ -30,6 +30,8 @@
       clock24 = true;
       terminal = "xterm";
       escapeTime = 0;
+      newSession = true;
+      prefix = "C-a";
       extraConfig = ''
         bind c new-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"

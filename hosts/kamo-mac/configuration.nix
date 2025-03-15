@@ -40,7 +40,7 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      autostart = false;
+      autostart = true;
       address = [ "10.100.1.7/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";

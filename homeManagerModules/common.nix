@@ -32,11 +32,12 @@
       escapeTime = 0;
       # newSession = true;
       prefix = "C-x";
+      sensibleOnTop = false;
       extraConfig = ''
         bind c new-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
         bind '"' split-window -v -c "#{pane_current_path}"
-        set-option -g default-shell /run/current-system/sw/bin/fish
+        # set-option -g default-shell /run/current-system/sw/bin/fish
       '';
     };
     

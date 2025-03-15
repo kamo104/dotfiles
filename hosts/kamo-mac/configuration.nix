@@ -44,7 +44,7 @@
       address = [ "10.100.1.7/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      # dns = ["10.100.0.1" "~kkf.internal"];
+      dns = ["10.100.0.1" "~kkf.internal"];
       # postUp = ''
       #   ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
       # '';

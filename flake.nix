@@ -97,6 +97,7 @@
               # nixpkgs = nixpkgsConfig;
               services.nix-daemon.enable = true;
 
+              programs.fish = true;
               users.users.kamo = {
                 home = "/Users/kamo";
                 shell = pkgs.fish;

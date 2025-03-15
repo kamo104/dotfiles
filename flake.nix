@@ -81,7 +81,7 @@
     # mac hm config
     kamo-mac = inputs.home-manager.lib.homeManagerConfiguration {
 
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = nixpkgs.legacyPackages."aarch64-darwin";
       # pkgs = inputs.nixpkgs.legacyPackages."aarch64-darwin";
       extraSpecialArgs = {
         inherit inputs modules hmModules customPkgs;

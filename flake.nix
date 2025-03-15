@@ -105,6 +105,11 @@
                   experimental-features = [ "nix-command" "flakes" ];
                   connect-timeout = 1;
                 };
+                gc = {
+                  automatic = true;
+                  dates = "weakly";
+                  options = "--delete-older-than +5";
+                };
               };
 
 

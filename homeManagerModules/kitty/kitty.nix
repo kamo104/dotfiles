@@ -29,7 +29,7 @@
         font_size                 16.0
 
         # keybinds
-        # macos_option_as_alt true
+        macos_option_as_alt true
         # map alt+w close_tab
         map ctrl+t new_tab_with_cwd
         map alt+1 goto_tab 1
@@ -42,34 +42,10 @@
         map alt+8 goto_tab 8
         map alt+9 goto_tab 9
         # map alt+0 goto_tab 0
-        #
-        # dirty macos alt fix
-        # map cmd+a send_key meta+a
-        # map opt+b send_key alt+b
-        # map cmd+c send_key alt+c
-        # map cmd+d send_key alt+d
-        # map cmd+e send_key alt+e
-        # map cmd+f send_key alt+f
-        # map cmd+g send_key alt+g
-        # map cmd+h send_key alt+h
-        # map cmd+i send_key alt+i
-        # map cmd+j send_key alt+j
-        # map cmd+k send_key alt+k
-        # map cmd+l send_key alt+l
-        # map cmd+m send_key alt+m
-        # map cmd+n send_key alt+n
-        # map cmd+o send_key alt+o
-        # map cmd+p send_key alt+p
-        # map cmd+q send_key alt+q
-        # map cmd+r send_key alt+r
-        # map cmd+s send_key alt+s
-        # map cmd+t send_key alt+t
-        # map cmd+u send_key alt+u
-        # map cmd+v send_key alt+v
-        # map cmd+w send_key alt+w
-        # map cmd+x send_key alt+x
-        # map cmd+y send_key alt+y
-        # map cmd+z send_key alt+z
+
+        
+        map cmd+1 goto_tab 1
+        map cmd+2 goto_tab 2
         map option+1 goto_tab 1
         map option+2 goto_tab 2
         map option+3 goto_tab 3

@@ -63,18 +63,6 @@
         name = "work-laptop";
         paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
       };
-
-
-    # kamo-mac default packages profile
-    # packages."aarch64-darwin"."kamo-mac" = 
-    # let 
-    #   pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-    # in
-    #   pkgs.buildEnv{
-    #     name = "work-laptop";
-    #     paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
-    #   };
-    # home manager configuration for non nixos systems
     homeConfigurations = {
     # work-laptop hm config
       work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
@@ -88,52 +76,40 @@
         ];
       };
     };
-    # # mac hm config
-    # kamo-mac = inputs.home-manager.lib.homeManagerConfiguration {
-    #   pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-    #   extraSpecialArgs = {
-    #     inherit inputs modules hmModules customPkgs;
-    #     hostname = "kamo-mac";
-    #   };
-    #   modules = [
-    #     ./hosts/kamo-mac/home.nix
-    #   ];
-    # };
-    # 
-  # macos configuration
-  darwinConfigurations = {
-      kamo-mac = inputs.nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
+    # macos configuration
+    darwinConfigurations = {
+        kamo-mac = inputs.nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
  
-        specialArgs = {
-            inherit inputs modules hmModules customPkgs secrets;
-            hostname = "${host}";
-        };
+          specialArgs = {
+              inherit inputs modules hmModules customPkgs secrets;
+              hostname = "${host}";
+          };
 
-        modules = [
-          # ./hosts/kamo-mac/configuration.nix
-          inputs.home-manager.darwinModules.home-manager
-          {
-            # nixpkgs = nixpkgsConfig;
-            # services.nix-daemon.enable = true;
+          modules = [
+            # ./hosts/kamo-mac/configuration.nix
+            inputs.home-manager.darwinModules.home-manager
+            {
+              # nixpkgs = nixpkgsConfig;
+              # services.nix-daemon.enable = true;
             
-            # nix.enable = false;
+              # nix.enable = false;
  
-            users.users.kamo = {
-              home = "/Users/kamo";
-              shell = pkgs.fish;
-            };
-            system.stateVersion = 5;
+              users.users.kamo = {
+                home = "/Users/kamo";
+                shell = pkgs.fish;
+              };
+              system.stateVersion = 5;
 
-            home-manager = {
-              extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="kamo-mac";};
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.kamo = import ./hosts/kamo-mac/home.nix;
-            };
-          }
-        ];
+              home-manager = {
+                extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="kamo-mac";};
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.kamo = import ./hosts/kamo-mac/home.nix;
+              };
+            }
+          ];
+        };
       };
     };
-  };
 }

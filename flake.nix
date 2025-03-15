@@ -78,7 +78,11 @@
     };
     # macos configuration
     darwinConfigurations = {
-        kamo-mac = inputs.nix-darwin.lib.darwinSystem {
+        kamo-mac =
+                    let
+                      pkgs = nixpkgs.legacyPackages."aarch64-darwin";
+                    in
+                    inputs.nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
  
           specialArgs = {
@@ -95,7 +99,7 @@
 
               users.users.kamo = {
                 home = "/Users/kamo";
-                shell = nixpkgs.fish;
+                shell = pkgs.fish;
               };
               system.stateVersion = 5;
 

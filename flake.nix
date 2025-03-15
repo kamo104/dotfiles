@@ -96,8 +96,21 @@
             {
               # nixpkgs = nixpkgsConfig;
               services.nix-daemon.enable = true;
+
               # security.pam.services.sudo_local.enable = true;
               # security.pam.services.sudo_local.touchIdAuth = true;
+              security.pam.enableSudoTouchIdAuth = true;
+              homebrew = {
+                enable = true;
+                # onActivation.cleanup = "uninstall";
+
+                # taps = [];
+                # brews = [];
+                # casks = [
+                #   "moonlight" 
+                #   "signal"
+                # ];
+              };
 
               programs.fish.enable = true;
               users.users.kamo = {

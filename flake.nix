@@ -52,7 +52,9 @@
     createHosts = createFn: listToAttrs (mapper createFn hostNames);
   in
   {
+    # nixos configurations
     nixosConfigurations = createHosts nixpkgs.lib.nixosSystem;
+    # macos configurations
     darwinConfigurations = createHosts inputs.nix-darwin.lib.darwinSystem;
     
     # base nix profile system packages for non nixos systems
@@ -78,19 +80,5 @@
         ];
       };
     };
-    # macos configuration
-    # darwinConfigurations = {
-    #     kamo-mac = inputs.nix-darwin.lib.darwinSystem {
-    #       # system = "aarch64-darwin";
-    #       specialArgs = {
-    #           inherit inputs modules hmModules customPkgs secrets;
-    #           hostname = "kamo-mac";
-    #       };
-    #       modules = [
-    #         inputs.home-manager.darwinModules.home-manager
-    #         ./hosts/kamo-mac/configuration.nix
-    #       ];
-    #     };
-    #   };
-    };
+  };
 }

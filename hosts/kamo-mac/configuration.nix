@@ -22,7 +22,7 @@
   
   security.pam.enableSudoTouchIdAuth = true;
 
-  environment.shells = [pkgs.fish pkgs.bashInteractive];
+  environment.shells = [pkgs.fish];
   programs.fish.enable = true;
   users.users.kamo = {
     home = "/Users/kamo";

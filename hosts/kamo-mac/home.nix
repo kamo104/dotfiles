@@ -16,7 +16,6 @@
 
   home.username = "kamo";
   home.homeDirectory = "/Users/kamo";
-  programs.home-manager.enable = true;
 
   programs.fish = {
     interactiveShellInit = ''

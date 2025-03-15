@@ -103,13 +103,13 @@
                 '';
                 settings = {
                   experimental-features = [ "nix-command" "flakes" ];
-                  connect-timeout = 1;
+                  # connect-timeout = 1;
                 };
-                gc = {
-                  automatic = true;
-                  interval = {Weekday = 7;};
-                  options = "--delete-older-than +5";
-                };
+                # gc = {
+                #   automatic = true;
+                #   interval = {Weekday = 7;};
+                #   options = "--delete-older-than +5";
+                # };
               };
 
 

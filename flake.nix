@@ -83,7 +83,7 @@
  
           specialArgs = {
               inherit inputs modules hmModules customPkgs secrets;
-              hostname = "${host}";
+              hostname = "kamo-mac";
           };
 
           modules = [

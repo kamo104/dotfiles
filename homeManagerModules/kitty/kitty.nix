@@ -42,7 +42,6 @@
         map alt+9 goto_tab 9
 
         
-        map cmd+w close_tab
         map cmd+1 goto_tab 1
         map cmd+2 goto_tab 2
         map cmd+3 goto_tab 3

@@ -48,7 +48,7 @@
         "${self}/hosts/${host}/configuration.nix"
       ];
     };
-    mapper = map (createFn: host: {"name" = "${host}"; "value" = hostConfiguration createFn host;});
+    mapper = createFn: hosts: map (host: {"name" = "${host}"; "value" = hostConfiguration createFn host;}) hosts;
     createHosts = createFn: listToAttrs (mapper createFn hostNames);
   in
   {

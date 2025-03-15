@@ -70,15 +70,15 @@
         # map cmd+x send_key alt+x
         # map cmd+y send_key alt+y
         # map cmd+z send_key alt+z
-        map opt+1 goto_tab 1
-        map opt+2 goto_tab 2
-        map opt+3 goto_tab 3
-        map opt+4 goto_tab 4
-        map opt+5 goto_tab 5
-        map opt+6 goto_tab 6
-        map opt+7 goto_tab 7
-        map opt+8 goto_tab 8
-        map opt+9 goto_tab 9
+        map option+1 goto_tab 1
+        map option+2 goto_tab 2
+        map option+3 goto_tab 3
+        map option+4 goto_tab 4
+        map option+5 goto_tab 5
+        map option+6 goto_tab 6
+        map option+7 goto_tab 7
+        map option+8 goto_tab 8
+        map option+9 goto_tab 9
 
         # window detaching
         map ctrl+shift+d detach_tab

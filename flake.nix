@@ -87,7 +87,7 @@
           };
 
           modules = [
-            "./hosts/${host}/configuration.nix"
+            ./hosts/kamo-mac/configuration.nix
             inputs.home-manager.darwinModules.home-manager
             # {
             #   services.nix-daemon.enable = true;

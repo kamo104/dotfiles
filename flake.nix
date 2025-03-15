@@ -94,7 +94,6 @@
             # ./hosts/kamo-mac/configuration.nix
             inputs.home-manager.darwinModules.home-manager
             {
-              # nixpkgs = nixpkgsConfig;
               services.nix-daemon.enable = true;
               nix = {
                 extraOptions = ''
@@ -103,28 +102,14 @@
                 '';
                 settings = {
                   experimental-features = [ "nix-command" "flakes" ];
-                  # connect-timeout = 1;
+                  connect-timeout = 1;
                 };
-                # gc = {
-                #   automatic = true;
-                #   interval = {Weekday = 7;};
-                #   options = "--delete-older-than +5";
-                # };
               };
 
 
               # security.pam.services.sudo_local.enable = true;
               # security.pam.services.sudo_local.touchIdAuth = true;
               security.pam.enableSudoTouchIdAuth = true;
-              # homebrew = {
-              #   enable = true;
-              #   # onActivation.cleanup = "uninstall";
-
-              #   taps = [];
-              #   brews = [];
-              #   casks = [
-              #   ];
-              # };
 
               programs.fish.enable = true;
               users.users.kamo = {

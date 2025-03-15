@@ -18,7 +18,7 @@
     ];
     programs.kitty = {
       enable = true;
-      themeFile = "Gruvbox Dark";
+      themeFile = "gruvbox-dark";
       settings = {
         font_family = "Hurmit Nerd Font";
         font_size = "20.0";

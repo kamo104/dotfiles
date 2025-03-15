@@ -6,6 +6,13 @@
   };
 
   config = lib.mkIf config.kitty.enable {
+
+    programs.fish = {
+      # enable = true;
+      interactiveShellInit = ''
+        alias kssh="${pkgs.kitty}/bin/kitten ssh"
+      '';
+    };
     home.packages = with pkgs; [
       kitty
     ];

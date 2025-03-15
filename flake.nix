@@ -107,7 +107,7 @@
                 };
                 gc = {
                   automatic = true;
-                  interval = "weakly";
+                  interval = {Weekday = 7;};
                   options = "--delete-older-than +5";
                 };
               };

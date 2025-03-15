@@ -16,6 +16,7 @@
         font_family = "Hurmit Nerd Font";
         font_size = "14.0";
         background_opacity = "0.6";
+        background_blur = 1;
       };
       extraConfig = ''
         tab_bar_margin_width      9

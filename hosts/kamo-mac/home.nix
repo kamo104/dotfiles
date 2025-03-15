@@ -1,6 +1,7 @@
 { inputs, config, osConfig, pkgs, lib, ... } @args:
 {
   imports = [ 
+    inputs.mac-app-util.homeManagerModules.default
     "${args.hmModules}/common.nix"
     "${args.hmModules}/kitty/kitty.nix"
   ];
@@ -9,7 +10,7 @@
   kitty.enable = true;
 
   home.sessionVariables = {
-    NIX_INSTALL_TYPE="PM"; # either OS or PM
+    NIX_INSTALL_TYPE="MAC";
     NIX_HOSTNAME="${args.hostname}";
   };
 
@@ -57,7 +58,7 @@
 
  
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
 
   # systemd.user.sessionVariables = osConfig.home-manager.users.kamo.home.sessionVariables;
 }

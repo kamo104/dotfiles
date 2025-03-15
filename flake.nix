@@ -56,14 +56,14 @@
 
 
     # kamo-mac default packages profile
-    # packages."aarch64-darwin"."kamo-mac" = 
-    # let 
-    #   pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-    # in
-    #   pkgs.buildEnv{
-    #     name = "work-laptop";
-    #     paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
-    #   };
+    packages."aarch64-darwin"."kamo-mac" = 
+    let 
+      pkgs = nixpkgs.legacyPackages."aarch64-darwin";
+    in
+      pkgs.buildEnv{
+        name = "work-laptop";
+        paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
+      };
     # home manager configuration for non nixos systems
     homeConfigurations = {
     # work-laptop hm config
@@ -80,7 +80,9 @@
     };
     # mac hm config
     kamo-mac = inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = inputs.nixpkgs.legacyPackages."aarch64-darwin";
+
+      pkgs = nixpkgs.legacyPackages.${system};
+      # pkgs = inputs.nixpkgs.legacyPackages."aarch64-darwin";
       extraSpecialArgs = {
         inherit inputs modules hmModules customPkgs;
         hostname = "kamo-mac";

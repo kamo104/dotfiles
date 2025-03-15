@@ -46,7 +46,6 @@
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       # dns = ["10.100.0.1"];
       postUp = ''
-        # ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
         echo "helpme"
       '';
       peers = [

@@ -5,7 +5,7 @@
       inputs.home-manager.darwinModules.home-manager
     ];
 
-  nixpkgs.hostPlatform = builtins.lib.mkDefault "aarch64-darwin";
+  nixpkgs.hostPlatform = pkgs.lib.mkDefault "aarch64-darwin";
 
   services.nix-daemon.enable = true;
   nix = {

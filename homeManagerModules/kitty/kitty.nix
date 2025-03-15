@@ -29,6 +29,7 @@
         font_size                 16.0
 
         # keybinds
+        macos_option_as_alt true
         # map alt+w close_tab
         map ctrl+t new_tab_with_cwd
         map alt+1 goto_tab 1
@@ -46,7 +47,6 @@
         map ctrl+shift+d detach_tab
         map ctrl+shift+a detach_tab ask
 
-        macos_option_as_alt true
       '';
     };
   };

@@ -29,7 +29,7 @@
         font_size                 16.0
 
         # keybinds
-        macos_option_as_alt true
+        macos_cmd_as_alt true
         # map alt+w close_tab
         map ctrl+t new_tab_with_cwd
         map alt+1 goto_tab 1
@@ -41,20 +41,17 @@
         map alt+7 goto_tab 7
         map alt+8 goto_tab 8
         map alt+9 goto_tab 9
-        # map alt+0 goto_tab 0
 
         
-        map cmd+1 goto_tab 1
-        map cmd+2 goto_tab 2
-        map option+1 goto_tab 1
-        map option+2 goto_tab 2
-        map option+3 goto_tab 3
-        map option+4 goto_tab 4
-        map option+5 goto_tab 5
-        map option+6 goto_tab 6
-        map option+7 goto_tab 7
-        map option+8 goto_tab 8
-        map option+9 goto_tab 9
+        # map cmd+1 goto_tab 1
+        # map cmd+2 goto_tab 2
+        # map cmd+3 goto_tab 3
+        # map cmd+4 goto_tab 4
+        # map cmd+5 goto_tab 5
+        # map cmd+6 goto_tab 6
+        # map cmd+7 goto_tab 7
+        # map cmd+8 goto_tab 8
+        # map cmd+9 goto_tab 9
 
         # window detaching
         map ctrl+shift+d detach_tab

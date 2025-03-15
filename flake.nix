@@ -96,6 +96,17 @@
             {
               # nixpkgs = nixpkgsConfig;
               services.nix-daemon.enable = true;
+              nix = {
+                # extraOptions = ''
+                #   keep-outputs = true
+                #   keep-derivations = true
+                # '';
+                settings = {
+                  experimental-features = [ "nix-command" "flakes" ];
+                  connect-timeout = 1;
+                };
+              };
+
 
               # security.pam.services.sudo_local.enable = true;
               # security.pam.services.sudo_local.touchIdAuth = true;

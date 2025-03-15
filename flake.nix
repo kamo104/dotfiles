@@ -104,12 +104,20 @@
                 enable = true;
                 # onActivation.cleanup = "uninstall";
 
-                # taps = [];
-                # brews = [];
-                # casks = [
-                #   "moonlight" 
-                #   "signal"
-                # ];
+                taps = [];
+                brews = [];
+                casks = [
+                  # brave-browser
+                  # libreoffice
+                  # mumble
+                  # spotify
+                  # utm
+                  # karabiner-elements
+                  # moonlight
+                  # signal
+                  # steam
+                  # zerotier-one
+                ];
               };
 
               programs.fish.enable = true;

@@ -128,7 +128,7 @@
               system.stateVersion = 5;
 
               home-manager = {
-                extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="${host}";};
+                extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="kamo-mac";};
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.kamo = import ./hosts/kamo-mac/home.nix;

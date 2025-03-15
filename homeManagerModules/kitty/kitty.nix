@@ -54,7 +54,6 @@
         # window detaching
         map ctrl+shift+d detach_tab
         map ctrl+shift+a detach_tab ask
-
       '';
     };
   };

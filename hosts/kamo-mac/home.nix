@@ -21,7 +21,6 @@
   programs.fish = {
     interactiveShellInit = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
-
     '';
   };
   
@@ -33,6 +32,7 @@
   };
 
   home.packages = with pkgs; [
+    home-manager
     # bear
     # wl-clipboard
     # tshark

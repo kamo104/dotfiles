@@ -27,7 +27,7 @@
         tab_title_template        "{fmt.fg._33271D}{fmt.bg.default}{fmt.fg._E5D6AE}{fmt.bg._33271D} {title.split()[0][-10:]} {fmt.fg._33271D}{fmt.bg.default} "
         active_tab_title_template "{fmt.fg._FFB870}{fmt.bg.default}{fmt.fg._532F06}{fmt.bg._FFB870} {title.split()[0][-10:]} {fmt.fg._FFB870}{fmt.bg.default} "
 
-        font_size                 16.0
+        font_size                 20.0
 
         # keybinds
         # macos_cmd_as_alt true

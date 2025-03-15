@@ -100,25 +100,15 @@
               # security.pam.services.sudo_local.enable = true;
               # security.pam.services.sudo_local.touchIdAuth = true;
               security.pam.enableSudoTouchIdAuth = true;
-              homebrew = {
-                enable = true;
-                # onActivation.cleanup = "uninstall";
+              # homebrew = {
+              #   enable = true;
+              #   # onActivation.cleanup = "uninstall";
 
-                taps = [];
-                brews = [];
-                casks = [
-                  # brave-browser
-                  # libreoffice
-                  # mumble
-                  # spotify
-                  # utm
-                  # karabiner-elements
-                  # moonlight
-                  # signal
-                  # steam
-                  # zerotier-one
-                ];
-              };
+              #   taps = [];
+              #   brews = [];
+              #   casks = [
+              #   ];
+              # };
 
               programs.fish.enable = true;
               users.users.kamo = {

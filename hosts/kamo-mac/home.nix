@@ -18,6 +18,14 @@
   home.homeDirectory = "/Users/kamo";
   programs.home-manager.enable = true;
 
+  programs.fish = {
+    interactiveShellInit = ''
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    '';
+  };
+  
+
   nixpkgs = {
     config = {
       allowUnfree = true;

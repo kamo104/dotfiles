@@ -80,7 +80,7 @@
     };
     # mac hm config
     kamo-mac = inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = inputs.nixpkgs.legacyPackages."nix-darwin";
+      pkgs = inputs.nixpkgs.legacyPackages."aarch64-darwin";
       extraSpecialArgs = {
         inherit inputs modules hmModules customPkgs;
         hostname = "kamo-mac";

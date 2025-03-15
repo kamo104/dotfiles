@@ -39,7 +39,7 @@
     secrets = "/etc/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");
-    hostConfiguration = host: nixpkgs.lib.nixosSystem {
+    hostConfiguration = createFn: host: createFn {
       specialArgs = {
           inherit inputs modules hmModules customPkgs secrets;
           hostname = "${host}";
@@ -48,11 +48,12 @@
         "${self}/hosts/${host}/configuration.nix"
       ];
     };
-    mapper = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
-    createHosts = hosts: listToAttrs (mapper hosts);
+    mapper = map (createFn: host: {"name" = "${host}"; "value" = hostConfiguration createFn host;});
+    createHosts = createFn: listToAttrs (mapper createFn hostNames);
   in
   {
-    nixosConfigurations = createHosts hostNames;
+    nixosConfigurations = createHosts nixpkgs.lib.nixosSystem;
+    darwinConfigurations = createHosts inputs.nix-darwin.lib.darwinSystem;
     
     # base nix profile system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 
@@ -63,6 +64,7 @@
         name = "work-laptop";
         paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
       };
+    # home-manager configuration for standalone installs
     homeConfigurations = {
     # work-laptop hm config
       work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
@@ -77,50 +79,18 @@
       };
     };
     # macos configuration
-    darwinConfigurations = {
-        kamo-mac = inputs.nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
- 
-          specialArgs = {
-              inherit inputs modules hmModules customPkgs secrets;
-              hostname = "kamo-mac";
-          };
-
-          modules = [
-            ./hosts/kamo-mac/configuration.nix
-            inputs.home-manager.darwinModules.home-manager
-            # {
-            #   services.nix-daemon.enable = true;
-            #   nix = {
-            #     extraOptions = ''
-            #       keep-outputs = true
-            #       keep-derivations = true
-            #     '';
-            #     settings = {
-            #       experimental-features = [ "nix-command" "flakes" ];
-            #       connect-timeout = 1;
-            #     };
-            #   };
-
-
-            #   security.pam.enableSudoTouchIdAuth = true;
-
-            #   programs.fish.enable = true;
-            #   users.users.kamo = {
-            #     home = "/Users/kamo";
-            #     shell = pkgs.fish;
-            #   };
-            #   system.stateVersion = 5;
-
-            #   home-manager = {
-            #     extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="kamo-mac";};
-            #     useGlobalPkgs = true;
-            #     useUserPackages = true;
-            #     users.kamo = import ./hosts/kamo-mac/home.nix;
-            #   };
-            # }
-          ];
-        };
-      };
-    };
+    # darwinConfigurations = {
+    #     kamo-mac = inputs.nix-darwin.lib.darwinSystem {
+    #       # system = "aarch64-darwin";
+    #       specialArgs = {
+    #           inherit inputs modules hmModules customPkgs secrets;
+    #           hostname = "kamo-mac";
+    #       };
+    #       modules = [
+    #         inputs.home-manager.darwinModules.home-manager
+    #         ./hosts/kamo-mac/configuration.nix
+    #       ];
+    #     };
+    #   };
+    # };
 }

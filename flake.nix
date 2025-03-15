@@ -91,13 +91,11 @@
             inputs.home-manager.darwinModules.home-manager
             {
               # nixpkgs = nixpkgsConfig;
-              # services.nix-daemon.enable = true;
-            
-              # nix.enable = false;
- 
+              services.nix-daemon.enable = true;
+
               users.users.kamo = {
                 home = "/Users/kamo";
-                shell = pkgs.fish;
+                shell = nixpkgs.fish;
               };
               system.stateVersion = 5;
 

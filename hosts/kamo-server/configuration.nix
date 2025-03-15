@@ -448,6 +448,10 @@ in
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.100.1.6/32" ];
         }
+        { # work-laptop
+          publicKey = "97m5050g5BtdJa4Z9nECCVK+oR6AdX3DoWZMb7tsYBQ=";
+          allowedIPs = [ "10.100.1.7/32" ];
+        }
         
 
         { # ola-laptop

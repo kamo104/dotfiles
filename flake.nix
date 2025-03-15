@@ -78,11 +78,7 @@
     };
     # macos configuration
     darwinConfigurations = {
-        kamo-mac =
-                    let
-                      pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-                    in
-                    inputs.nix-darwin.lib.darwinSystem {
+        kamo-mac = inputs.nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
  
           specialArgs = {
@@ -91,40 +87,38 @@
           };
 
           modules = [
-            # ./hosts/kamo-mac/configuration.nix
+            "./hosts/${host}/configuration.nix"
             inputs.home-manager.darwinModules.home-manager
-            {
-              services.nix-daemon.enable = true;
-              nix = {
-                extraOptions = ''
-                  keep-outputs = true
-                  keep-derivations = true
-                '';
-                settings = {
-                  experimental-features = [ "nix-command" "flakes" ];
-                  connect-timeout = 1;
-                };
-              };
+            # {
+            #   services.nix-daemon.enable = true;
+            #   nix = {
+            #     extraOptions = ''
+            #       keep-outputs = true
+            #       keep-derivations = true
+            #     '';
+            #     settings = {
+            #       experimental-features = [ "nix-command" "flakes" ];
+            #       connect-timeout = 1;
+            #     };
+            #   };
 
 
-              # security.pam.services.sudo_local.enable = true;
-              # security.pam.services.sudo_local.touchIdAuth = true;
-              security.pam.enableSudoTouchIdAuth = true;
+            #   security.pam.enableSudoTouchIdAuth = true;
 
-              programs.fish.enable = true;
-              users.users.kamo = {
-                home = "/Users/kamo";
-                shell = pkgs.fish;
-              };
-              system.stateVersion = 5;
+            #   programs.fish.enable = true;
+            #   users.users.kamo = {
+            #     home = "/Users/kamo";
+            #     shell = pkgs.fish;
+            #   };
+            #   system.stateVersion = 5;
 
-              home-manager = {
-                extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="kamo-mac";};
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.kamo = import ./hosts/kamo-mac/home.nix;
-              };
-            }
+            #   home-manager = {
+            #     extraSpecialArgs = {inherit inputs modules hmModules customPkgs secrets; hostname="kamo-mac";};
+            #     useGlobalPkgs = true;
+            #     useUserPackages = true;
+            #     users.kamo = import ./hosts/kamo-mac/home.nix;
+            #   };
+            # }
           ];
         };
       };

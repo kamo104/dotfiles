@@ -107,7 +107,7 @@
                 };
                 gc = {
                   automatic = true;
-                  dates = "weakly";
+                  interval = "weakly";
                   options = "--delete-older-than +5";
                 };
               };

@@ -61,7 +61,12 @@
   vban.enable = true;
   vban.startScript = ''
     ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.4" sess.latency.msec=30 &
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10
+    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10 &
+
+
+    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.6" sess.latency.msec=30 &
+    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=48000 sess.name="samson" destination.ip="10.100.1.6" sess.latency.msec=10
+    
   '';
 
   systemd.user.services.loginlock = {
@@ -101,6 +106,25 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # force deep sleep for lower battery drain
+  # boot.kernelParams = [ "mem_sleep_default=deep" ];
+  services.tlp = {
+    enable = true;
+    settings = {
+      # performance on AC
+      CPU_ENERGY_PERF_POLICY_ON_AC="performance";
+      PLATFORM_PROFILE_ON_AC="performance";
+      # longevity on battery
+      CPU_ENERGY_PERF_POLICY_ON_BAT="power";
+      PLATFORM_PROFILE_ON_BAT="low-power";
+      CPU_BOOST_ON_BAT=0;
+      CPU_HWP_DYN_BOOST_ON_BAT=0;
+      AMDGPU_ABM_LEVEL_ON_BAT=3;
+      MEM_SLEEP_ON_AC="s2idle";
+      MEM_SLEEP_ON_BAT="deep";
+    };
+  };
+
 
   # machenike
   # boot.initrd.kernelModules = ["xpad"];
@@ -123,7 +147,7 @@
   ];
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname;};
+    extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname; secrets = args.secrets;customPkgs = args.customPkgs;};
     useGlobalPkgs = true;
     useUserPackages  = true;
     users.kamo = import ./home.nix;
@@ -132,18 +156,22 @@
   networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
-  # services.zerotierone = {
-  #   enable = true;
-  #   joinNetworks = ["1c33c1ced078606c"];
-  # };
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = ["1c33c1ced078606c"];
+  };
 
+  services.resolved.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = false;
       address = [ "10.100.1.2/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      dns = ["10.100.0.1"];
+      dns = ["10.100.0.1" "~kkf.internal"];
+      postUp = ''
+        ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
+      '';
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

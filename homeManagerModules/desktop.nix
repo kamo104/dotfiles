@@ -53,6 +53,7 @@
       blender
       thunderbird
 
+      cmatrix
       # terminal image viewer
       chafa
       # terminal clock

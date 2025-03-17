@@ -30,6 +30,9 @@
       clock24 = true;
       terminal = "xterm";
       escapeTime = 0;
+      # newSession = true;
+      prefix = "C-x";
+      sensibleOnTop = false;
       extraConfig = ''
         bind c new-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
@@ -66,6 +69,8 @@
         editor = {
           line-number = "relative";
           lsp.display-messages = true;
+          soft-wrap.enable = true;
+          # inline-diagnostics.cursor-line = "warning";
         };
         keys.normal = {
           esc = [ "collapse_selection" "keep_primary_selection" ];
@@ -100,8 +105,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting
-        alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
-        alias kssh="kitten ssh"
+        alias wakedesktop="${pkgs.wakeonlan}/bin/wakeonlan 58:11:22:bc:ec:50"
       '';
     };
   };

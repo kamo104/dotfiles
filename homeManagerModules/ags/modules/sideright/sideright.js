@@ -10,7 +10,7 @@ import {
     ModuleInvertColors,
     ModuleIdleInhibitor,
     ModuleEditIcon,
-    ModuleReloadIcon,
+    // ModuleReloadIcon,
     ModuleSettingsIcon,
     ModulePowerIcon,
     ModuleRawInput
@@ -69,7 +69,7 @@ const timeRow = Box({
         }),
         Widget.Box({ hexpand: true }),
         // ModuleEditIcon({ hpack: 'end' }), // TODO: Make this work
-        ModuleReloadIcon({ hpack: 'end' }),
+        // ModuleReloadIcon({ hpack: 'end' }),
         ModuleSettingsIcon({ hpack: 'end' }),
         ModulePowerIcon({ hpack: 'end' }),
     ]
@@ -81,11 +81,14 @@ const togglesBox = Widget.Box({
     children: [
         ToggleIconWifi(),
         ToggleIconBluetooth(),
-        await ModuleRawInput(),
-        await HyprToggleIcon('touchpad_mouse', 'No touchpad while typing', 'input:touchpad:disable_while_typing', {}),
-        ModuleNightLight(),
-        await ModuleInvertColors(),
-        ModuleIdleInhibitor(),
+        // TODO: add vban toggle
+        // TODO: add gammastep as a nightlight
+        // TODO: add hypridle toggle
+        // await ModuleRawInput(),
+        // await HyprToggleIcon('touchpad_mouse', 'No touchpad while typing', 'input:touchpad:disable_while_typing', {}),
+        // ModuleNightLight(),
+        // await ModuleInvertColors(),
+        // ModuleIdleInhibitor(),
     ]
 })
 

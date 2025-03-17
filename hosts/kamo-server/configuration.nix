@@ -497,7 +497,7 @@ in
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 20048 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
+  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 20048 40000 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
   networking.firewall.allowedUDPPorts = [ 53 111 2049 20048 42069 42070 ]; # dns, nfs rpc, nfs, nfs-dynamic, wg0, wg1
 
   # firewall logging

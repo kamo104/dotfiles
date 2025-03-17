@@ -448,7 +448,7 @@ in
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.100.1.6/32" ];
         }
-        { # work-laptop
+        { # macbook
           publicKey = "97m5050g5BtdJa4Z9nECCVK+oR6AdX3DoWZMb7tsYBQ=";
           allowedIPs = [ "10.100.1.7/32" ];
         }
@@ -497,7 +497,7 @@ in
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 20048 40000 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
+  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 20048 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
   networking.firewall.allowedUDPPorts = [ 53 111 2049 20048 42069 42070 ]; # dns, nfs rpc, nfs, nfs-dynamic, wg0, wg1
 
   # firewall logging

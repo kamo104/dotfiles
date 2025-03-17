@@ -31,7 +31,8 @@
   };
 
   home.packages = with pkgs; [
-    home-manager
+    # home-manager
+    platformio
     # bear
     # wl-clipboard
     # tshark

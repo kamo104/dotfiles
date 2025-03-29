@@ -468,23 +468,23 @@ in
           publicKey = "M62ByXdDzauQ/6E1nDCue7yOHDi+bABRnf5e2P1vBmY=";
           allowedIPs = [ "10.100.12.69/32" ];
         }
-        # { # kacper-babcia-laptop
-        #   publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4=";
-        #   allowedIPs = [ "10.100.12.70/32" ];
-        # }
+        { # kacper-laptop
+          publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4=";
+          allowedIPs = [ "10.100.12.70/32" ];
+        }
 
-        { # filip-desktop
-          publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
-          allowedIPs = [ "10.100.13.1/32" ];
-        }
-        { # filip-macbook
-          publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
-          allowedIPs = [ "10.100.13.2/32" ];
-        }
-        { # filip-iphone
-          publicKey = "hta1KqItY82z99Uimq7Ej674sIMbJ2EwRQXMnC96Omg=";
-          allowedIPs = [ "10.100.13.3/32" ];
-        }
+        # { # filip-desktop
+        #   publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
+        #   allowedIPs = [ "10.100.13.1/32" ];
+        # }
+        # { # filip-macbook
+        #   publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
+        #   allowedIPs = [ "10.100.13.2/32" ];
+        # }
+        # { # filip-iphone
+        #   publicKey = "hta1KqItY82z99Uimq7Ej674sIMbJ2EwRQXMnC96Omg=";
+        #   allowedIPs = [ "10.100.13.3/32" ];
+        # }
       ];
     };
   };

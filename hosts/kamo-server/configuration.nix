@@ -441,7 +441,7 @@ in
           allowedIPs = [ "10.100.1.3/32" ];
         }
         { # desktop
-          publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
+          publicKey = "GIAxxC0Yc11TSKYGoloUdYX83te3thc48bg/3L/+pG8=";
           allowedIPs = [ "10.100.1.4/32" ];
         }
         { # work-laptop

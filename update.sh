@@ -38,7 +38,7 @@ if [ "$1" != "-d" ]; then
 fi
 
 if [ "$NIX_INSTALL_TYPE" = "OS" ]; then
-    sudo nixos-rebuild switch --flake .#"$NIX_HOSTNAME" --install-bootloader --fallback --option subtitute false
+    sudo nixos-rebuild switch --flake .#"$NIX_HOSTNAME" --install-bootloader --fallback
 elif [ "$NIX_INSTALL_TYPE" = "MAC" ]; then
     darwin-rebuild switch --flake .#"$NIX_HOSTNAME"
 elif [ "$NIX_INSTALL_TYPE" = "PM" ]; then

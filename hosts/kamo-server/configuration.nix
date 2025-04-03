@@ -469,7 +469,7 @@ in
           allowedIPs = [ "10.100.12.69/32" ];
         }
         { # kacper-laptop
-          publicKey = "v4qUu/cDsPnfvlC/uHnU6hsVWGbDwJ9C0rocbR5QyXc=";
+          publicKey = "SCpbCSJJFeopQnD8nCxj4FwwD+2AS8f8nkjYv9+eBxs=";
           allowedIPs = [ "10.100.12.70/32" ];
         }
 

@@ -52,6 +52,49 @@ in
   # };
 
   # containers = {
+  #   gitlab = {
+  #     autoStart = true;
+  #     privateNetwork = true;
+  #     hostAddress = "192.168.100.10";
+  #     localAddress = "192.168.100.11";
+  #     config = { config, pkgs, lib, ... }: {
+  #       system.stateVersion = "23.11";
+  #       networking = {
+  #         firewall = {
+  #           enable = true;
+  #           allowedTCPPorts = [ 80 443 8080];
+  #         };
+  #         # Use systemd-resolved inside the container
+  #         # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+  #         # useHostResolvConf = lib.mkForce false;
+  #       };
+  #       services.gitlab = {
+  #         enable = true;
+  #         # openssl genrsa 512 | grep -v '\-----' | head -c 64
+  #         # databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
+  #         # initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #         # databaseName = "gitlab";
+  #         # secrets = {
+  #         #   secretFile = "${args.secrets}/gitlab/secret";
+  #         #   otpFile = "${args.secrets}/gitlab/otp";
+  #         #   # dbFile = "${args.secrets}/gitlab/db";
+  #         #   dbFile = "/var/lib/gitlab/db";
+  #         #   # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+  #         #   jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
+  #         # };
+  #         databasePasswordFile = pkgs.writeText "dbPassword" "zgvcyfwsxzcwr85l";
+  #         initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+  #         secrets = {
+  #           secretFile = pkgs.writeText "secret" "Aig5zaic";
+  #           otpFile = pkgs.writeText "otpsecret" "Riew9mue";
+  #           dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
+  #           jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
+  # containers = {
   #   # private.mumble.kkf.internal
   #   mumble = {
   #     autoStart = true;
@@ -143,6 +186,8 @@ in
         "/nfs.kkf.internal/10.100.0.1"
         # smb
         "/smb.kkf.internal/10.100.0.1"
+        # # gitlab
+        # "/gitlab.kkf.internal/10.100.0.1"
       ];
     };
   };
@@ -206,30 +251,14 @@ in
       #   sslCertificateKey ="${args.secrets}/pki/private/kkf.key";
       #   sslTrustedCertificate ="${args.secrets}/pki/ca.crt";
       #   locations."/" = {
-      #     proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      #     # proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      #     proxyPass = "http://192.168.100.11:8080";
       #     # proxyWebsockets = true;
       #   };
       # };
     };
   };
 
-  # services.gitlab = {
-  #   enable = true;
-  #   # openssl genrsa 512 | grep -v '\-----' | head -c 64
-  #   databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
-  #   initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
-  #   databaseName = "gitlab";
-  #   secrets = {
-  #     secretFile = "${args.secrets}/gitlab/secret";
-  #     otpFile = "${args.secrets}/gitlab/otp";
-  #     # dbFile = "${args.secrets}/gitlab/db";
-  #     dbFile = "/var/lib/gitlab/db";
-  #     # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
-  #     jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
-  #   };
-  #   user = "gitlab";
-  #   group = "gitlab";
-  # };
   services.immich = {
     enable = true;
     port = 2283;
@@ -237,6 +266,7 @@ in
   };
 
   services.murmur = {
+    # package = (pkgs.callPackage "${args.customPkgs}/murmur" {});
     enable = true;
     openFirewall = true;
     bandwidth = 256000;
@@ -340,6 +370,8 @@ in
     "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
   };
+  # boot.kernelModules = [ "fuse" ];
+  
   networking.wg-quick.interfaces = {
     wg1 = {
       address = [ "10.67.130.19/32" ];
@@ -382,11 +414,22 @@ in
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
         ip route add 10.100.0.0/20 dev wg0 table wg1_table
+        ip route add 192.168.1.0/24 dev ens18 table wg1_table
+        # enable forwarding to the wg1 interface
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+
+        # enable routing from server,kamo 10.100.1.101 == 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
       '';
       postDown = ''
         ip route del 10.100.0.0/20 dev wg0 table wg1_table
+        ip route del 192.168.1.0/24 dev ens18 table wg1_table
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+
+        # ${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
+        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
+
       '';
       peers = [
         { # laptop
@@ -398,12 +441,16 @@ in
           allowedIPs = [ "10.100.1.3/32" ];
         }
         { # desktop
-          publicKey = "g8NdMICj52ocHRb65IqUMnN339gGzwS+BUwzB69LIGY=";
+          publicKey = "GIAxxC0Yc11TSKYGoloUdYX83te3thc48bg/3L/+pG8=";
           allowedIPs = [ "10.100.1.4/32" ];
         }
         { # work-laptop
           publicKey = "xajjnlHomdUCFX6bkzqoBXuVsKKouE5TlAE/FlVHRmc=";
           allowedIPs = [ "10.100.1.6/32" ];
+        }
+        { # macbook
+          publicKey = "97m5050g5BtdJa4Z9nECCVK+oR6AdX3DoWZMb7tsYBQ=";
+          allowedIPs = [ "10.100.1.7/32" ];
         }
         
 
@@ -421,19 +468,23 @@ in
           publicKey = "M62ByXdDzauQ/6E1nDCue7yOHDi+bABRnf5e2P1vBmY=";
           allowedIPs = [ "10.100.12.69/32" ];
         }
-        # { # kacper-babcia-laptop
-        #   publicKey = "kiDX7mwkXK6ClijNuj3ikuC4wXBKRY3C5QkbTUritj4=";
-        #   allowedIPs = [ "10.100.12.70/32" ];
-        # }
+        { # kacper-laptop
+          publicKey = "SCpbCSJJFeopQnD8nCxj4FwwD+2AS8f8nkjYv9+eBxs=";
+          allowedIPs = [ "10.100.12.70/32" ];
+        }
 
-        { # filip-desktop
-          publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
-          allowedIPs = [ "10.100.13.1/32" ];
-        }
-        { # filip-macbook
-          publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
-          allowedIPs = [ "10.100.13.2/32" ];
-        }
+        # { # filip-desktop
+        #   publicKey = "XdU/e1hXOJ4Kg+tAzrFJ7ePbvM49n/qAXF2/cmC49Cg=";
+        #   allowedIPs = [ "10.100.13.1/32" ];
+        # }
+        # { # filip-macbook
+        #   publicKey = "33P2cNynGV2CPNfWvIbSJZnnpo8ZJvlSoysJj/N7V3A=";
+        #   allowedIPs = [ "10.100.13.2/32" ];
+        # }
+        # { # filip-iphone
+        #   publicKey = "hta1KqItY82z99Uimq7Ej674sIMbJ2EwRQXMnC96Omg=";
+        #   allowedIPs = [ "10.100.13.3/32" ];
+        # }
       ];
     };
   };
@@ -446,8 +497,12 @@ in
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 42042 ]; # dns, http, nfs rpc, https, nfs, private mumble
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 42042 42069 42070 ]; # dns, nfs rpc, nfs, private mumble, wg0, wg1
+  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 20048 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
+  networking.firewall.allowedUDPPorts = [ 53 111 2049 20048 42069 42070 ]; # dns, nfs rpc, nfs, nfs-dynamic, wg0, wg1
+
+  # firewall logging
+  # networking.firewall.logRefusedPackets = true;
+  # networking.firewall.logRefusedConnections = true;
 
   system.stateVersion = "23.11";
 }

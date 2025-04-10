@@ -32,6 +32,7 @@
       escapeTime = 0;
       # newSession = true;
       prefix = "C-x";
+      sensibleOnTop = false;
       extraConfig = ''
         bind c new-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
@@ -104,8 +105,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting
-        alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
-        alias kssh="kitten ssh"
+        alias wakedesktop="${pkgs.wakeonlan}/bin/wakeonlan 58:11:22:bc:ec:50"
       '';
     };
   };

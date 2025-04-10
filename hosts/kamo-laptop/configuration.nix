@@ -187,6 +187,10 @@
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1"];
+      # windows:
+      # PS C:\Windows\system32> Add-DnsClientNrptRule -Namespace ".kkf.internal" -NameServers 10.100.0.1 -DisplayName kkfRule
+      # PS C:\Windows\system32> Remove-DnsClientNrptRule -Force -Name "$(Get-DnsClientNrptRule | Where-Object { $_.DisplayName -like "*kkfRule*" } | Select-Object -ExpandProperty Name)"
+
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

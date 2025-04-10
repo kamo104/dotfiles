@@ -9,9 +9,19 @@
     signalPkgs.url = "github:nixos/nixpkgs?rev=b1000dc9e4790cbbd69b9140b23e28afad3bf34f";
     # bambuPkgs.url = "github:nixos/nixpkgs?rev=18fcf074a288cebc14a8334ea62da0c25b39574b";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    mac-app-util = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hraban/mac-app-util";
+    };
+
+ 
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags = {
@@ -29,7 +39,7 @@
     secrets = "/etc/secrets";
 
     hostNames = attrNames (readDir "${self}/hosts");
-    hostConfiguration = host: nixpkgs.lib.nixosSystem {
+    hostConfiguration = createFn: host: createFn {
       specialArgs = {
           inherit inputs modules hmModules customPkgs secrets;
           hostname = "${host}";
@@ -38,11 +48,14 @@
         "${self}/hosts/${host}/configuration.nix"
       ];
     };
-    mapper = map (host: {"name" = "${host}"; "value" = hostConfiguration host;});
-    createHosts = hosts: listToAttrs (mapper hosts);
+    mapper = createFn: hosts: map (host: {"name" = "${host}"; "value" = hostConfiguration createFn host;}) hosts;
+    createHosts = createFn: listToAttrs (mapper createFn hostNames);
   in
   {
-    nixosConfigurations = createHosts hostNames;
+    # nixos configurations
+    nixosConfigurations = createHosts nixpkgs.lib.nixosSystem;
+    # macos configurations
+    darwinConfigurations = createHosts inputs.nix-darwin.lib.darwinSystem;
     
     # base nix profile system packages for non nixos systems
     packages."x86_64-linux"."work-laptop" = 
@@ -53,8 +66,9 @@
         name = "work-laptop";
         paths = import "${modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
       };
-    # home manager configuration for non nixos systems
+    # home-manager configuration for standalone installs
     homeConfigurations = {
+    # work-laptop hm config
       work-laptop = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {

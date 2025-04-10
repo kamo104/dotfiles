@@ -6,6 +6,8 @@ if [ "$NIX_INSTALL_TYPE" = "OS" ]; then
 elif [ "$NIX_INSTALL_TYPE" = "PM" ]; then
   sudo nix profile wipe-history
   nix profile wipe-history
+elif [ "$NIX_INSTALL_TYPE" = "MAC" ]; then
+  sudo nix-collect-garbage -d
 fi
 
 # run actual gc

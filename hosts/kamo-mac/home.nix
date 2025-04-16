@@ -33,7 +33,7 @@
   home.packages = with pkgs; [
     # home-manager
     openvpn
-    platformio
+    # platformio
     # bear
     # wl-clipboard
     # tshark

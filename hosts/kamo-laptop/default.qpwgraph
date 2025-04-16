@@ -3,142 +3,22 @@
  <items>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Mumble/Playback" port="Playback:output_FL"/>
-   <input node="Signal Calling" port="Signal Calling:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave-2" port="Brave:output_FR"/>
-   <input node="Signal Calling" port="Signal Calling:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
-   <input node="Mpow Flame" port="Mpow Flame:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Signal Calling" port="Signal Calling:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
-   <input node="audio" port="audio:send_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="work-audio" port="work-audio:receive_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
-   <input node="Redmi Buds 6 Active" port="Redmi Buds 6 Active:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Firefox-1" port="Firefox:output_FL"/>
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]-1" port="ALSA Playback [signal-desktop]:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Firefox" port="Firefox:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Signal Calling" port="Signal Calling:output_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
-   <input node="Brave input" port="Brave input:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave-2" port="Brave:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Firefox-2" port="Firefox:output_FR"/>
-   <input node="OBS" port="OBS:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Bluetooth internal capture stream for Mpow Flame" port="Bluetooth internal capture stream for Mpow Flame:monitor_MONO"/>
-   <input node="Signal Calling" port="Signal Calling:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="spotify" port="spotify:output_FL"/>
-   <input node="audio_pc_redmi" port="audio_pc_redmi:send_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Bluetooth internal capture stream for Mpow Flame" port="Bluetooth internal capture stream for Mpow Flame:monitor_MONO"/>
-   <input node="Signal Calling" port="Signal Calling:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
-   <input node="samson" port="samson:send_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave" port="Brave:output_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="spotify" port="spotify:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
-   <input node="Mumble/Capture" port="Capture:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]" port="ALSA Playback [signal-desktop]:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]" port="ALSA Playback [signal-desktop]:output_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
-   <input node="Redmi Buds 6 Active" port="Redmi Buds 6 Active:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo [Monitor]" port="Samson C01U Pro Mic:monitor_FR"/>
-   <input node="audio" port="audio:send_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Firefox-1" port="Firefox:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Signal Calling" port="Signal Calling:output_FR"/>
-   <input node="Mumble/Capture" port="Capture:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Signal Calling" port="Signal Calling:output_FL"/>
-   <input node="Mumble/Capture" port="Capture:input_FL"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
-   <input node="Mumble/Capture" port="Capture:input_FR"/>
+   <input node="Firefox" port="Firefox:input_FR"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="audio" port="audio:receive_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+   <output node="Brave" port="Brave:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
-   <input node="work-samson" port="work-samson:send_FL"/>
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
+   <input node="Brave input" port="Brave input:input_FR"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
-   <input node="OBS" port="OBS:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
-   <input node="Firefox" port="Firefox:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave-2" port="Brave:output_FL"/>
-   <input node="Signal Calling" port="Signal Calling:input_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="spotify" port="spotify:output_FL"/>
+   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]-1" port="ALSA Playback [signal-desktop]:output_FL"/>
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
@@ -146,12 +26,12 @@
    <input node="work-samson" port="work-samson:send_FR"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
-   <input node="OBS" port="OBS:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
    <output node="audio" port="audio:receive_FR"/>
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
+   <input node="OBS" port="OBS:input_FR"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
@@ -182,46 +62,6 @@
    <input node="Bluetooth internal capture stream for Mpow Flame" port="Bluetooth internal capture stream for Mpow Flame:input_MONO"/>
   </item>
   <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Mumble/Playback" port="Playback:output_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
-   <input node="Brave input" port="Brave input:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave" port="Brave:output_FR"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
-   <input node="Firefox" port="Firefox:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]-1" port="ALSA Playback [signal-desktop]:output_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="C01U Pro condenser microphone Analog Stereo [Monitor]" port="Samson C01U Pro Mic:monitor_FL"/>
-   <input node="audio" port="audio:send_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Mumble/Playback" port="Playback:output_FR"/>
-   <input node="Signal Calling" port="Signal Calling:input_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Brave-2" port="Brave:output_FL"/>
-   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="Renoir Radeon High Definition Audio Controller HDMI / DisplayPort 1 Output [Monitor]" port="PL2290:monitor_FR"/>
-   <input node="audio" port="audio:send_FR"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
-   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
-   <input node="Mpow Flame" port="Mpow Flame:playback_FL"/>
-  </item>
-  <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Mumble/Playback" port="Playback:output_FR"/>
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
   </item>
@@ -240,6 +80,166 @@
   <item node-type="pipewire" port-type="pipewire-audio">
    <output node="Firefox" port="Firefox:output_FL"/>
    <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo [Monitor]" port="Samson C01U Pro Mic:monitor_FL"/>
+   <input node="audio" port="audio:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Mumble/Playback" port="Playback:output_FR"/>
+   <input node="Signal Calling" port="Signal Calling:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Brave-2" port="Brave:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
+   <input node="Mpow Flame" port="Mpow Flame:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Renoir Radeon High Definition Audio Controller HDMI / DisplayPort 1 Output [Monitor]" port="PL2290:monitor_FR"/>
+   <input node="audio" port="audio:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Signal Calling" port="Signal Calling:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]-1" port="ALSA Playback [signal-desktop]:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="Brave input" port="Brave input:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox-2" port="Firefox:output_FR"/>
+   <input node="OBS" port="OBS:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Bluetooth internal capture stream for Mpow Flame" port="Bluetooth internal capture stream for Mpow Flame:monitor_MONO"/>
+   <input node="Signal Calling" port="Signal Calling:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Brave-2" port="Brave:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Bluetooth internal capture stream for Mpow Flame" port="Bluetooth internal capture stream for Mpow Flame:monitor_MONO"/>
+   <input node="Signal Calling" port="Signal Calling:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="spotify" port="spotify:output_FL"/>
+   <input node="audio_pc_redmi" port="audio_pc_redmi:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Brave" port="Brave:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="samson" port="samson:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Brave-2" port="Brave:output_FR"/>
+   <input node="Signal Calling" port="Signal Calling:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Mumble/Playback" port="Playback:output_FL"/>
+   <input node="Signal Calling" port="Signal Calling:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
+   <input node="Mpow Flame" port="Mpow Flame:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Signal Calling" port="Signal Calling:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
+   <input node="audio" port="audio:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="work-audio" port="work-audio:receive_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
+   <input node="Redmi Buds 6 Active" port="Redmi Buds 6 Active:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox-1" port="Firefox:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="work-samson" port="work-samson:send_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="audio" port="audio:receive_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="Firefox" port="Firefox:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FL"/>
+   <input node="OBS" port="OBS:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="spotify" port="spotify:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Brave-2" port="Brave:output_FL"/>
+   <input node="Signal Calling" port="Signal Calling:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="spotify" port="spotify:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FL"/>
+   <input node="Mumble/Capture" port="Capture:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="JBL TUNE520BT [Monitor]" port="JBL TUNE520BT:monitor_FR"/>
+   <input node="Redmi Buds 6 Active" port="Redmi Buds 6 Active:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]" port="ALSA Playback [signal-desktop]:output_FL"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="PipeWire ALSA [signal-desktop]/ALSA Playback [signal-desktop]" port="ALSA Playback [signal-desktop]:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox-1" port="Firefox:output_FR"/>
+   <input node="JBL TUNE520BT" port="JBL TUNE520BT:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo [Monitor]" port="Samson C01U Pro Mic:monitor_FR"/>
+   <input node="audio" port="audio:send_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="C01U Pro condenser microphone Analog Stereo" port="Samson C01U Pro Mic:capture_FR"/>
+   <input node="Mumble/Capture" port="Capture:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Signal Calling" port="Signal Calling:output_FL"/>
+   <input node="Mumble/Capture" port="Capture:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Signal Calling" port="Signal Calling:output_FR"/>
+   <input node="Mumble/Capture" port="Capture:input_FR"/>
   </item>
  </items>
 </patchbay>

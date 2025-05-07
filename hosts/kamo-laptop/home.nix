@@ -47,6 +47,7 @@
     deluge
 
     easyeffects
+    gimp
 
     orca-slicer
     # (pkgs.callPackage "${args.customPkgs}/orca-slicer/package.nix" {})

@@ -14,6 +14,7 @@
     home.packages = with pkgs; [
       # helix
       tmux
+      ranger
 
       dutree
       htop
@@ -22,6 +23,14 @@
       unzip
       nil
       ffmpeg
+
+      (pkgs.writers.writeBashBin "sendToPrinter" ''
+        if [ -z "$1" ]; then
+          echo "Error: No file specified to send to the printer."
+          exit 1
+        fi
+        ${pkgs.lftp}/bin/lftp -c "set ftp:ssl-force true; set ssl:verify-certificate no; open $(cat $HOME/secrets/bambu-address); cd cache; put $1"
+      '')
     ];
     programs.tmux = {
       enable = true;
@@ -32,6 +41,7 @@
       escapeTime = 0;
       # newSession = true;
       prefix = "C-x";
+      sensibleOnTop = false;
       extraConfig = ''
         bind c new-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
@@ -105,8 +115,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting
-        alias wakedesktop="wakeonlan 58:11:22:bc:ec:50"
-        alias kssh="kitten ssh"
+        alias wakedesktop="${pkgs.wakeonlan}/bin/wakeonlan 58:11:22:bc:ec:50"
       '';
     };
   };

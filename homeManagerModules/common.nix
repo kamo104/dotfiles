@@ -79,7 +79,7 @@
           d = "delete_selection_noyank";
           # A-c = "change_selection";
           c = "change_selection_noyank";
-          "ć" = "copy_selection_on_prev_line";
+          "Ć" = "copy_selection_on_prev_line"; # == Alt+C (fix for MacOS polish layout)
 
           space = {
             w = ":w";

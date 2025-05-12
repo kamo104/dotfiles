@@ -485,6 +485,10 @@ in
         #   publicKey = "hta1KqItY82z99Uimq7Ej674sIMbJ2EwRQXMnC96Omg=";
         #   allowedIPs = [ "10.100.13.3/32" ];
         # }
+        { # artur international challenges
+          publicKey = "y+KNixZQheNgTBzm33aO1nPn7aJnbJvghbZEbBAa83w=";
+          allowedIPs = [ "10.100.99.1/32" ];
+        }
       ];
     };
   };

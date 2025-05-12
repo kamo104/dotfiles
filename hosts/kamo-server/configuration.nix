@@ -452,6 +452,10 @@ in
           publicKey = "97m5050g5BtdJa4Z9nECCVK+oR6AdX3DoWZMb7tsYBQ=";
           allowedIPs = [ "10.100.1.7/32" ];
         }
+        { # macbook
+          publicKey = "Rcpt5TFLczLGhBCQybu7EPJrvZjOifB9fIXj5q3XqRM=";
+          allowedIPs = [ "10.100.1.114/32" ];
+        }
         
 
         { # ola-laptop

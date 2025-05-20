@@ -25,7 +25,7 @@
   # MONERO:
   services.monero = {
     enable = true;
-    dataDir = "/home/kamo/Documents/chain";
+    # dataDir = "/home/kamo/Documents/chain";
     rpc = {
       address = "0.0.0.0";
       # address = "10.100.1.2";

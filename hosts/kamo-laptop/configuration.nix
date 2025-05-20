@@ -25,13 +25,16 @@
   # MONERO:
   services.monero = {
     enable = true;
-    # dataDir = "/home/kamo/Documents/chain"; # Replace 'your-username' accordingly
+    dataDir = "/home/kamo/Documents/chain";
+    rpc = {
+      address = "0.0.0.0";
+      # address = "10.100.1.2";
+      port = 18081;
+      restricted = true;
+    };
     extraConfig = ''
       proxy=127.0.0.1:9050
       tx-proxy=tor,127.0.0.1:9050
-      restricted-rpc=true
-      rpc-bind-ip=0.0.0.0
-      rpc-bind-port=18081
       confirm-external-bind=1
       p2p-bind-ip=127.0.0.1
       p2p-bind-port=18080

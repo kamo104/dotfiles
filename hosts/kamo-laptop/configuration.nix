@@ -45,18 +45,20 @@
   # TOR:
   services.tor = {
     enable = true;
-    client.socksListenAddress = {
-      IsolateDestAddr = true;
-      addr = "127.0.0.1";
-      port = 9050;
-    };
-    # settings = {
-    #   SocksPort = [
-    #     {
-    #       port = 9050;
-    #     }
-    #   ];
+    # client.socksListenAddress = {
+    #   IsolateDestAddr = true;
+    #   addr = "127.0.0.1";
+    #   port = 9050;
     # };
+    settings = {
+      SocksPort = [
+        {
+          addr = "127.0.0.1";
+          port = 9050;
+          options = [ "IsolateDestAddr" ];
+        }
+      ];
+    };
   };
 
 

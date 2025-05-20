@@ -22,6 +22,36 @@
       "${args.modules}/vban.nix"
       "${args.modules}/sunshine.nix"
     ];
+  # MONERO:
+  services.monero = {
+    enable = true;
+    # dataDir = "/home/kamo/Documents/chain"; # Replace 'your-username' accordingly
+    extraConfig = ''
+      proxy=127.0.0.1:9050
+      tx-proxy=tor,127.0.0.1:9050
+      restricted-rpc=true
+      rpc-bind-ip=0.0.0.0
+      rpc-bind-port=18081
+      confirm-external-bind=1
+      p2p-bind-ip=127.0.0.1
+      p2p-bind-port=18080
+      no-igd=1
+    '';
+  };
+
+  # TOR:
+  services.tor = {
+    enable = true;
+    settings = {
+      SocksPort = [
+        {
+          port = 9050;
+        }
+      ];
+    };
+  };
+
+
 
   # guitarix pipewire.jack
   # security.pam.loginLimits = [
@@ -166,7 +196,7 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 6881 ]; # deluge
+  networking.firewall.allowedTCPPorts = [ 6881 18081 ]; # deluge
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   services.zerotierone = {

@@ -200,7 +200,7 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 6881 18081 ]; # deluge
+  networking.firewall.allowedTCPPorts = [ 6881 18081 ]; # deluge, monero RPC
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   services.zerotierone = {
@@ -208,6 +208,52 @@
     joinNetworks = ["1c33c1ced078606c"];
   };
 
+  systemd.services.wireguard-ddns-check =
+  let
+    ddnsHost = "your.ddns.hostname.com";
+    ipFile = "/var/lib/wireguard-ddns/ip.txt";
+  in {
+    description = "Check DDNS IP and restart WireGuard if changed";
+    script = ''
+      set -euo pipefail
+
+      mkdir -p ${builtins.dirOf ipFile}
+
+      resolved_ip=$(${pkgs.libc.bin}/bin/getent ahosts ${ddnsHost} | tail -n 2 | head -n 1 | cut -d ' ' -f 1)
+
+      if [ -z "$resolved_ip" ]; then
+        echo "Failed to resolve IP for ${ddnsHost}" >&2
+        exit 1
+      fi
+
+      if [ ! -f ${ipFile} ]; then
+        echo "$resolved_ip" > ${ipFile}
+        exit 0
+      fi
+
+      old_ip=$(cat ${ipFile})
+
+      if [ "$resolved_ip" != "$old_ip" ]; then
+        echo "IP changed: $old_ip → $resolved_ip"
+        echo "$resolved_ip" > ${ipFile}
+        ${pkgs.systemd}/bin/systemctl restart wg-quick-wg0.service
+      fi
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+    };
+  };
+
+  systemd.timers.wireguard-ddns-check = {
+    description = "Timer to check DDNS for WireGuard";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "30sec";
+      OnUnitActiveSec = "30sec";
+      Persistent = true;
+    };
+  };
+  
   services.resolved.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {

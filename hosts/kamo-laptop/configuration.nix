@@ -210,7 +210,7 @@
 
   systemd.services.wireguard-ddns-check =
   let
-    ddnsHost = "your.ddns.hostname.com";
+    ddnsHost = "grzymoserver.duckdns.org";
     ipFile = "/var/lib/wireguard-ddns/ip.txt";
   in {
     description = "Check DDNS IP and restart WireGuard if changed";
@@ -237,6 +237,9 @@
         echo "IP changed: $old_ip → $resolved_ip"
         echo "$resolved_ip" > ${ipFile}
         ${pkgs.systemd}/bin/systemctl restart wg-quick-wg0.service
+      else
+        echo "IP didn't change: $old_ip"
+      
       fi
     '';
     serviceConfig = {

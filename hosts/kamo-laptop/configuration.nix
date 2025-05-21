@@ -219,7 +219,7 @@
 
       mkdir -p ${builtins.dirOf ipFile}
 
-      resolved_ip=$(${pkgs.libc.bin}/bin/getent ahosts ${ddnsHost} | tail -n 2 | head -n 1 | cut -d ' ' -f 1)
+      resolved_ip=$(${pkgs.glibc.bin}/bin/getent ahosts ${ddnsHost} | tail -n 2 | head -n 1 | cut -d ' ' -f 1)
 
       if [ -z "$resolved_ip" ]; then
         echo "Failed to resolve IP for ${ddnsHost}" >&2

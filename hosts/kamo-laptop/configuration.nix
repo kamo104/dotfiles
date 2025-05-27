@@ -25,10 +25,9 @@
   # MONERO:
   services.monero = {
     enable = true;
-    # dataDir = "/home/kamo/Documents/chain";
     rpc = {
-      address = "0.0.0.0";
-      # address = "10.100.1.2";
+      # address = "0.0.0.0";
+      address = "10.100.1.2";
       port = 18081;
       restricted = true;
     };
@@ -39,6 +38,10 @@
       p2p-bind-ip=127.0.0.1
       p2p-bind-port=18080
       no-igd=1
+
+      rpc-ssl=enabled
+      rpc-ssl-private-key=${args.secrets}/monero/private.key
+      rpc-ssl-certificate=${args.secrets}/monero/ca.cert
     '';
   };
 

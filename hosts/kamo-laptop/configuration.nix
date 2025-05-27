@@ -239,7 +239,6 @@
         ${pkgs.systemd}/bin/systemctl restart wg-quick-wg0.service
       else
         echo "IP didn't change: $old_ip"
-      
       fi
     '';
     serviceConfig = {

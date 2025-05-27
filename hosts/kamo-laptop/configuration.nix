@@ -40,8 +40,8 @@
       no-igd=1
 
       rpc-ssl=enabled
-      rpc-ssl-private-key=${args.secrets}/monero/private.key
-      rpc-ssl-certificate=${args.secrets}/monero/ca.cert
+      rpc-ssl-private-key=/var/lib/monero/private.key
+      rpc-ssl-certificate=/var/lib/monero/ca.cert
     '';
   };
 

@@ -188,6 +188,8 @@ in
         "/smb.kkf.internal/10.100.0.1"
         # # gitlab
         # "/gitlab.kkf.internal/10.100.0.1"
+        # monero
+        "/monero.kkf.internal/10.100.0.2"
       ];
     };
   };

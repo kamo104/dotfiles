@@ -188,6 +188,8 @@ in
         "/smb.kkf.internal/10.100.0.1"
         # # gitlab
         # "/gitlab.kkf.internal/10.100.0.1"
+        # monero
+        "/monero.kkf.internal/10.100.1.2"
       ];
     };
   };
@@ -452,6 +454,10 @@ in
           publicKey = "97m5050g5BtdJa4Z9nECCVK+oR6AdX3DoWZMb7tsYBQ=";
           allowedIPs = [ "10.100.1.7/32" ];
         }
+        { # macbook
+          publicKey = "Rcpt5TFLczLGhBCQybu7EPJrvZjOifB9fIXj5q3XqRM=";
+          allowedIPs = [ "10.100.1.114/32" ];
+        }
         
 
         { # ola-laptop
@@ -484,6 +490,10 @@ in
         # { # filip-iphone
         #   publicKey = "hta1KqItY82z99Uimq7Ej674sIMbJ2EwRQXMnC96Omg=";
         #   allowedIPs = [ "10.100.13.3/32" ];
+        # }
+        # { # artur international challenges
+        #   publicKey = "y+KNixZQheNgTBzm33aO1nPn7aJnbJvghbZEbBAa83w=";
+        #   allowedIPs = [ "10.100.15.1/32" ];
         # }
       ];
     };

@@ -1,16 +1,19 @@
 {
   description = "Nixos config flake";
 
-  inputs = {
+  inputs =
+  let
+    systemVersion = "25.05";
+  in {
     # hyprland = {
     #   url = "github:hyprwm/Hyprland";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    signalPkgs.url = "github:nixos/nixpkgs?rev=b1000dc9e4790cbbd69b9140b23e28afad3bf34f";
+    # signalPkgs.url = "github:nixos/nixpkgs?rev=b1000dc9e4790cbbd69b9140b23e28afad3bf34f";
     # bambuPkgs.url = "github:nixos/nixpkgs?rev=18fcf074a288cebc14a8334ea62da0c25b39574b";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-${systemVersion}";
     nix-darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      url = "github:lnl7/nix-darwin/nix-darwin-${systemVersion}";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mac-app-util = {
@@ -21,7 +24,7 @@
  
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-${systemVersion}";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags = {

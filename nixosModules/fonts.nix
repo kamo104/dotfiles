@@ -10,7 +10,9 @@
       font-awesome
       xorg.libXfont
       material-symbols
-      (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka"  ]; })
+      pkgs.nerd-fonts.Iosevka
+      pkgs.nerd-fonts.JetBrainsMono
+      pkgs.nerd-fonts.FiraCode
 
       # unifont
       noto-fonts-emoji

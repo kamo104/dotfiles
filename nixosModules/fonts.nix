@@ -11,8 +11,8 @@
       xorg.libXfont
       material-symbols
       nerd-fonts.iosevka
-      nerd-fonts.jet_brains_mono
-      nerd-fonts.fira_code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
 
       # unifont
       noto-fonts-emoji

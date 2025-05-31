@@ -10,9 +10,9 @@
       font-awesome
       xorg.libXfont
       material-symbols
-      pkgs.nerd-fonts.Iosevka
-      pkgs.nerd-fonts.JetBrainsMono
-      pkgs.nerd-fonts.FiraCode
+      nerd-fonts.iosevka
+      nerd-fonts.jetBrainsMono
+      nerd-fonts.firaCode
 
       # unifont
       noto-fonts-emoji

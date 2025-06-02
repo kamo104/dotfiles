@@ -48,6 +48,10 @@
   # TOR:
   services.tor = {
     enable = true;
+    relay = {
+      enable = true;
+      role = "relay";
+    };
     client = {
       enable = true;
       socksListenAddress = {
@@ -61,17 +65,13 @@
   # I2P:
   services.i2pd = {
     enable = true;
+    upnp.enable = true;
     proto = {
       http = {
         enable = true;
         port = 7070;
-        address = "10.100.1.2";
+        address = "127.0.0.1";
       };
-      # socksProxy = {
-      #   enable = true;
-      #   address = "10.100.1.2";
-      #   port = 4447;
-      # };
       httpProxy = {
         enable = true;
         address = "10.100.1.2";
@@ -229,7 +229,7 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 4447 6881 7070 18081 ]; # I2P socks, deluge, I2P console, monero RPC
+  networking.firewall.allowedTCPPorts = [ 4447 6881 18081 ]; # I2P http, deluge, monero RPC
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   services.zerotierone = {

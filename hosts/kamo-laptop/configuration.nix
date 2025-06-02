@@ -58,6 +58,11 @@
     };
   };
 
+  services.i2pd = {
+    enable = true;
+    openFirewall = true;
+  };
+
 
 
   # guitarix pipewire.jack

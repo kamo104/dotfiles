@@ -65,7 +65,7 @@
   # I2P:
   services.i2pd = {
     enable = true;
-    upnp.enable = true;
+    # upnp.enable = true;
     proto = {
       http = {
         enable = true;

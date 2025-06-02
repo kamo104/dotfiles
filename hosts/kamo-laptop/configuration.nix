@@ -58,9 +58,9 @@
     };
   };
 
+  # I2P
   services.i2pd = {
     enable = true;
-    openFirewall = true;
   };
 
 

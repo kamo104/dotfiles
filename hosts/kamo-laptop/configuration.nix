@@ -58,10 +58,21 @@
     };
   };
 
-  # I2P
+  # I2P:
   services.i2pd = {
     enable = true;
+    proto = {
+      http = {
+        enable = true;
+        port = 7070;
+        address = "10.100.1.2";
+      };
+    };
   };
+
+  # services.nginx = {
+  #   enable = true;
+  # };
 
 
 
@@ -208,7 +219,7 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 6881 18081 ]; # deluge, monero RPC
+  networking.firewall.allowedTCPPorts = [ 6881 7070 18081 ]; # deluge, I2P, monero RPC
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   services.zerotierone = {

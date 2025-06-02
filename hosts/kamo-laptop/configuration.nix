@@ -67,6 +67,11 @@
         port = 7070;
         address = "10.100.1.2";
       };
+      socksProxy = {
+        enable = true;
+        address = "10.100.1.2";
+        port = 4447;
+      };
     };
   };
 
@@ -219,7 +224,7 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 6881 7070 18081 ]; # deluge, I2P, monero RPC
+  networking.firewall.allowedTCPPorts = [ 4447 6881 7070 18081 ]; # I2P socks, deluge, I2P console, monero RPC
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   services.zerotierone = {

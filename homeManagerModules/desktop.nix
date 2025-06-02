@@ -61,7 +61,7 @@
       # discs/sds flashing
       caligula
       # gui todo list
-      planify
+      # planify
       # for imagemagick
       ghostscript
 

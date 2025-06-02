@@ -67,7 +67,12 @@
         port = 7070;
         address = "10.100.1.2";
       };
-      socksProxy = {
+      # socksProxy = {
+      #   enable = true;
+      #   address = "10.100.1.2";
+      #   port = 4447;
+      # };
+      httpProxy = {
         enable = true;
         address = "10.100.1.2";
         port = 4447;

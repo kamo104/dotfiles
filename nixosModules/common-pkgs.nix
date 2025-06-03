@@ -8,7 +8,6 @@ with pkgs; [
   fish
   fastfetch
   # git
-  wakeonlan
   tree
   killall
 ]

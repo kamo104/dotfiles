@@ -101,6 +101,11 @@
   #     value = "95";
   #   }
   # ];
+
+  # USE SUDO-RS INSTEAD OF SUDO
+  security.sudo-rs.enable = true;
+  security.sudo.enable = false;
+
   bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;

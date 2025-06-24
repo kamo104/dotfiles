@@ -2,15 +2,15 @@
 {
   imports = [ 
     # inputs.hyprland.homeManagerModules.default
-    "${args.hmModules}/hypr/hyprland.nix"
+    # "${args.hmModules}/hypr/hyprland.nix"
 
-    inputs.ags.homeManagerModules.default
-    "${args.hmModules}/ags/ags.nix"
+    # inputs.ags.homeManagerModules.default
+    # "${args.hmModules}/ags/ags.nix"
 
-    "${args.hmModules}/kitty/kitty.nix"
-    "${args.hmModules}/rofi/rofi.nix"
+    # "${args.hmModules}/kitty/kitty.nix"
+    # "${args.hmModules}/rofi/rofi.nix"
     "${args.hmModules}/common.nix"
-    "${args.hmModules}/desktop.nix"
+    # "${args.hmModules}/desktop.nix"
   ];
   # hyprlandHM.enable = true;
   # ags.enable = true;

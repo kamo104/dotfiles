@@ -7,20 +7,20 @@
       # inputs.hyprland.nixosModules.default
       # inputs.attic.nixosModules.atticd
 
-      "${args.modules}/hyprland.nix"
-      "${args.modules}/steam.nix"
-      "${args.modules}/virt.nix"
-      "${args.modules}/obs.nix"
+      # "${args.modules}/hyprland.nix"
+      # "${args.modules}/steam.nix"
+      # "${args.modules}/virt.nix"
+      # "${args.modules}/obs.nix"
       "${args.modules}/locale.nix"
       "${args.modules}/fonts.nix"
-      "${args.modules}/bluetooth.nix"
-      "${args.modules}/pipewire.nix"
-      "${args.modules}/opencl.nix"
-      "${args.modules}/opengl.nix"
-      "${args.modules}/wireshark.nix"
+      # "${args.modules}/bluetooth.nix"
+      # "${args.modules}/pipewire.nix"
+      # "${args.modules}/opencl.nix"
+      # "${args.modules}/opengl.nix"
+      # "${args.modules}/wireshark.nix"
       "${args.modules}/common.nix"
-      "${args.modules}/vban.nix"
-      "${args.modules}/sunshine.nix"
+      # "${args.modules}/vban.nix"
+      # "${args.modules}/sunshine.nix"
     ];
   # MONERO:
   services.monero = {
@@ -63,22 +63,22 @@
   };
 
   # I2P:
-  services.i2pd = {
-    enable = true;
-    # upnp.enable = true;
-    proto = {
-      http = {
-        enable = true;
-        port = 7070;
-        address = "127.0.0.1";
-      };
-      httpProxy = {
-        enable = true;
-        address = "10.100.1.2";
-        port = 4447;
-      };
-    };
-  };
+  # services.i2pd = {
+  #   enable = true;
+  #   # upnp.enable = true;
+  #   proto = {
+  #     http = {
+  #       enable = true;
+  #       port = 7070;
+  #       address = "127.0.0.1";
+  #     };
+  #     httpProxy = {
+  #       enable = true;
+  #       address = "10.100.1.2";
+  #       port = 4447;
+  #     };
+  #   };
+  # };
 
   # services.nginx = {
   #   enable = true;

@@ -50,6 +50,14 @@
         bind '"' split-window -v -c "#{pane_current_path}"
       '';
     };
+
+    programs.btop = {
+      enable = true;
+      settings = {
+        color_theme = "gruvbox_dark_v2";
+      };
+    };
+
     
 
     # programs.direnv = {

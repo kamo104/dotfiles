@@ -12,13 +12,13 @@
     "${args.hmModules}/common.nix"
     "${args.hmModules}/desktop.nix"
   ];
-  hyprlandHM.enable = true;
-  ags.enable = true;
-  kitty.enable = true;
-  rofi.enable = true;
+  # hyprlandHM.enable = true;
+  # ags.enable = true;
+  # kitty.enable = true;
+  # rofi.enable = true;
 
   common.enable = true;
-  desktop.enable = true;
+  # desktop.enable = true;
 
   home.sessionVariables = {
     NIX_INSTALL_TYPE="OS"; # either OS or PM
@@ -34,22 +34,22 @@
   [
     # signal-desktop
     # (import inputs.signalPkgs {inherit system;}).signal-desktop
-    keepassxc
+    # keepassxc
 
     # jetbrains.idea-community
     # android-studio
     # platformio
-    vscode
+    # vscode
     # CYBER-SEC PACKAGES
-    burpsuite
+    # burpsuite
     # CYBER-SEC PACKAGES
 
-    deluge
+    # deluge
 
-    easyeffects
-    gimp
+    # easyeffects
+    # gimp
 
-    orca-slicer
+    # orca-slicer
     # (pkgs.callPackage "${args.customPkgs}/orca-slicer/package.nix" {})
     # freecad
 

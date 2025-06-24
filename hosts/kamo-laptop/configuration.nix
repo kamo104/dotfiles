@@ -106,63 +106,63 @@
   security.sudo-rs.enable = true;
   security.sudo.enable = false;
 
-  bluetooth.enable = true;
+  # bluetooth.enable = true;
   locale.enable = true;
   cfonts.enable = true;
-  pipewire.enable = true;
+  # pipewire.enable = true;
   # opencl.enable = true;
-  opengl.enable = true;
-  hyprland.enable = true;
-  services.displayManager = {
-    autoLogin.enable = true;
-    autoLogin.user = "kamo";
-  };
+  # opengl.enable = true;
+  # hyprland.enable = true;
+  # services.displayManager = {
+  #   autoLogin.enable = true;
+  #   autoLogin.user = "kamo";
+  # };
   # sunshine.enable = true;
-  steam.enable = true;
-  virt.enable = true;
-  virt.users = ["kamo"];
-  obs.enable = true;
-  wireshark.enable = true;
-  wireshark.users = ["kamo"];
+  # steam.enable = true;
+  # virt.enable = true;
+  # virt.users = ["kamo"];
+  # obs.enable = true;
+  # wireshark.enable = true;
+  # wireshark.users = ["kamo"];
   common.enable = true;
   common.users = ["kamo"];
-  vban.enable = true;
-  vban.startScript = ''
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.4" sess.latency.msec=30 &
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10 &
+  # vban.enable = true;
+  # vban.startScript = ''
+  #   ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.4" sess.latency.msec=30 &
+  #   ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=44100 sess.name="samson" destination.ip="10.100.1.4" sess.latency.msec=10 &
 
 
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.6" sess.latency.msec=30 &
-    ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=48000 sess.name="samson" destination.ip="10.100.1.6" sess.latency.msec=10
+  #   ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-recv stream.props={audio.rate=48000 audio.format=S16LE} sess.name="audio" source.ip="10.100.1.6" sess.latency.msec=30 &
+  #   ${pkgs.pipewire}/bin/pw-cli load-module -m libpipewire-module-vban-send audio.format="S16LE" audio.rate=48000 sess.name="samson" destination.ip="10.100.1.6" sess.latency.msec=10
     
-  '';
+  # '';
 
-  systemd.user.services.loginlock = {
-    description = "Lock session on startup";
-    wants = [ "hypridle.service" ];
-    after = [ "hypridle.service" ];
-    wantedBy = [ "xdg-desktop-autostart.target" ];
+  # systemd.user.services.loginlock = {
+  #   description = "Lock session on startup";
+  #   wants = [ "hypridle.service" ];
+  #   after = [ "hypridle.service" ];
+  #   wantedBy = [ "xdg-desktop-autostart.target" ];
 
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    script = ''
-      sleep 1; loginctl lock-session
-    '';
-  };
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #   };
+  #   script = ''
+  #     sleep 1; loginctl lock-session
+  #   '';
+  # };
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    ipv4 = true;
-    ipv6 = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-      userServices = true;
-    };
-  };
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns4 = true;
+  #   ipv4 = true;
+  #   ipv6 = true;
+  #   publish = {
+  #     enable = true;
+  #     addresses = true;
+  #     workstation = true;
+  #     userServices = true;
+  #   };
+  # };
 
   fileSystems = {
     "/mnt/kkf" = {
@@ -219,13 +219,13 @@
   #   '';
 
  
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
-  services.udev.packages = with pkgs; [ 
-    stlink
-    platformio-core.udev
-    android-udev-rules
-  ];
+  # services.udev.packages = with pkgs; [ 
+  #   stlink
+  #   platformio-core.udev
+  #   android-udev-rules
+  # ];
 
   home-manager = {
     extraSpecialArgs = {inherit inputs; hmModules = args.hmModules; hostname = args.hostname; secrets = args.secrets;customPkgs = args.customPkgs;};

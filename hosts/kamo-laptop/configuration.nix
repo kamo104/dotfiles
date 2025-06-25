@@ -132,8 +132,8 @@
   locale.enable = true;
   cfonts.enable = true;
   # pipewire.enable = true;
-  # opencl.enable = true;
-  # opengl.enable = true;
+  opencl.enable = true;
+  opengl.enable = true;
   # hyprland.enable = true;
   # services.displayManager = {
   #   autoLogin.enable = true;

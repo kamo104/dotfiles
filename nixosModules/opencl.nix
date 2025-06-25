@@ -4,7 +4,7 @@
     opencl.enable = lib.mkEnableOption "enables opencl";
   };
   config = lib.mkIf config.opencl.enable {
-    # boot.initrd.kernelModules = [ "amdgpu" ];
+    boot.initrd.kernelModules = [ "amdgpu" ];
     hardware.graphics = {
       enable = true;
       # driSupport = true;

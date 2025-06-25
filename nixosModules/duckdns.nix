@@ -29,8 +29,9 @@ in
     systemd.services.duckdns-custom = {
       enable = true;
       description = "duckdns service";
-      after= ["network.target"];
-      wantedBy = [ "default.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Restart = "always";
         RestartSec = "300s";

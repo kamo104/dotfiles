@@ -82,7 +82,10 @@
   };
 
   # DISABLE THE DISPLAY
-  boot.kernelParams = [ "amdgpu.dc=1" "video=eDP-1:d" ];
+  boot.kernelParams = [
+    # "amdgpu.dc=1"
+    "video=eDP-1:d"
+  ];
   services.kmscon.enable = true;
   services.kmscon.hwRender = true;
   services.kmscon.tty = "tty8"; # Use any unused TTY

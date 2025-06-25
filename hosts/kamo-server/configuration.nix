@@ -1,22 +1,22 @@
 { config, pkgs, inputs, ... } @args:
-let
-  TShock = (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
-    pluginsUrls = [
-      {
-        url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
-        sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
-      }
-      {
-        url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
-        sha256="sha256-nMz6JPr5IeFyZHnrTh6C8n/NXPO8fuC7wNXkZx6c8eo=";
-      }
-      {
-        url="https://github.com/TerraTrapezium/AutoTeam/releases/download/v1.0.0/AutoTeam.dll";
-        sha256="1wv502d82rmrb7qs0sapjawyjwr61mvng2pwxc79rv5x17246ml0";
-      }
-    ];
-  });
-in
+# let
+#   TShock = (pkgs.callPackage "${args.customPkgs}/TShock/TShock.nix" {
+#     pluginsUrls = [
+#       {
+#         url="https://github.com/Moneylover3246/Crossplay/releases/download/2.2/Crossplay.dll";
+#         sha256="0pqqyr7897dwh4nn21jkwiilfphsf18l3qmlr4f5gg7pnrhz2ny1";
+#       }
+#       {
+#         url="https://github.com/Pryaxis/Vanillafier/blob/master/Vanillafier/build/Vanillafier.dll";
+#         sha256="sha256-nMz6JPr5IeFyZHnrTh6C8n/NXPO8fuC7wNXkZx6c8eo=";
+#       }
+#       {
+#         url="https://github.com/TerraTrapezium/AutoTeam/releases/download/v1.0.0/AutoTeam.dll";
+#         sha256="1wv502d82rmrb7qs0sapjawyjwr61mvng2pwxc79rv5x17246ml0";
+#       }
+#     ];
+#   });
+# in
 {
   imports =
     [
@@ -25,10 +25,10 @@ in
       # inputs.nix-minecraft.nixosModules.minecraft-servers
 
       "${args.modules}/locale.nix"
-      "${args.modules}/bluetooth.nix"
-      "${args.modules}/pipewire.nix"
+      # "${args.modules}/bluetooth.nix"
+      # "${args.modules}/pipewire.nix"
       "${args.modules}/common.nix"
-      "${args.modules}/TShock-service.nix"
+      # "${args.modules}/TShock-service.nix"
       "${args.modules}/duckdns.nix"
     ];
   # nixpkgs.overlays = [ 
@@ -190,6 +190,8 @@ in
         # "/gitlab.kkf.internal/10.100.0.1"
         # monero
         "/monero.kkf.internal/10.100.1.2"
+        # deluge
+        "/deluge.kkf.internal/10.100.1.2"
       ];
     };
   };
@@ -291,7 +293,7 @@ in
   # services.TShock.startCommand = ''
   #   ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
   # '';
-  services.duckdns = {
+  services.duckdns-custom = {
     enable = true;
     user = "duckdns";
     group = "duckdns";

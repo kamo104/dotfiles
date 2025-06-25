@@ -1,10 +1,10 @@
 { pkgs, lib, config, ...}: 
 
 let 
-  cfg = config.services.duckdns;
+  cfg = config.services.duckdns-custom;
 in 
 {
-  options.services.duckdns = {
+  options.services.duckdns-custom = {
     enable = lib.mkEnableOption "enables duckdns";
     domains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -26,11 +26,12 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    systemd.services.duckdns = {
+    systemd.services.duckdns-custom = {
       enable = true;
       description = "duckdns service";
-      after= ["network.target"];
-      wantedBy = [ "default.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Restart = "always";
         RestartSec = "300s";
@@ -38,9 +39,15 @@ in
         Group = cfg.group;
       };
       script = ''
-        echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
-        &token=$(cat ${cfg.tokenFile})&ip=" \
-        | ${pkgs.curl}/bin/curl -K -
+        echo "Updating DuckDNS..." >&2
+        echo "Token file: ${cfg.tokenFile}" >&2
+        echo "Domains: ${builtins.concatStringsSep "," cfg.domains}" >&2
+        TOKEN=$(cat ${cfg.tokenFile})
+        echo "Token: $TOKEN" >&2
+        echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}&token=$TOKEN&ip=" | ${pkgs.curl}/bin/curl -v -K -
+        # echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
+        # &token=$(cat ${cfg.tokenFile})&ip=" \
+        # | ${pkgs.curl}/bin/curl -K -
       '';
     };
   };

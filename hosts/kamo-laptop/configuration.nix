@@ -82,16 +82,16 @@
   };
 
   # DISABLE THE DISPLAY
-  boot.kernelParams = [
-    # "amdgpu.dc=1"
-    "video=eDP-1:d"
-  ];
-  services.kmscon.enable = true;
-  services.kmscon.hwRender = true;
-  # services.kmscon.tty = "tty8"; # Use any unused TTY
-  boot.consoleLogLevel = 0;
-  # boot.earlyVconsole.enable = false;
-  boot.initrd.verbose = false;
+  # boot.kernelParams = [
+  #   # "amdgpu.dc=1"
+  #   "video=eDP-1:d"
+  # ];
+  # services.kmscon.enable = true;
+  # services.kmscon.hwRender = true;
+  # # services.kmscon.tty = "tty8"; # Use any unused TTY
+  # boot.consoleLogLevel = 0;
+  # # boot.earlyVconsole.enable = false;
+  # boot.initrd.verbose = false;
 
   # I2P:
   # services.i2pd = {

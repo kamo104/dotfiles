@@ -1,10 +1,10 @@
 { pkgs, lib, config, ...}: 
 
 let 
-  cfg = config.services.duckdns;
+  cfg = config.services.duckdns-custom;
 in 
 {
-  options.services.duckdns = {
+  options.services.duckdns-custom = {
     enable = lib.mkEnableOption "enables duckdns";
     domains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -26,7 +26,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    systemd.services.duckdns = {
+    systemd.services.duckdns-custom = {
       enable = true;
       description = "duckdns service";
       after= ["network.target"];

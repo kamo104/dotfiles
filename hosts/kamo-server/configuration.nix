@@ -293,7 +293,7 @@
   # services.TShock.startCommand = ''
   #   ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
   # '';
-  services.duckdns = {
+  services.duckdns-custom = {
     enable = true;
     user = "duckdns";
     group = "duckdns";

@@ -38,9 +38,15 @@ in
         Group = cfg.group;
       };
       script = ''
-        echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
-        &token=$(cat ${cfg.tokenFile})&ip=" \
-        | ${pkgs.curl}/bin/curl -K -
+        echo "Updating DuckDNS..." >&2
+        echo "Token file: ${cfg.tokenFile}" >&2
+        echo "Domains: ${builtins.concatStringsSep "," cfg.domains}" >&2
+        TOKEN=$(cat ${cfg.tokenFile})
+        echo "Token: $TOKEN" >&2
+        echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}&token=$TOKEN&ip=" | ${pkgs.curl}/bin/curl -v -K -
+        # echo url="https://www.duckdns.org/update?domains=${builtins.concatStringsSep "," cfg.domains}\
+        # &token=$(cat ${cfg.tokenFile})&ip=" \
+        # | ${pkgs.curl}/bin/curl -K -
       '';
     };
   };

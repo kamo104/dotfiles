@@ -45,6 +45,25 @@
     '';
   };
 
+  # XMRIG:
+  # services.xmrig = {
+  #   enable = true;
+  #   settings = {
+  #     autosave = true;
+  #     cpu = true;
+  #     opencl = false;
+  #     cuda = false;
+  #     pools = [
+  #       {
+  #         url = "10.100.1.2:18081";
+  #         user = "";
+  #         keepalive = true;
+  #         tls = true;
+  #       }
+  #     ];
+  #   };
+  # };
+
   # TOR:
   services.tor = {
     enable = true;

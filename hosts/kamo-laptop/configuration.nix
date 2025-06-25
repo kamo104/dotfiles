@@ -81,6 +81,9 @@
     };
   };
 
+  # DISABLE THE DISPLAY
+  boot.kernelParams = [ "video=eDP-1:d" ];
+
   # I2P:
   # services.i2pd = {
   #   enable = true;

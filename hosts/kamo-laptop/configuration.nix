@@ -82,7 +82,7 @@
   };
 
   # DISABLE THE DISPLAY
-  # boot.kernelParams = [ "video=eDP-1:d" ];
+  boot.kernelParams = [ "amdgpu.dc=1" "video=eDP-1:d" ];
 
   # I2P:
   # services.i2pd = {

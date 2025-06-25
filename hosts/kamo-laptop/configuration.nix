@@ -90,7 +90,7 @@
   services.kmscon.hwRender = true;
   services.kmscon.tty = "tty8"; # Use any unused TTY
   boot.consoleLogLevel = 0;
-  boot.earlyVconsole.enable = false;
+  # boot.earlyVconsole.enable = false;
   boot.initrd.verbose = false;
 
   # I2P:

@@ -82,7 +82,7 @@
   };
 
   # DISABLE THE DISPLAY
-  boot.kernelParams = [ "video=eDP-1:d" ];
+  # boot.kernelParams = [ "video=eDP-1:d" ];
 
   # I2P:
   # services.i2pd = {
@@ -315,7 +315,7 @@
   services.resolved.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {
-      autostart = false;
+      autostart = true;
       address = [ "10.100.1.2/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";

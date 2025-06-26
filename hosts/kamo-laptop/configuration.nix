@@ -81,6 +81,11 @@
     };
   };
 
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore";
+  };
+
   # DISABLE THE DISPLAY
   # boot.kernelParams = [
   #   # "amdgpu.dc=1"

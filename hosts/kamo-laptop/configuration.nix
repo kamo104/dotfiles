@@ -34,6 +34,10 @@
       port = 18081;
       restricted = true;
     };
+    limits = {
+      upload = 209715;
+      download = 209715;
+    };
     extraConfig = ''
       proxy=127.0.0.1:9050
       tx-proxy=tor,127.0.0.1:9050
@@ -41,8 +45,6 @@
       p2p-bind-ip=0.0.0.0
       p2p-bind-port=18080
       igd=enabled
-      limit-rate-up=209715
-      limit-rate-down=209715
 
       rpc-ssl=enabled
       rpc-ssl-private-key=/var/lib/monero/private.key

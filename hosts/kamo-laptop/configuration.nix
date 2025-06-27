@@ -23,21 +23,26 @@
       # "${args.modules}/sunshine.nix"
     ];
   # MONERO:
+  systemd.services.monero = {
+    after = [ "wg-quick-wg0.service" ];
+  };
+
   services.monero = {
     enable = true;
     rpc = {
-      address = "0.0.0.0";
-      # address = "10.100.1.2";
+      address = "10.100.1.2";
       port = 18081;
       restricted = true;
     };
     extraConfig = ''
       proxy=127.0.0.1:9050
       tx-proxy=tor,127.0.0.1:9050
-      confirm-external-bind=1
-      p2p-bind-ip=127.0.0.1
+
+      p2p-bind-ip=0.0.0.0
       p2p-bind-port=18080
-      no-igd=1
+      igd=enabled
+      limit-rate-up=209715
+      limit-rate-down=209715
 
       rpc-ssl=enabled
       rpc-ssl-private-key=/var/lib/monero/private.key
@@ -269,7 +274,7 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 4447 6881 18081 ]; # I2P http, deluge, monero RPC
+  networking.firewall.allowedTCPPorts = [ 4447 6881 18080 18081 ]; # I2P http, deluge, monero P2P, monero RPC
   networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
 
   services.zerotierone = {

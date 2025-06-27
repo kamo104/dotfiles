@@ -41,6 +41,7 @@
     extraConfig = ''
       proxy=127.0.0.1:9050
       tx-proxy=tor,127.0.0.1:9050
+      confirm-external-bind=true
 
       p2p-bind-ip=0.0.0.0
       p2p-bind-port=18080

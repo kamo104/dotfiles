@@ -26,8 +26,8 @@
   services.monero = {
     enable = true;
     rpc = {
-      # address = "0.0.0.0";
-      address = "10.100.1.2";
+      address = "0.0.0.0";
+      # address = "10.100.1.2";
       port = 18081;
       restricted = true;
     };

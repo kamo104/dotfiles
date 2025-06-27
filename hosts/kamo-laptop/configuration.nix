@@ -46,6 +46,7 @@
       p2p-bind-ip=0.0.0.0
       p2p-bind-port=18080
       igd=enabled
+      # no-igd=1
 
       rpc-ssl=enabled
       rpc-ssl-private-key=/var/lib/monero/private.key

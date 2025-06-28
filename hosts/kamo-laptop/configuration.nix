@@ -26,6 +26,7 @@
   systemd.services.monero = {
     after = [ "wg-quick-wg0.service" ];
   };
+  programs.command-not-found.enable = true;
 
   services.monero = {
     enable = true;

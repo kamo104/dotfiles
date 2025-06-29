@@ -366,10 +366,10 @@
   };
 
   networking.iproute2 = {
-    enable = true;
-    rttablesExtraConfig = ''
-      200 vpn_table
-    '';
+    enable = false;
+    # rttablesExtraConfig = ''
+    #   200 vpn_table
+    # '';
   };
   # networking.nat = {
   #   enable = true;
@@ -387,12 +387,12 @@
     # firewall logging
     # logRefusedPackets = true;
     # logRefusedConnections = true;
-    # extraCommands = ''
-    #   ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn_table
-    # '';
-    # extraStopCommands = ''
-    #   ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn_table
-    # '';
+    extraCommands = ''
+      ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn_table
+    '';
+    extraStopCommands = ''
+      ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn_table
+    '';
   };
   
   networking.wg-quick.interfaces = {
@@ -403,7 +403,7 @@
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
-      table = "vpn_table";
+      table = "off";
       postUp = ''
         ip rule add from 10.100.0.0/16 lookup vpn_table
         ip route add 10.64.0.1 dev wg1

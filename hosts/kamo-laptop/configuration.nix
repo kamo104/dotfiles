@@ -104,6 +104,61 @@
   # services.nginx = {
   #   enable = true;
   # };
+  #
+  #
+  containers = {
+    gitlab = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = "192.168.100.10";
+      localAddress = "192.168.100.11";
+      config = { config, pkgs, lib, ... }: {
+        system.stateVersion = "23.11";
+        networking = {
+          firewall = {
+            enable = true;
+            allowedTCPPorts = [ 80 ];
+          };
+          # Use systemd-resolved inside the container
+          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+          useHostResolvConf = lib.mkForce false;
+        };
+        services.nginx = {
+          enable = true;
+          recommendedProxySettings = true;
+          virtualHosts = {
+            localhost = {
+              locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+            };
+          };
+        };
+        services.gitlab = {
+          enable = true;
+          # openssl genrsa 512 | grep -v '\-----' | head -c 64
+          # databasePasswordFile = "${args.secrets}/gitlab/dbPassword";
+          # initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+          # databaseName = "gitlab";
+          # secrets = {
+          #   secretFile = "${args.secrets}/gitlab/secret";
+          #   otpFile = "${args.secrets}/gitlab/otp";
+          #   # dbFile = "${args.secrets}/gitlab/db";
+          #   dbFile = "/var/lib/gitlab/db";
+          #   # jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+          #   jwsFile = "${args.secrets}/gitlab/oidcKeyBase";
+          # };
+          databasePasswordFile = pkgs.writeText "dbPassword" "zgvcyfwsxzcwr85l";
+          initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+          secrets = {
+            secretFile = pkgs.writeText "secret" "Aig5zaic";
+            otpFile = pkgs.writeText "otpsecret" "Riew9mue";
+            dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
+            jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+          };
+        };
+      };
+    };
+  };
+
 
 
 

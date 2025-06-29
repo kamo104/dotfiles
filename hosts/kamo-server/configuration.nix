@@ -368,7 +368,7 @@
   networking.iproute2 = {
     enable = true;
     rttablesExtraConfig = ''
-      200 wg1_table
+      200 vpn_table
     '';
   };
   # networking.nat = {
@@ -380,28 +380,39 @@
     "net.ipv4.conf.all.forwarding" = true;
   #   "net.ipv6.conf.all.forwarding" = true;
   };
-  # boot.kernelModules = [ "fuse" ];
+  networking.firewall = {
+    allowedTCPPorts = [ 53 80 111 443 2049 20048 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
+    allowedUDPPorts = [ 53 111 2049 20048 42069 42070 ]; # dns, nfs rpc, nfs, nfs-dynamic, wg0, wg1
+
+    # firewall logging
+    # logRefusedPackets = true;
+    # logRefusedConnections = true;
+    extraCommands = ''
+      ip rule add from 10.100.0.0/16 lookup vpn_table
+    '';
+    extraStopCommands = ''
+      ip rule del from 10.100.0.0/16 lookup vpn_table
+    '';
+  };
   
   networking.wg-quick.interfaces = {
-    wg1 = {
-      address = [ "10.67.130.19/32" ];
+    wg1 = let
+      myIP = "10.67.130.19/32";
+    in {
+      address = [ myIP ];
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
       dns = [ "10.64.0.1" ];
-      table = "off";
+      table = "vpn_table";
       postUp = ''
-        ip route add default dev wg1 table wg1_table
-        ip rule add from 10.100.0.0/16 lookup wg1_table
         ip route add 10.64.0.1 dev wg1
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
-        ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d ${myIP} -j ACCEPT
       '';
       postDown = ''
-        ip route del default dev wg1 table wg1_table
-        ip rule del from 10.100.0.0/16 lookup wg1_table
         ip route del 10.64.0.1 dev wg1
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
-        ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d 10.67.130.19/32 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d ${myIP} -j ACCEPT
       '';
       peers = [
         {
@@ -423,23 +434,15 @@
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
-        ip route add 10.100.0.0/20 dev wg0 table wg1_table
-        ip route add 192.168.1.0/24 dev ens18 table wg1_table
+        ip route add 10.100.0.0/20 dev wg0 table vpn_table
+        # ip route add 192.168.1.0/24 dev ens18 table vpn_table
         # enable forwarding to the wg1 interface
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-
-        # enable routing from server,kamo 10.100.1.101 == 192.168.1.94
-        # ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
-        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
       '';
       postDown = ''
-        ip route del 10.100.0.0/20 dev wg0 table wg1_table
-        ip route del 192.168.1.0/24 dev ens18 table wg1_table
+        ip route del 10.100.0.0/20 dev wg0 table vpn_table
+        # ip route del 192.168.1.0/24 dev ens18 table vpn_table
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
-
-        # ${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -s 10.100.0.0/23 -d 10.100.1.101 -j DNAT --to-destination 192.168.1.94
-        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/23 -d 192.168.1.94 -j SNAT --to-source 192.168.1.82
-
       '';
       peers = [
         { # laptop
@@ -510,14 +513,6 @@
     useUserPackages  = true;
     users.kamo = import ./home.nix;
   };
-
-  # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 53 80 111 443 2049 20048 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic
-  networking.firewall.allowedUDPPorts = [ 53 111 2049 20048 42069 42070 ]; # dns, nfs rpc, nfs, nfs-dynamic, wg0, wg1
-
-  # firewall logging
-  # networking.firewall.logRefusedPackets = true;
-  # networking.firewall.logRefusedConnections = true;
 
   system.stateVersion = "23.11";
 }

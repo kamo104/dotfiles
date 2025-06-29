@@ -368,7 +368,7 @@
   networking.iproute2 = {
     enable = true;
     rttablesExtraConfig = ''
-      200 vpn_table
+      200 vpn
     '';
   };
   # networking.nat = {
@@ -388,10 +388,10 @@
     # logRefusedPackets = true;
     # logRefusedConnections = true;
     extraCommands = ''
-      ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn_table
+      ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn
     '';
     extraStopCommands = ''
-      ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn_table
+      ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn
     '';
   };
   
@@ -405,14 +405,12 @@
       dns = [ "10.64.0.1" ];
       table = "off";
       postUp = ''
-        ip rule add from 10.100.0.0/16 lookup vpn_table
-        ip route add 10.64.0.1 dev wg1
+        ${pkgs.iproute2}/bin/ip route add default dev wg1 table vpn
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
         ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d ${myIP} -j ACCEPT
       '';
       postDown = ''
-        ip rule del from 10.100.0.0/16 lookup vpn_table
-        ip route del 10.64.0.1 dev wg1
+        ${pkgs.iproute2}/bin/ip route del default dev wg1 table vpn
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
         ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d ${myIP} -j ACCEPT
       '';
@@ -436,14 +434,14 @@
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
-        ip route add 10.100.0.0/20 dev wg0 table vpn_table
-        # ip route add 192.168.1.0/24 dev ens18 table vpn_table
+        ip route add 10.100.0.0/20 dev wg0 table vpn
+        # ip route add 192.168.1.0/24 dev ens18 table vpn
         # enable forwarding to the wg1 interface
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
       '';
       postDown = ''
-        ip route del 10.100.0.0/20 dev wg0 table vpn_table
-        # ip route del 192.168.1.0/24 dev ens18 table vpn_table
+        ip route del 10.100.0.0/20 dev wg0 table vpn
+        # ip route del 192.168.1.0/24 dev ens18 table vpn
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
       '';
       peers = [

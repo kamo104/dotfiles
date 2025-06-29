@@ -22,9 +22,6 @@
       # "${args.modules}/vban.nix"
       # "${args.modules}/sunshine.nix"
     ];
-  environment.systemPackages = with pkgs; [
-    nix-index
-  ];
 
   
   # MONERO:

@@ -378,7 +378,6 @@
   # };
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true;
-  #   "net.ipv6.conf.all.forwarding" = true;
   };
   networking.firewall = {
     allowedTCPPorts = [ 53 80 111 443 2049 20048 ]; # dns, http, nfs rpc, https, nfs, nfs-dynamic

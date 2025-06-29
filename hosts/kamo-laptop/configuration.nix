@@ -251,9 +251,6 @@
     users.kamo = import ./home.nix;
   };
 
-  networking.firewall.allowedTCPPorts = [ 4447 6881 18080 18081 ]; # I2P http, deluge, monero P2P, monero RPC
-  networking.firewall.allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
-
   services.zerotierone = {
     enable = true;
     joinNetworks = ["1c33c1ced078606c"];
@@ -306,6 +303,28 @@
     };
   };
   
+  networking.iproute2 = {
+    enable = true;
+    rttablesExtraConfig = ''
+      200 vpn
+    '';
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.forwarding" = true;
+  };
+  networking.firewall = {
+    allowedTCPPorts = [ 6881 18080 18081 ]; # deluge, monero P2P, monero RPC
+    allowedUDPPorts = [ 1900 6881 42069 ]; # upnp, deluge, wireguard 
+  
+    extraCommands = ''
+      ${pkgs.iproute2}/bin/ip rule add to 10.100.0.0/16 lookup vpn
+    '';
+    extraStopCommands = ''
+      ${pkgs.iproute2}/bin/ip rule del to 10.100.0.0/16 lookup vpn
+    '';
+  };
+
   services.resolved.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {
@@ -313,10 +332,20 @@
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       dns = ["10.100.0.1" "~kkf.internal"];
-      postUp = ''
-        ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
-      '';
       table = "off";
+      postUp = ''
+        # scoped DNS
+        ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
+
+        ${pkgs.iproute2}/bin/ip route add default dev wg0 table vpn
+        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
+        # ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d 10.100.1.2/32 -j ACCEPT
+      '';
+      postDown = ''
+        ${pkgs.iproute2}/bin/ip route del default dev wg0 table vpn
+        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
+        # ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d 10.100.1.2/32 -j ACCEPT
+      '';
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

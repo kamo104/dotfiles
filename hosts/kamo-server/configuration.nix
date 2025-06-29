@@ -388,10 +388,10 @@
     # logRefusedPackets = true;
     # logRefusedConnections = true;
     extraCommands = ''
-      ip rule add from 10.100.0.0/16 lookup vpn_table
+      ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn_table
     '';
     extraStopCommands = ''
-      ip rule del from 10.100.0.0/16 lookup vpn_table
+      ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn_table
     '';
   };
   

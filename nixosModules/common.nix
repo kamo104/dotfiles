@@ -60,20 +60,13 @@ in
     environment.systemPackages = import "${args.modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
     programs.fish.enable = true;
 
-    users.users = lib.mergeAttrs
-      (lib.genAttrs (config.common.users (user: {
-        shell = pkgs.fish;
-        isNormalUser = true;
-        description = "${user}";
-        extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" ];
-        # packages = with pkgs; [];
-      }))
-      {
-        root = {
-          shell = pkgs.fish;
-          isSystemUser = true;
-        };
-      });
+    users.users = lib.genAttrs (config.common.users (user: {
+      shell = pkgs.fish;
+      isNormalUser = true;
+      description = "${user}";
+      extraGroups = [ "networkmanager" "wheel" "input" "video" "dialout" ];
+      # packages = with pkgs; [];
+    }));
 
     programs.git.enable = true;
     

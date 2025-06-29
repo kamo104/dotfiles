@@ -34,7 +34,7 @@
         ${pkgs.lftp}/bin/lftp -c "$cmd"
       '')
     ];
-    programs.nix-index.enable = true;
+    # programs.nix-index.enable = true;
     programs.tmux = {
       enable = true;
       mouse = true;

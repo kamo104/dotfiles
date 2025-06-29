@@ -296,7 +296,6 @@
       Type = "oneshot";
     };
   };
-
   systemd.timers.wireguard-ddns-check = {
     description = "Timer to check DDNS for WireGuard";
     wantedBy = [ "timers.target" ];
@@ -310,33 +309,13 @@
   services.resolved.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {
-      autostart = true;
       address = [ "10.100.1.2/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      dns = ["10.100.0.1" "~kkf.internal"];
+      # dns = ["10.100.0.1"];
       postUp = ''
         ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
       '';
-      peers = [
-        {
-          publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";
-          allowedIPs = [ "10.100.0.0/16" ];
-          endpoint = "grzymoserver.duckdns.org:42069";
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-    wg1 = {
-      autostart = false;
-      address = [ "10.100.1.2/32" ];
-      listenPort = 42069;
-      privateKeyFile = "${args.secrets}/wg-keys/internal/private";
-      dns = ["10.100.0.1"];
-      # windows:
-      # PS C:\Windows\system32> Add-DnsClientNrptRule -Namespace ".kkf.internal" -NameServers 10.100.0.1 -DisplayName kkfRule
-      # PS C:\Windows\system32> Remove-DnsClientNrptRule -Force -Name "$(Get-DnsClientNrptRule | Where-Object { $_.DisplayName -like "*kkfRule*" } | Select-Object -ExpandProperty Name)"
-
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

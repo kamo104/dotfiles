@@ -181,14 +181,14 @@
   #   };
   # };
 
-  fileSystems = {
-    "/mnt/kkf" = {
-      device = "nfs.kkf.internal:/share";
-      fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" 
-                  "x-systemd.requires=wg-quick-wg0.service"];
-    };
-  };
+  # fileSystems = {
+  #   "/mnt/kkf" = {
+  #     device = "nfs.kkf.internal:/share";
+  #     fsType = "nfs";
+  #     options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" 
+  #                 "x-systemd.requires=wg-quick-wg0.service"];
+  #   };
+  # };
 
   networking.hostName = "kamo-laptop";
   boot.loader = {

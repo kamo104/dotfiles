@@ -316,6 +316,7 @@
       postUp = ''
         ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
       '';
+      table = "off";
       peers = [
         {
           publicKey = "oT6pJKSYRfosjzNQ9nUNQiDDyDzZylVCCJ8ePNXwX0Y=";

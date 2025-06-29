@@ -402,7 +402,7 @@
       address = [ myIP ];
       listenPort = 42070;
       privateKeyFile = "${args.secrets}/wg-keys/mullvad/private";
-      dns = [ "10.64.0.1" ];
+      # dns = [ "10.64.0.1" ];
       table = "off";
       postUp = ''
         ${pkgs.iproute2}/bin/ip route add default dev wg1 table vpn

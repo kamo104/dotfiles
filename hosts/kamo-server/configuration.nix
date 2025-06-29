@@ -269,6 +269,7 @@
     mediaLocation = "/var/lib/immich";
   };
 
+  # MUMBLE-SERVER:
   services.murmur = {
     # package = (pkgs.callPackage "${args.customPkgs}/murmur" {});
     enable = true;
@@ -293,6 +294,7 @@
   # services.TShock.startCommand = ''
   #   ${TShock}/bin/TShock.Server -world /home/kamo/.local/share/Terraria/Worlds/Niebiański_Rubież_Harpii.wld
   # '';
+  # DUCKDNS-CUSTOM:
   services.duckdns-custom = {
     enable = true;
     user = "duckdns";
@@ -300,9 +302,13 @@
     domains = [ "grzymoserver" ];
     tokenFile = "${args.secrets}/duckdns/token";
   };
+
+  # JELLYFIN:
   services.jellyfin = {
     enable = true;
   };
+
+  # USERS: GROUPS:
   users = {
     groups = {
       duckdns = {};
@@ -456,10 +462,6 @@
           publicKey = "97m5050g5BtdJa4Z9nECCVK+oR6AdX3DoWZMb7tsYBQ=";
           allowedIPs = [ "10.100.1.7/32" ];
         }
-        { # macbook
-          publicKey = "Rcpt5TFLczLGhBCQybu7EPJrvZjOifB9fIXj5q3XqRM=";
-          allowedIPs = [ "10.100.1.114/32" ];
-        }
         
 
         { # ola-laptop
@@ -493,6 +495,7 @@
         #   publicKey = "hta1KqItY82z99Uimq7Ej674sIMbJ2EwRQXMnC96Omg=";
         #   allowedIPs = [ "10.100.13.3/32" ];
         # }
+
         # { # artur international challenges
         #   publicKey = "y+KNixZQheNgTBzm33aO1nPn7aJnbJvghbZEbBAa83w=";
         #   allowedIPs = [ "10.100.15.1/32" ];

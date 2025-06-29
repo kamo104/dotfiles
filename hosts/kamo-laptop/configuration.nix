@@ -22,16 +22,19 @@
       # "${args.modules}/vban.nix"
       # "${args.modules}/sunshine.nix"
     ];
-  # MONERO:
-  systemd.services.monero = {
-    after = [ "wg-quick-wg0.service" ];
-  };
-  programs.command-not-found.enable = true;
+  environment.systemPackages = with pkgs; [
+    nix-index
+  ];
 
+  
+  # MONERO:
+  # systemd.services.monero = {
+  #   requires = [ "wg-quick-wg0.service" ];
+  # };
   services.monero = {
     enable = true;
     rpc = {
-      address = "10.100.1.2";
+      address = "0.0.0.0";
       port = 18081;
       restricted = true;
     };
@@ -55,25 +58,6 @@
     '';
   };
 
-  # XMRIG:
-  # services.xmrig = {
-  #   enable = true;
-  #   settings = {
-  #     autosave = true;
-  #     cpu = true;
-  #     opencl = false;
-  #     cuda = false;
-  #     pools = [
-  #       {
-  #         url = "10.100.1.2:18081";
-  #         user = "";
-  #         keepalive = true;
-  #         tls = true;
-  #       }
-  #     ];
-  #   };
-  # };
-
   # TOR:
   services.tor = {
     enable = true;
@@ -94,11 +78,6 @@
   services.logind = {
     lidSwitch = "ignore";
     lidSwitchExternalPower = "ignore";
-  };
-  services.journald = {
-    extraConfig = ''
-      MaxRetentionSec=3months
-    '';
   };
 
   # DISABLE THE DISPLAY
@@ -146,10 +125,6 @@
   #     value = "95";
   #   }
   # ];
-
-  # USE SUDO-RS INSTEAD OF SUDO
-  security.sudo-rs.enable = true;
-  security.sudo.enable = false;
 
   # bluetooth.enable = true;
   locale.enable = true;
@@ -224,7 +199,7 @@
       enable = true;
       device = "nodev";
       efiSupport = true;
-      configurationLimit = 10;
+      configurationLimit = 5;
     };
     efi = {
       canTouchEfiVariables = true;

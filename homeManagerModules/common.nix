@@ -116,9 +116,6 @@
           # cursor position persistent after leave:
           # https://github.com/helix-editor/helix/pull/9143
           # persist-old-files = true;
-
-          # dynamic global search:
-          # https://github.com/helix-editor/helix/pull/9647
         };
       };
     };
@@ -126,7 +123,6 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting
-        alias wakedesktop="${pkgs.wakeonlan}/bin/wakeonlan 58:11:22:bc:ec:50"
       '';
     };
   };

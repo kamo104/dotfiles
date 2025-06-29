@@ -19,6 +19,20 @@ in
   config = lib.mkIf config.common.enable {
 
     services.openssh.enable = true;
+    # delete older than 3M journal logs
+    services.journald = {
+      extraConfig = ''
+        MaxRetentionSec=3months
+      '';
+    };
+    
+    programs.nano.enable = false;
+
+    # USE SUDO-RS INSTEAD OF SUDO
+    security.sudo-rs.enable = true;
+    security.sudo.enable = false;
+
+
     
     # security.pki.certificateFiles = [ (/. + "${args.secrets}/ca.crt") ];
     security.pki.certificateFiles = [ caCert ];
@@ -31,15 +45,10 @@ in
       settings = {
         experimental-features = [ "nix-command" "flakes" ];
         connect-timeout = 1;
-        # substituters = [
-        #   "https://attic.kkf.internal/home"
-        # ];
-        # trusted-public-keys = [
-        #   "home:aZE1fyp99MinbSsoJWgGTz1eYVsXZ93gzItBKX2kJ3o="
-        # ];
-        netrc-file = [
-          "${args.secrets}/nix/netrc"
-        ];
+      };
+      gc = {
+        automatic = true;
+        dates = "weekly";
       };
     };
     
@@ -51,7 +60,7 @@ in
     environment.systemPackages = import "${args.modules}/common-pkgs.nix" {inherit pkgs customPkgs;};
     programs.fish.enable = true;
 
-    users.users = lib.genAttrs config.common.users (user: {
+    users.users = lib.genAttrs (config.common.users ++ ["root"]) (user: {
       shell = pkgs.fish;
       isNormalUser = true;
       description = "${user}";

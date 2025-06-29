@@ -434,14 +434,14 @@
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
       postUp = ''
-        ip route add 10.100.0.0/20 dev wg0 table vpn
-        # ip route add 192.168.1.0/24 dev ens18 table vpn
+        ${pkgs.iproute2}/bin/ip route add 10.100.0.0/20 dev wg0 table vpn
+        # ${pkgs.iproute2}/bin/ip route add 192.168.1.0/24 dev ens18 table vpn
         # enable forwarding to the wg1 interface
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
       '';
       postDown = ''
-        ip route del 10.100.0.0/20 dev wg0 table vpn
-        # ip route del 192.168.1.0/24 dev ens18 table vpn
+        ${pkgs.iproute2}/bin/ip route del 10.100.0.0/20 dev wg0 table vpn
+        # ${pkgs.iproute2}/bin/ip route del 192.168.1.0/24 dev ens18 table vpn
         ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
       '';
       peers = [

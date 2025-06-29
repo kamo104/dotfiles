@@ -387,12 +387,12 @@
     # firewall logging
     # logRefusedPackets = true;
     # logRefusedConnections = true;
-    extraCommands = ''
-      ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn_table
-    '';
-    extraStopCommands = ''
-      ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn_table
-    '';
+    # extraCommands = ''
+    #   ${pkgs.iproute2}/bin/ip rule add from 10.100.0.0/16 lookup vpn_table
+    # '';
+    # extraStopCommands = ''
+    #   ${pkgs.iproute2}/bin/ip rule del from 10.100.0.0/16 lookup vpn_table
+    # '';
   };
   
   networking.wg-quick.interfaces = {
@@ -405,11 +405,13 @@
       dns = [ "10.64.0.1" ];
       table = "vpn_table";
       postUp = ''
+        ip rule add from 10.100.0.0/16 lookup vpn_table
         ip route add 10.64.0.1 dev wg1
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
         ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d ${myIP} -j ACCEPT
       '';
       postDown = ''
+        ip rule del from 10.100.0.0/16 lookup vpn_table
         ip route del 10.64.0.1 dev wg1
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
         ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d ${myIP} -j ACCEPT

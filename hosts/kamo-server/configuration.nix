@@ -366,10 +366,10 @@
   };
 
   networking.iproute2 = {
-    enable = false;
-    # rttablesExtraConfig = ''
-    #   200 vpn_table
-    # '';
+    enable = true;
+    rttablesExtraConfig = ''
+      200 vpn_table
+    '';
   };
   # networking.nat = {
   #   enable = true;

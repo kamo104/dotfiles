@@ -26,7 +26,7 @@
   
   # MONERO:
   # systemd.services.monero = {
-  #   requires = [ "wg-quick-wg1.service" ];
+  #   requires = [ "wg-quick-wg0.service" ];
   # };
   services.monero = {
     enable = true;
@@ -186,7 +186,7 @@
       device = "nfs.kkf.internal:/share";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "nofail" 
-                  "x-systemd.requires=wg-quick-wg1.service"];
+                  "x-systemd.requires=wg-quick-wg0.service"];
     };
   };
 
@@ -284,7 +284,7 @@
       if [ "$resolved_ip" != "$old_ip" ]; then
         echo "IP changed: $old_ip → $resolved_ip"
         echo "$resolved_ip" > ${ipFile}
-        ${pkgs.systemd}/bin/systemctl restart wg-quick-wg1.service
+        ${pkgs.systemd}/bin/systemctl restart wg-quick-wg0.service
       else
         echo "IP didn't change: $old_ip"
       fi
@@ -327,7 +327,7 @@
 
   services.resolved.enable = true;
   networking.wg-quick.interfaces = {
-    wg1 = {
+    wg0 = {
       address = [ "10.100.1.2/32" ];
       listenPort = 42069;
       privateKeyFile = "${args.secrets}/wg-keys/internal/private";
@@ -335,16 +335,16 @@
       table = "off";
       postUp = ''
         # scoped DNS
-        ${pkgs.systemd}/bin/resolvectl domain wg1 '~kkf.internal'
+        ${pkgs.systemd}/bin/resolvectl domain wg0 '~kkf.internal'
 
-        ${pkgs.iproute2}/bin/ip route add default dev wg1 table vpn
-        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
-        # ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg1 -d 10.100.1.2/32 -j ACCEPT
+        ${pkgs.iproute2}/bin/ip route add default dev wg0 table vpn
+        # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/16 -o wg0 -j MASQUERADE
+        # ${pkgs.iptables}/bin/iptables -t mangle -I PREROUTING -i wg0 -d 10.100.1.2/32 -j ACCEPT
       '';
       postDown = ''
-        ${pkgs.iproute2}/bin/ip route del default dev wg1 table vpn
-        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg1 -j MASQUERADE
-        # ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg1 -d 10.100.1.2/32 -j ACCEPT
+        ${pkgs.iproute2}/bin/ip route del default dev wg0 table vpn
+        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/16 -o wg0 -j MASQUERADE
+        # ${pkgs.iptables}/bin/iptables -t mangle -D PREROUTING -i wg0 -d 10.100.1.2/32 -j ACCEPT
       '';
       peers = [
         {
